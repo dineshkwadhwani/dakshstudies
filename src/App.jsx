@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
+import LoginGate from './components/LoginGate.jsx'
 import Home from './pages/Home.jsx'
 import Schedule from './pages/Schedule.jsx'
 import ChaptersIndex from './pages/ChaptersIndex.jsx'
@@ -12,19 +13,21 @@ import Progress from './pages/Progress.jsx'
 
 export default function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/chapters" element={<ChaptersIndex />} />
-        <Route path="/chapters/:subject" element={<SubjectChapters />} />
-        <Route path="/chapter/:subject/:chapterId" element={<ChapterDetail />} />
-        <Route path="/quiz/:subject/:chapterId" element={<Quiz />} />
-        <Route path="/tests" element={<Tests />} />
-        <Route path="/pdf/*" element={<PdfView />} />
-        <Route path="/progress" element={<Progress />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </Layout>
+    <LoginGate>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/chapters" element={<ChaptersIndex />} />
+          <Route path="/chapters/:subject" element={<SubjectChapters />} />
+          <Route path="/chapter/:subject/:chapterId" element={<ChapterDetail />} />
+          <Route path="/quiz/:subject/:chapterId" element={<Quiz />} />
+          <Route path="/tests" element={<Tests />} />
+          <Route path="/pdf/*" element={<PdfView />} />
+          <Route path="/progress" element={<Progress />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Layout>
+    </LoginGate>
   )
 }

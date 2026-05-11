@@ -1,7 +1,59 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom'
 import { getChapter, mcqs, recordQuizAttempt } from '../hooks/useData.js'
 import { toHTML } from '../utils/text.js'
+
+/* ============================================================
+   Helpers
+   ============================================================ */
+
+/* Fisher–Yates shuffle, returns a new array */
+function shuffled(arr) {
+  const a = arr.slice()
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+/**
+ * Build a shuffled quiz set of `count` questions, drawn from the chapter's
+ * combined pool (questions + questions2). For each picked question, also
+ * shuffle the A/B/C/D option order. Returns array of:
+ *   { q: stem, opts: [opt0..opt3], correctIndex: 0..3 }
+ *
+ * `correctIndex` is the index (into the shuffled opts) of the correct option.
+ */
+function buildQuizSet(chapter, count = 25) {
+  // Combine question pools. The original 25 always exist; questions2 may or may not.
+  const pool = []
+  for (let i = 0; i < chapter.questions.length; i++) {
+    pool.push({ q: chapter.questions[i].q, opts: chapter.questions[i].opts, ans: chapter.answers[i] })
+  }
+  if (Array.isArray(chapter.questions2) && Array.isArray(chapter.answers2)) {
+    for (let i = 0; i < chapter.questions2.length; i++) {
+      pool.push({ q: chapter.questions2[i].q, opts: chapter.questions2[i].opts, ans: chapter.answers2[i] })
+    }
+  }
+
+  // Shuffle and take the first `count`
+  const picked = shuffled(pool).slice(0, Math.min(count, pool.length))
+
+  // For each picked question, shuffle option order and remap the correct answer
+  const letters = ['A', 'B', 'C', 'D']
+  return picked.map(p => {
+    const correctOldIdx = letters.indexOf(p.ans)      // 0..3 in original
+    // create [{opt, isCorrect}] then shuffle
+    const tagged = p.opts.map((opt, i) => ({ opt, isCorrect: i === correctOldIdx }))
+    const tagShuffled = shuffled(tagged)
+    return {
+      q: p.q,
+      opts: tagShuffled.map(t => t.opt),
+      correctIndex: tagShuffled.findIndex(t => t.isCorrect),
+    }
+  })
+}
 
 export default function Quiz() {
   const { subject, chapterId } = useParams()
@@ -122,9 +174,13 @@ function QuizIntro({ chapter, subject, onStart }) {
 
 /* Active */
 function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
-  const total = chapter.questions.length
+  // Build the shuffled quiz set ONCE per quiz session. This freezes question
+  // order and option positions for the lifetime of this quiz attempt.
+  const quizSet = useMemo(() => buildQuizSet(chapter, 25), [chapter])
+  const total = quizSet.length
+
   const [idx, setIdx] = useState(0)
-  const [answers, setAnswers] = useState(() => Array(total).fill(null))
+  const [answers, setAnswers] = useState(() => Array(total).fill(null))  // stores chosen option INDEX (0..3) or null
   const [revealed, setRevealed] = useState(() => Array(total).fill(false))
   const [showSummary, setShowSummary] = useState(false)
   const startTimeRef = useRef(Date.now())
@@ -141,27 +197,27 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
     return () => clearInterval(t)
   }, [mode])
 
-  const q = chapter.questions[idx]
-  const correctLetter = chapter.answers[idx]
+  const q = quizSet[idx]
+  const correctIdx = q.correctIndex
   const letters = ['A', 'B', 'C', 'D']
-  const userAns = answers[idx]
+  const userAnsIdx = answers[idx]
   const isRevealed = revealed[idx]
 
-  const select = (letter) => {
+  const select = (optIdx) => {
     if (isRevealed) return
-    const next = [...answers]; next[idx] = letter; setAnswers(next)
+    const next = [...answers]; next[idx] = optIdx; setAnswers(next)
     if (mode === 'practice') {
       const r = [...revealed]; r[idx] = true; setRevealed(r)
     }
   }
   const goNext = () => { if (idx < total - 1) setIdx(idx + 1); else setShowSummary(true) }
   const goPrev = () => { if (idx > 0) setIdx(idx - 1) }
-  const answeredCount = answers.filter(Boolean).length
+  const answeredCount = answers.filter(a => a !== null).length
 
   const submit = () => {
-    const score = answers.reduce((sum, a, i) => sum + (a === chapter.answers[i] ? 1 : 0), 0)
+    const score = answers.reduce((sum, a, i) => sum + (a === quizSet[i].correctIndex ? 1 : 0), 0)
     const durationSec = Math.round((Date.now() - startTimeRef.current) / 1000)
-    onFinish({ score, total, durationSec, answers })
+    onFinish({ score, total, durationSec, answers, quizSet })
   }
 
   if (showSummary) {
@@ -212,8 +268,8 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
         <div className="mt-4 space-y-2">
           {q.opts.map((opt, i) => {
             const letter = letters[i]
-            const isSelected = userAns === letter
-            const isCorrect = letter === correctLetter
+            const isSelected = userAnsIdx === i
+            const isCorrect = i === correctIdx
             let stateClass = 'bg-paper border-ink hover:bg-cream'
             if (isRevealed) {
               if (isCorrect) stateClass = 'bg-leaf/40 border-ink'
@@ -225,7 +281,7 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
             return (
               <button
                 key={i}
-                onClick={() => select(letter)}
+                onClick={() => select(i)}
                 className={`tappable w-full p-3 sm:p-4 text-left rounded-2xl border-2 transition-all ${stateClass}`}
                 disabled={isRevealed}
               >
@@ -247,9 +303,9 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
         </div>
 
         {mode === 'practice' && isRevealed && (
-          <div className={`mt-4 p-3 rounded-xl border-2 border-ink ${userAns === correctLetter ? 'bg-leaf/20' : 'bg-flame/15'}`}>
+          <div className={`mt-4 p-3 rounded-xl border-2 border-ink ${userAnsIdx === correctIdx ? 'bg-leaf/20' : 'bg-flame/15'}`}>
             <div className="font-display font-bold">
-              {userAns === correctLetter ? '🎉 Correct!' : `Not quite — the correct answer is ${correctLetter}`}
+              {userAnsIdx === correctIdx ? '🎉 Correct!' : `Not quite — the correct answer is ${letters[correctIdx]}`}
             </div>
           </div>
         )}
@@ -323,7 +379,7 @@ function QuizReview({ chapter, subject, mode, result, onRetake, backTo }) {
     )
   }
 
-  const wrongIndices = result.answers.map((a, i) => (a !== chapter.answers[i] ? i : -1)).filter(i => i >= 0)
+  const wrongIndices = result.answers.map((a, i) => (a !== result.quizSet[i].correctIndex ? i : -1)).filter(i => i >= 0)
 
   return (
     <div>
@@ -346,7 +402,7 @@ function QuizReview({ chapter, subject, mode, result, onRetake, backTo }) {
       <p className="text-sm text-ink/60 mb-3">Tap any question to see the explanation</p>
       <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 mb-5">
         {result.answers.map((a, i) => {
-          const correct = a === chapter.answers[i]
+          const correct = a === result.quizSet[i].correctIndex
           const unanswered = a == null
           return (
             <button
@@ -395,10 +451,10 @@ function MiniStat({ icon, label, value, color }) {
 }
 
 function ReviewSingleQuestion({ chapter, result, subject, idx, onPrev, onNext, onClose }) {
-  const q = chapter.questions[idx]
-  const correctLetter = chapter.answers[idx]
-  const userAns = result.answers[idx]
-  const correct = userAns === correctLetter
+  const q = result.quizSet[idx]
+  const correctIdx = q.correctIndex
+  const userAnsIdx = result.answers[idx]
+  const correct = userAnsIdx === correctIdx
   const letters = ['A', 'B', 'C', 'D']
 
   return (
@@ -408,8 +464,8 @@ function ReviewSingleQuestion({ chapter, result, subject, idx, onPrev, onNext, o
         <div className="flex-1 text-center font-display font-extrabold">
           Q{idx + 1} <span className="text-ink/50 font-mono font-normal">/ {result.total}</span>
         </div>
-        <div className={`chip ${correct ? 'bg-leaf/40' : userAns ? 'bg-flame/40' : 'bg-paper'}`}>
-          {correct ? '✓ Correct' : userAns ? '✗ Wrong' : '— Skipped'}
+        <div className={`chip ${correct ? 'bg-leaf/40' : (userAnsIdx != null) ? 'bg-flame/40' : 'bg-paper'}`}>
+          {correct ? '✓ Correct' : (userAnsIdx != null) ? '✗ Wrong' : '— Skipped'}
         </div>
       </div>
 
@@ -421,8 +477,8 @@ function ReviewSingleQuestion({ chapter, result, subject, idx, onPrev, onNext, o
         <div className="mt-4 space-y-2">
           {q.opts.map((opt, i) => {
             const letter = letters[i]
-            const isCorrect = letter === correctLetter
-            const isUser = letter === userAns
+            const isCorrect = i === correctIdx
+            const isUser = i === userAnsIdx
             return (
               <div
                 key={i}

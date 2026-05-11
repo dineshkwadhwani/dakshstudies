@@ -43,7 +43,7 @@ export default function SubjectChapters() {
                   <div className="font-display font-bold text-base leading-tight">{ch.title}</div>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
                     {ch.pdfs.summary && <span className="chip text-[10px] py-0.5 px-2 bg-sky/30">📄 Summary</span>}
-                    <span className="chip text-[10px] py-0.5 px-2 bg-sun/30">🎯 25 MCQs</span>
+                    <span className="chip text-[10px] py-0.5 px-2 bg-sun/30">🎯 50 MCQs</span>
                     {score && (
                       <span className={`chip text-[10px] py-0.5 px-2 ${score.best >= 75 ? 'bg-leaf/40' : score.best >= 50 ? 'bg-sun/40' : 'bg-flame/30'}`}>
                         ⭐ {score.best}%

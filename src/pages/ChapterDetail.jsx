@@ -75,18 +75,32 @@ export default function ChapterDetail() {
         />
       )}
       <ResourceLink
-        to={`/pdf${ch.pdfs.worksheet}?title=${encodeURIComponent(ch.title + ' — Worksheet')}&back=/chapter/${subject}/${chapterId}`}
+        to={`/pdf${ch.pdfs.worksheetA}?title=${encodeURIComponent(ch.title + ' — Worksheet A')}&back=/chapter/${subject}/${chapterId}`}
         icon="📝"
-        title="MCQ Worksheet (PDF)"
-        subtitle="Print-friendly · 25 questions"
+        title="MCQ Worksheet A (PDF)"
+        subtitle="Set A · Print-friendly · 25 questions"
         bg="bg-leaf/25"
       />
       <ResourceLink
-        to={`/pdf${ch.pdfs.answerKey}?title=${encodeURIComponent(ch.title + ' — Answer Key')}&back=/chapter/${subject}/${chapterId}`}
+        to={`/pdf${ch.pdfs.answerKeyA}?title=${encodeURIComponent(ch.title + ' — Answer Key A')}&back=/chapter/${subject}/${chapterId}`}
         icon="✅"
-        title="MCQ Answer Key (PDF)"
-        subtitle="Quick check after worksheet"
+        title="MCQ Answer Key A (PDF)"
+        subtitle="Answers for Worksheet A"
         bg="bg-violet/25"
+      />
+      <ResourceLink
+        to={`/pdf${ch.pdfs.worksheetB}?title=${encodeURIComponent(ch.title + ' — Worksheet B')}&back=/chapter/${subject}/${chapterId}`}
+        icon="📝"
+        title="MCQ Worksheet B (PDF)"
+        subtitle="Set B · Harder mix · 25 questions"
+        bg="bg-flame/20"
+      />
+      <ResourceLink
+        to={`/pdf${ch.pdfs.answerKeyB}?title=${encodeURIComponent(ch.title + ' — Answer Key B')}&back=/chapter/${subject}/${chapterId}`}
+        icon="✅"
+        title="MCQ Answer Key B (PDF)"
+        subtitle="Answers for Worksheet B"
+        bg="bg-sun/25"
       />
 
       {/* Recent attempts */}
