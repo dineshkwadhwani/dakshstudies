@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { schedule, mcqs, useQuizScores, useScheduleDone, getTotalChapterCount, findChapterById } from '../hooks/useData.js'
+import { schedule, mcqs, useQuizScores, useScheduleDone, getTotalChapterCount, findChapterById, isDayComplete } from '../hooks/useData.js'
 import { todayISO, formatLong, parseISO, daysBetween } from '../utils/dates.js'
 
 export default function Home() {
@@ -226,7 +226,8 @@ function RecentActivity({ scores }) {
 }
 
 function computeStreak(done, today) {
-  // Count contiguous days ending at today (or yesterday if today not done)
+  // Count contiguous days (going back from today) where the day is FULLY complete.
+  // A test day is complete when its primary (Maths) is ticked. A regular day needs both.
   let streak = 0
   for (let i = 0; i < 60; i++) {
     const d = parseISO(today)
@@ -234,10 +235,10 @@ function computeStreak(done, today) {
     const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
     const entry = schedule.find(s => s.date === iso)
     if (!entry) break
-    if (done[entry.day]) {
+    if (isDayComplete(done, entry)) {
       streak++
     } else {
-      // First day not done — if it's today, allow, otherwise break
+      // First day not done — if it's today, give grace; otherwise break.
       if (i === 0) continue
       break
     }
