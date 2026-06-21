@@ -1,0 +1,452 @@
+[
+  {
+    "day": 1,
+    "date": "2026-05-10",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch01_RealNumbers",
+      "title": "Real Numbers"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch01_ChemicalReactionsAndEquations",
+      "title": "Chemical Reactions and Equations"
+    }
+  },
+  {
+    "day": 2,
+    "date": "2026-05-11",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch02_Polynomials",
+      "title": "Polynomials"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "history",
+      "id": "SocialScience_History_Ch01_RiseOfNationalismInEurope",
+      "title": "The Rise of Nationalism in Europe"
+    }
+  },
+  {
+    "day": 3,
+    "date": "2026-05-12",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch03_PairOfLinearEquations",
+      "title": "Pair of Linear Equations in Two Variables"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch02_AcidsBasesAndSalts",
+      "title": "Acids, Bases and Salts"
+    }
+  },
+  {
+    "day": 4,
+    "date": "2026-05-13",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch04_QuadraticEquations",
+      "title": "Quadratic Equations"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "geography",
+      "id": "SocialScience_Geography_Ch01_ResourcesAndDevelopment",
+      "title": "Resources and Development"
+    }
+  },
+  {
+    "day": 5,
+    "date": "2026-05-14",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch05_ArithmeticProgressions",
+      "title": "Arithmetic Progressions"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch03_MetalsAndNonMetals",
+      "title": "Metals and Non-metals"
+    }
+  },
+  {
+    "day": 6,
+    "date": "2026-05-15",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch06_Triangles",
+      "title": "Triangles"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "civics",
+      "id": "SocialScience_Civics_Ch01_PowerSharing",
+      "title": "Power-sharing"
+    }
+  },
+  {
+    "day": 7,
+    "date": "2026-05-16",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch07_CoordinateGeometry",
+      "title": "Coordinate Geometry"
+    },
+    "secondary": {
+      "type": "test",
+      "testNumber": 1,
+      "isCumulative": false,
+      "title": "Test 1: All three subjects"
+    }
+  },
+  {
+    "day": 8,
+    "date": "2026-05-17",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch08_IntroductionToTrigonometry",
+      "title": "Introduction to Trigonometry"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch04_CarbonAndItsCompounds",
+      "title": "Carbon and its Compounds"
+    }
+  },
+  {
+    "day": 9,
+    "date": "2026-05-18",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch09_ApplicationsOfTrigonometry",
+      "title": "Some Applications of Trigonometry"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "economics",
+      "id": "SocialScience_Economics_Ch01_Development",
+      "title": "Development"
+    }
+  },
+  {
+    "day": 10,
+    "date": "2026-05-19",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch10_Circles",
+      "title": "Circles"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch05_LifeProcesses",
+      "title": "Life Processes"
+    }
+  },
+  {
+    "day": 11,
+    "date": "2026-05-20",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch12_AreasRelatedToCircles",
+      "title": "Areas Related to Circles"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "history",
+      "id": "SocialScience_History_Ch02_NationalismInIndia",
+      "title": "Nationalism in India"
+    }
+  },
+  {
+    "day": 12,
+    "date": "2026-05-21",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch13_SurfaceAreasAndVolumes",
+      "title": "Surface Areas and Volumes"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch06_ControlAndCoordination",
+      "title": "Control and Coordination"
+    }
+  },
+  {
+    "day": 13,
+    "date": "2026-05-22",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch14_Statistics",
+      "title": "Statistics"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "geography",
+      "id": "SocialScience_Geography_Ch02_ForestAndWildlifeResources",
+      "title": "Forest and Wildlife Resources"
+    }
+  },
+  {
+    "day": 14,
+    "date": "2026-05-23",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch15_Probability",
+      "title": "Probability"
+    },
+    "secondary": {
+      "type": "test",
+      "testNumber": 2,
+      "isCumulative": true,
+      "title": "Test 2: All three subjects"
+    }
+  },
+  {
+    "day": 15,
+    "date": "2026-05-24",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch01_RealNumbers",
+      "title": "Real Numbers"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch07_HowDoOrganismsReproduce",
+      "title": "How do Organisms Reproduce?"
+    }
+  },
+  {
+    "day": 16,
+    "date": "2026-05-25",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch02_Polynomials",
+      "title": "Polynomials"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "civics",
+      "id": "SocialScience_Civics_Ch02_Federalism",
+      "title": "Federalism"
+    }
+  },
+  {
+    "day": 17,
+    "date": "2026-05-26",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch03_PairOfLinearEquations",
+      "title": "Pair of Linear Equations in Two Variables"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch08_Heredity",
+      "title": "Heredity"
+    }
+  },
+  {
+    "day": 18,
+    "date": "2026-05-27",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch04_QuadraticEquations",
+      "title": "Quadratic Equations"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "economics",
+      "id": "SocialScience_Economics_Ch02_SectorsOfIndianEconomy",
+      "title": "Sectors of the Indian Economy"
+    }
+  },
+  {
+    "day": 19,
+    "date": "2026-05-28",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch05_ArithmeticProgressions",
+      "title": "Arithmetic Progressions"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch09_LightReflectionAndRefraction",
+      "title": "Light – Reflection and Refraction"
+    }
+  },
+  {
+    "day": 20,
+    "date": "2026-05-29",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch06_Triangles",
+      "title": "Triangles"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "history",
+      "id": "SocialScience_History_Ch03_MakingOfAGlobalWorld",
+      "title": "The Making of a Global World"
+    }
+  },
+  {
+    "day": 21,
+    "date": "2026-05-30",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch07_CoordinateGeometry",
+      "title": "Coordinate Geometry"
+    },
+    "secondary": {
+      "type": "test",
+      "testNumber": 3,
+      "isCumulative": false,
+      "title": "Test 3: All three subjects"
+    }
+  },
+  {
+    "day": 22,
+    "date": "2026-05-31",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch08_IntroductionToTrigonometry",
+      "title": "Introduction to Trigonometry"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch10_HumanEyeAndColourfulWorld",
+      "title": "The Human Eye and the Colourful World"
+    }
+  },
+  {
+    "day": 23,
+    "date": "2026-06-01",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch09_ApplicationsOfTrigonometry",
+      "title": "Some Applications of Trigonometry"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "geography",
+      "id": "SocialScience_Geography_Ch03_WaterResources",
+      "title": "Water Resources"
+    }
+  },
+  {
+    "day": 24,
+    "date": "2026-06-02",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch10_Circles",
+      "title": "Circles"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch11_Electricity",
+      "title": "Electricity"
+    }
+  },
+  {
+    "day": 25,
+    "date": "2026-06-03",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch12_AreasRelatedToCircles",
+      "title": "Areas Related to Circles"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "civics",
+      "id": "SocialScience_Civics_Ch03_GenderReligionAndCaste",
+      "title": "Gender, Religion and Caste"
+    }
+  },
+  {
+    "day": 26,
+    "date": "2026-06-04",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch13_SurfaceAreasAndVolumes",
+      "title": "Surface Areas and Volumes"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch12_MagneticEffectsOfElectricCurrent",
+      "title": "Magnetic Effects of Electric Current"
+    }
+  },
+  {
+    "day": 27,
+    "date": "2026-06-05",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch14_Statistics",
+      "title": "Statistics"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "economics",
+      "id": "SocialScience_Economics_Ch03_MoneyAndCredit",
+      "title": "Money and Credit"
+    }
+  },
+  {
+    "day": 28,
+    "date": "2026-06-06",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch15_Probability",
+      "title": "Probability"
+    },
+    "secondary": {
+      "type": "test",
+      "testNumber": 4,
+      "isCumulative": true,
+      "title": "Test 4: All three subjects"
+    }
+  },
+  {
+    "day": 29,
+    "date": "2026-06-07",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch01_RealNumbers",
+      "title": "Real Numbers"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "science",
+      "id": "Science_Ch13_OurEnvironment",
+      "title": "Our Environment"
+    }
+  },
+  {
+    "day": 30,
+    "date": "2026-06-08",
+    "primary": {
+      "subject": "maths",
+      "id": "Maths_Ch02_Polynomials",
+      "title": "Polynomials"
+    },
+    "secondary": {
+      "type": "chapter",
+      "subject": "history",
+      "id": "SocialScience_History_Ch04_AgeOfIndustrialisation",
+      "title": "The Age of Industrialisation"
+    }
+  }
+]
