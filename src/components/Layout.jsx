@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.jsx'
 
-const NAV = [
+const STUDENT_NAV = [
   { to: '/dashboard', label: 'Home',     icon: HomeIcon },
   { to: '/schedule', label: 'Schedule', icon: CalIcon  },
   { to: '/chapters', label: 'Study',    icon: BookIcon },
@@ -9,16 +9,26 @@ const NAV = [
   { to: '/progress', label: 'Stats',    icon: StatsIcon },
 ]
 
+const ADMIN_NAV = [
+  { to: '/dashboard', label: 'Dashboard', icon: HomeIcon },
+  { to: '/admin/subjects', label: 'Subjects', icon: BookIcon },
+  { to: '/admin/content', label: 'Content', icon: UploadIcon },
+  { to: '/admin/users', label: 'Users', icon: UsersIcon },
+  { to: '/admin/config', label: 'Config', icon: ConfigIcon },
+]
+
 export default function Layout({ children }) {
   const loc = useLocation()
   const navigate = useNavigate()
   const { profile, signOut } = useAuth()
   const isHome = loc.pathname === '/dashboard'
+  const isPlatformUser = profile?.role === 'super_admin' || profile?.role === 'account_manager'
+  const nav = isPlatformUser ? ADMIN_NAV.filter(item => profile?.role === 'super_admin' || !['/admin/subjects', '/admin/content', '/admin/config'].includes(item.to)) : STUDENT_NAV
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Top header — hidden on home page since home has its own hero */}
-      {!isHome && (
+      {/* Platform users always retain account and sign-out controls. */}
+      {(!isHome || isPlatformUser) && (
         <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur-md border-b-2 border-ink">
           <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
             <button
@@ -49,8 +59,8 @@ export default function Layout({ children }) {
 
       {/* Bottom navigation — primary navigation on mobile */}
       <nav className="fixed bottom-0 inset-x-0 z-40 bg-paper border-t-2 border-ink shadow-[0_-4px_0_0_rgba(15,14,23,0.05)]">
-        <div className="max-w-3xl mx-auto px-2 grid grid-cols-5">
-          {NAV.map(item => {
+        <div className="max-w-3xl mx-auto px-2 grid" style={{ gridTemplateColumns: `repeat(${nav.length}, minmax(0, 1fr))` }}>
+          {nav.map(item => {
             const Icon = item.icon
             const active = item.to === '/dashboard'
               ? loc.pathname === '/dashboard'
@@ -119,3 +129,6 @@ function BackIcon() {
     </svg>
   )
 }
+function UploadIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 15v5h16v-5"/></svg> }
+function UsersIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M16 5c3 0 4 2 4 4s-1 4-4 4"/></svg> }
+function ConfigIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1-2-4-2 1a7 7 0 0 0-2-1l-.3-2h-5l-.3 2a7 7 0 0 0-2 1l-2-1-2 4 2 1a7 7 0 0 0 0 2l-2 1 2 4 2-1a7 7 0 0 0 2 1l.3 2h5l.3-2a7 7 0 0 0 2-1l2 1 2-4-2-1c.1-.3.1-.7.1-1Z"/></svg> }

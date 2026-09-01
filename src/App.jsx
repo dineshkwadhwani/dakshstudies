@@ -14,6 +14,10 @@ import Quiz from './pages/Quiz.jsx'
 import Tests from './pages/Tests.jsx'
 import PdfView from './pages/PdfView.jsx'
 import Progress from './pages/Progress.jsx'
+import AdminSubjects from './pages/admin/AdminSubjects.jsx'
+import AdminContent from './pages/admin/AdminContent.jsx'
+import AdminUsers from './pages/admin/AdminUsers.jsx'
+import AdminConfig from './pages/admin/AdminConfig.jsx'
 
 export default function App() {
   return (
@@ -35,6 +39,10 @@ export default function App() {
           <Route path="/tests" element={<Tests />} />
           <Route path="/pdf/*" element={<PdfView />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/admin/subjects" element={<ProtectedRoute roles={['super_admin']}><AdminSubjects /></ProtectedRoute>} />
+          <Route path="/admin/content" element={<ProtectedRoute roles={['super_admin']}><AdminContent /></ProtectedRoute>} />
+          <Route path="/admin/users" element={<ProtectedRoute roles={['super_admin', 'account_manager']}><AdminUsers /></ProtectedRoute>} />
+          <Route path="/admin/config" element={<ProtectedRoute roles={['super_admin']}><AdminConfig /></ProtectedRoute>} />
           <Route path="*" element={<Dashboard />} />
             </Routes>
           </Layout>

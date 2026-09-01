@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../auth/AuthContext.jsx'
 import { supabase } from '../../lib/supabase.js'
+import { Link } from 'react-router-dom'
 
 const initialStats = { students: 0, managers: 0, chapters: 0, assessments: 0, activeEntitlements: 0, payments: 0 }
 
@@ -68,6 +69,13 @@ export default function AdminDashboard() {
 
       {isSuperAdmin && (
         <section className="mt-7">
+          <h2 className="font-display font-extrabold text-xl mb-3">Manage platform</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-7">
+            <AdminLink to="/admin/subjects" icon="📚" label="Subjects & chapters" />
+            <AdminLink to="/admin/content" icon="⬆️" label="Upload content" />
+            <AdminLink to="/admin/users" icon="👥" label="Manage users" />
+            <AdminLink to="/admin/config" icon="⚙️" label="Package config" />
+          </div>
           <h2 className="font-display font-extrabold text-xl mb-3">Packages</h2>
           <div className="grid sm:grid-cols-3 gap-3">
             {packages.map(pkg => (
@@ -84,12 +92,12 @@ export default function AdminDashboard() {
         </section>
       )}
 
-      <section className="card p-5 mt-7 bg-cream">
-        <h2 className="font-display font-extrabold text-lg">Implementation status</h2>
-        <p className="text-sm text-ink/65 mt-2">Authentication, content migration, packages, RLS, and student onboarding are live. User management, content editing, schedules, payments, notifications, and audit-report interfaces are the next administrative modules.</p>
-      </section>
     </div>
   )
+}
+
+function AdminLink({ to, icon, label }) {
+  return <Link to={to} className="card-pop tappable p-4 text-center"><div className="text-3xl">{icon}</div><div className="font-display font-bold text-sm mt-2">{label}</div></Link>
 }
 
 function Stat({ label, value, color, loading }) {
@@ -98,4 +106,3 @@ function Stat({ label, value, color, loading }) {
     <div className="text-[11px] font-mono uppercase tracking-wider text-ink/60 mt-1">{label}</div>
   </div>
 }
-
