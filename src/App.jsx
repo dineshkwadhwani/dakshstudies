@@ -1,7 +1,11 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
-import LoginGate from './components/LoginGate.jsx'
-import Home from './pages/Home.jsx'
+import ProtectedRoute from './auth/ProtectedRoute.jsx'
+import Landing from './pages/Landing.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Onboarding from './pages/Onboarding.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 import Schedule from './pages/Schedule.jsx'
 import ChaptersIndex from './pages/ChaptersIndex.jsx'
 import SubjectChapters from './pages/SubjectChapters.jsx'
@@ -13,10 +17,16 @@ import Progress from './pages/Progress.jsx'
 
 export default function App() {
   return (
-    <LoginGate>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/onboarding" element={<ProtectedRoute allowIncompleteProfile><Onboarding /></ProtectedRoute>} />
+      <Route path="/*" element={
+        <ProtectedRoute>
+          <Layout>
+            <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/chapters" element={<ChaptersIndex />} />
           <Route path="/chapters/:subject" element={<SubjectChapters />} />
@@ -25,9 +35,11 @@ export default function App() {
           <Route path="/tests" element={<Tests />} />
           <Route path="/pdf/*" element={<PdfView />} />
           <Route path="/progress" element={<Progress />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </Layout>
-    </LoginGate>
+          <Route path="*" element={<Dashboard />} />
+            </Routes>
+          </Layout>
+        </ProtectedRoute>
+      } />
+    </Routes>
   )
 }

@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import { schedule, mcqs, useQuizScores, useScheduleDone, getTotalChapterCount, findChapterById, isDayComplete } from '../hooks/useData.js'
 import { todayISO, formatLong, parseISO, daysBetween } from '../utils/dates.js'
+import { useAuth } from '../auth/AuthContext.jsx'
 
 export default function Home() {
+  const { profile } = useAuth()
   const today = todayISO()
   const scores = useQuizScores()
   const [done] = useScheduleDone()
@@ -51,15 +53,13 @@ export default function Home() {
               {beforeStart ? 'Get ready' : afterEnd ? 'You did it!' : `Day ${todayEntry?.day || ''}`}
             </div>
             <h1 className="font-display font-extrabold text-3xl sm:text-4xl leading-tight mt-1">
-              Hi, Daksh 👋
+              Hi, {profile?.full_name?.split(' ')[0] || 'Student'} 👋
             </h1>
             <div className="text-ink/70 mt-1 text-sm">
               {formatLong(today)}
             </div>
           </div>
-          <div className="w-14 h-14 rounded-2xl border-2 border-ink bg-sun shadow-pop grid place-items-center font-display font-extrabold text-2xl">
-            D
-          </div>
+          <img src="/tenthkipadhai_logo.jpeg" alt="Tenth Ki Padhai" className="w-14 h-14 rounded-2xl border-2 border-ink shadow-pop object-cover" />
         </div>
       </div>
 

@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../auth/AuthContext.jsx'
 
 const NAV = [
-  { to: '/',         label: 'Home',     icon: HomeIcon },
+  { to: '/dashboard', label: 'Home',     icon: HomeIcon },
   { to: '/schedule', label: 'Schedule', icon: CalIcon  },
   { to: '/chapters', label: 'Study',    icon: BookIcon },
   { to: '/tests',    label: 'Tests',    icon: TestIcon },
@@ -11,7 +12,8 @@ const NAV = [
 export default function Layout({ children }) {
   const loc = useLocation()
   const navigate = useNavigate()
-  const isHome = loc.pathname === '/'
+  const { profile, signOut } = useAuth()
+  const isHome = loc.pathname === '/dashboard'
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -26,14 +28,16 @@ export default function Layout({ children }) {
             >
               <BackIcon />
             </button>
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl grid place-items-center bg-sun border-2 border-ink font-display font-extrabold text-lg">
-                D
-              </div>
+            <Link to="/dashboard" className="flex items-center gap-2">
+              <img src="/tenthkipadhai_logo.jpeg" alt="" className="w-9 h-9 rounded-xl border-2 border-ink object-cover" />
               <div className="font-display font-bold text-lg leading-none">
-                Study Lab
+                Tenth Ki Padhai
               </div>
             </Link>
+            <div className="ml-auto flex items-center gap-2">
+              {profile?.full_name && <span className="hidden sm:block text-xs font-bold text-ink/60 max-w-36 truncate">{profile.full_name}</span>}
+              <button onClick={signOut} className="text-xs font-bold underline">Sign out</button>
+            </div>
           </div>
         </header>
       )}
@@ -48,8 +52,8 @@ export default function Layout({ children }) {
         <div className="max-w-3xl mx-auto px-2 grid grid-cols-5">
           {NAV.map(item => {
             const Icon = item.icon
-            const active = item.to === '/'
-              ? loc.pathname === '/'
+            const active = item.to === '/dashboard'
+              ? loc.pathname === '/dashboard'
               : loc.pathname.startsWith(item.to)
             return (
               <Link
