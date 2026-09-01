@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { AuthShell, Field } from './Login.jsx'
@@ -10,6 +10,7 @@ export default function Register() {
   const requested = params.get('package')?.toUpperCase()
   const capturedReferral = (params.get('ref') || params.get('source') || window.sessionStorage.getItem('tenthkipadhai_referral_code') || '').trim().toUpperCase()
   const [packageCode, setPackageCode] = useState(allowedPackages.includes(requested) ? requested : 'FREE')
+  const [availablePackages, setAvailablePackages] = useState([])
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,6 +18,21 @@ export default function Register() {
   const [error, setError] = useState('')
   const [complete, setComplete] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+
+  useEffect(() => {
+    let active = true
+    async function loadPackages() {
+      const { data: year } = await supabase.from('academic_years').select('id').eq('is_current', true).maybeSingle()
+      if (!year || !active) return
+      const { data } = await supabase.from('packages').select('code,name,price_paise,trial_days,sale_enabled,rank').eq('academic_year_id', year.id).eq('status', 'published').order('rank')
+      const available = (data || []).filter(pkg => pkg.sale_enabled)
+      if (!active) return
+      setAvailablePackages(available)
+      if (!available.some(pkg => pkg.code === packageCode)) setPackageCode(available[0]?.code || '')
+    }
+    loadPackages()
+    return () => { active = false }
+  }, [])
 
   const submit = async (event) => {
     event.preventDefault()
@@ -45,10 +61,9 @@ export default function Register() {
     <form onSubmit={submit} className="space-y-4">
       <label className="block">
         <span className="text-xs font-mono uppercase tracking-wider text-ink/60">Package</span>
-        <select value={packageCode} onChange={e => setPackageCode(e.target.value)} className="w-full mt-1 px-4 py-3 rounded-xl border-2 border-ink bg-paper">
-          <option value="FREE">Free Trial — 7 days</option>
-          <option value="BASIC">Basic — ₹299</option>
-          <option value="PRO">Pro — ₹999</option>
+        <select required value={packageCode} onChange={e => setPackageCode(e.target.value)} className="form-control">
+          {!availablePackages.length && <option value="">Loading available packages…</option>}
+          {availablePackages.map(pkg => <option value={pkg.code} key={pkg.code}>{pkg.name} — {pkg.price_paise ? `₹${Math.round(pkg.price_paise / 100)}` : `${pkg.trial_days} days free`}</option>)}
         </select>
       </label>
       <Field label="Full name" value={fullName} onChange={setFullName} autoComplete="name" />

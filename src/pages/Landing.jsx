@@ -11,9 +11,9 @@ const features = [
 ]
 
 const fallbackPackages = [
-  { code: 'FREE', name: 'Free Trial', price_paise: 0, trial_days: 7, package_type: 'trial', quiz_attempt_fixed_limit: 10, display_features: ['7-day access', 'Chapter summaries and notes', 'Worksheets and mock tests', '10 quiz attempts', 'Personal study schedule'] },
-  { code: 'BASIC', name: 'Basic', price_paise: 29900, package_type: 'paid', quiz_attempt_fixed_limit: 100, display_features: ['Access for the academic year', 'All chapter summaries and notes', 'Worksheets and mock tests', '100 quiz attempts', 'Progress reports'] },
-  { code: 'PRO', name: 'Pro', price_paise: 99900, package_type: 'paid', quiz_attempt_fixed_limit: 300, display_features: ['Access for the academic year', 'All chapter summaries and notes', 'Worksheets and mock tests', '300 quiz attempts', 'Progress reports'] },
+  { code: 'FREE', name: 'Free Trial', price_paise: 0, trial_days: 7, package_type: 'trial', sale_enabled: true, quiz_attempt_fixed_limit: 10, display_features: ['7-day access', 'Chapter summaries and notes', 'Worksheets and mock tests', '10 quiz attempts', 'Personal study schedule'] },
+  { code: 'BASIC', name: 'Basic', price_paise: 29900, package_type: 'paid', sale_enabled: true, quiz_attempt_fixed_limit: 100, display_features: ['Access for the academic year', 'All chapter summaries and notes', 'Worksheets and mock tests', '100 quiz attempts', 'Progress reports'] },
+  { code: 'PRO', name: 'Pro', price_paise: 99900, package_type: 'paid', sale_enabled: true, quiz_attempt_fixed_limit: 300, display_features: ['Access for the academic year', 'All chapter summaries and notes', 'Worksheets and mock tests', '300 quiz attempts', 'Progress reports'] },
 ]
 
 const packageColors = { FREE: 'bg-sky/30', BASIC: 'bg-sun/35', PRO: 'bg-leaf/30' }
@@ -42,7 +42,7 @@ export default function Landing() {
     async function loadPackages() {
       const { data: year } = await supabase.from('academic_years').select('id').eq('is_current', true).maybeSingle()
       if (!year || !active) return
-      const { data, error } = await supabase.from('packages').select('code,name,rank,price_paise,original_price_paise,show_offer,package_type,trial_days,fixed_expires_on,quiz_attempt_fixed_limit,display_features').eq('academic_year_id', year.id).order('rank')
+      const { data, error } = await supabase.from('packages').select('code,name,rank,price_paise,original_price_paise,show_offer,package_type,trial_days,fixed_expires_on,quiz_attempt_fixed_limit,display_features,sale_enabled').eq('academic_year_id', year.id).order('rank')
       if (!error && data?.length && active) setPackages(data)
     }
     loadPackages()
@@ -111,7 +111,9 @@ export default function Landing() {
                 <ul className="mt-5 space-y-2 flex-1">
                   {(pkg.display_features || []).map(feature => <li className="flex gap-2 text-sm" key={feature}><span className="font-bold text-green-700">✓</span><span>{feature}</span></li>)}
                 </ul>
-                <Link to={registrationUrl(pkg.code)} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
+                {pkg.sale_enabled
+                  ? <Link to={registrationUrl(pkg.code)} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
+                  : <button type="button" disabled className="btn-secondary w-full mt-6 cursor-not-allowed opacity-65">Coming Soon</button>}
               </article>
             ))}
           </div>
