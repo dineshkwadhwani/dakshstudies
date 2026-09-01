@@ -1,152 +1,79 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
-import { tests, useTestsAttempted, setTestAttempted, setTestScore } from '../hooks/useData.js'
-import { formatShort, todayISO, isPast, isToday } from '../utils/dates.js'
+import { useAuth } from '../auth/AuthContext.jsx'
+import { useStudyPlan } from '../hooks/useStudyPlan.js'
+import { supabase } from '../lib/supabase.js'
+import { formatShort, todayISO } from '../utils/dates.js'
 
 export default function Tests() {
-  const [attempted] = useTestsAttempted()
+  const { user } = useAuth()
+  const { plan, loading, reload: reloadPlan } = useStudyPlan()
+  const [tests, setTests] = useState([])
+  const [attempts, setAttempts] = useState([])
+  const [adding, setAdding] = useState(false)
+  const [form, setForm] = useState({ assessmentId: '', dueOn: todayISO() })
+  const [message, setMessage] = useState('')
+  const [busy, setBusy] = useState(false)
 
-  return (
-    <div>
-      <div className="mb-5">
-        <div className="font-mono text-xs uppercase tracking-widest text-ink/60">CBSE pattern · 80 marks each</div>
-        <h1 className="heading-display text-3xl">Mock Tests</h1>
-        <p className="text-ink/70 mt-1">4 tests across the 30-day plan</p>
-      </div>
+  async function load() {
+    const [catalog, history] = await Promise.all([
+      supabase.from('assessments').select('id,title,maximum_marks,assessment_resources(id,purpose,assessment_sections(id,title,sort_order),content_resources(id,title,content_resource_versions(version,storage_path,mime_type)))').eq('assessment_type', 'pdf_mock_test').eq('status', 'published').order('title'),
+      user ? supabase.from('assessment_attempts').select('id,assessment_id,schedule_task_id,status,started_at,submitted_at').eq('student_id', user.id).eq('mode', 'manual').order('started_at', { ascending: false }) : Promise.resolve({ data: [] }),
+    ])
+    if (catalog.error) setMessage(catalog.error.message)
+    setTests(catalog.data || []); setAttempts(history.data || [])
+  }
+  useEffect(() => { load() }, [user])
 
-      <div className="card p-3 mb-4 bg-sky/20 text-sm">
-        <strong className="font-display">How it works:</strong> Open the QP, take it on paper, check with the answer key, then record your marks (out of 80) below.
-      </div>
+  const scheduled = (plan?.schedule_tasks || []).filter(task => task.task_type === 'mock_test' && task.status !== 'cancelled')
+  const unscheduled = tests.filter(test => !scheduled.some(task => task.assessment_id === test.id))
 
-      <div className="space-y-3">
-        {tests.map(t => {
-          const info = attempted[t.number] || { attempted: false, scores: {} }
-          return <TestCard key={t.number} test={t} info={info} />
-        })}
-      </div>
-    </div>
-  )
-}
-
-function TestCard({ test, info }) {
-  const past = isPast(test.date)
-  const today = isToday(test.date)
-  const isAttempted = !!info.attempted
-
-  const scores = info.scores || {}
-  const scoredPapers = Object.keys(scores).length
-  const totalMarks = Object.values(scores).reduce((a, b) => a + Number(b || 0), 0)
-  const maxMarks = test.papers.length * 80
-  const overallPct = scoredPapers > 0 ? Math.round((totalMarks / (scoredPapers * 80)) * 100) : null
-
-  const bg = today ? 'bg-sun/30' : isAttempted ? 'bg-leaf/15' : 'bg-paper'
-
-  const [editing, setEditing] = useState(false)
-
-  return (
-    <div className={`card p-4 ${bg} ${today ? 'ring-2 ring-sun ring-offset-2 ring-offset-cream' : ''}`}>
-      <div className="flex items-start gap-3 mb-3">
-        <div className={`w-12 h-12 rounded-xl border-2 border-ink grid place-items-center font-display font-extrabold text-xl shrink-0 ${isAttempted ? 'bg-leaf' : 'bg-flame text-paper'}`}>
-          {isAttempted ? '✓' : test.number}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
-            <h2 className="font-display font-extrabold text-lg">Test {test.number}</h2>
-            {test.isCumulative && <span className="chip text-[10px] py-0 px-2 bg-violet/30">Cumulative</span>}
-            {today && <span className="chip text-[10px] py-0 px-2 bg-sun">Today</span>}
-            {past && !isAttempted && !today && <span className="chip text-[10px] py-0 px-2 bg-flame/30">Overdue</span>}
-          </div>
-          <div className="text-xs text-ink/70 font-mono">
-            Day {test.day} · {formatShort(test.date)}
-          </div>
-        </div>
-        {overallPct !== null && (
-          <div className={`shrink-0 rounded-xl border-2 border-ink px-3 py-2 text-center ${overallPct >= 75 ? 'bg-leaf' : overallPct >= 50 ? 'bg-sun' : 'bg-flame/30'}`}>
-            <div className="font-display font-extrabold text-xl leading-none">{overallPct}%</div>
-            <div className="text-[9px] font-mono uppercase tracking-wider text-ink/70 mt-0.5">
-              {totalMarks}/{scoredPapers * 80}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 3 papers */}
-      <div className="grid sm:grid-cols-3 gap-2">
-        {test.papers.map(p => (
-          <PaperCard key={p.subject} testNumber={test.number} paper={p} score={scores[p.subject]} editing={editing} />
-        ))}
-      </div>
-
-      <div className="mt-3 flex gap-2">
-        <button
-          onClick={() => setEditing(!editing)}
-          className={`flex-1 text-sm font-bold py-2 rounded-xl border-2 border-ink transition-colors ${editing ? 'bg-sun' : 'bg-paper hover:bg-cream'}`}
-        >
-          {editing ? '✓ Done editing scores' : (scoredPapers > 0 ? '✎ Edit scores' : '✎ Enter scores')}
-        </button>
-        <button
-          onClick={() => setTestAttempted(test.number, !isAttempted)}
-          className={`flex-1 text-sm font-bold py-2 rounded-xl border-2 border-ink transition-colors ${isAttempted ? 'bg-leaf' : 'bg-paper hover:bg-cream'}`}
-        >
-          {isAttempted ? '✓ Attempted' : 'Mark as attempted'}
-        </button>
-      </div>
-    </div>
-  )
-}
-
-function PaperCard({ testNumber, paper, score, editing }) {
-  const [val, setVal] = useState(score != null ? String(score) : '')
-
-  const save = (newVal) => {
-    if (newVal === '') {
-      setTestScore(testNumber, paper.subject, null)
-    } else {
-      const n = Math.max(0, Math.min(80, Number(newVal) || 0))
-      setTestScore(testNumber, paper.subject, n)
-    }
+  async function execute(assessmentId, dueOn, startNow) {
+    if (!plan) return setMessage('Create your study plan before adding a mock test.')
+    setBusy(true); setMessage('')
+    const { error } = await supabase.rpc('schedule_mock_test', { p_assessment_id: assessmentId, p_due_on: dueOn, p_start_now: startNow })
+    setBusy(false)
+    if (error) return setMessage(error.message)
+    setMessage(startNow ? 'Test started and added to today’s schedule.' : 'Test added to your schedule.')
+    await Promise.all([reloadPlan(), load()])
+  }
+  async function scheduleTest(event) { event.preventDefault(); await execute(form.assessmentId, form.dueOn, false); setAdding(false); setForm({ assessmentId: '', dueOn: todayISO() }) }
+  async function finish(attemptId) {
+    setBusy(true); const { error } = await supabase.rpc('finish_mock_test', { p_attempt_id: attemptId }); setBusy(false)
+    if (error) setMessage(error.message); else { setMessage('Test completed. Answer keys are now available.'); await Promise.all([reloadPlan(), load()]) }
   }
 
-  return (
-    <div className="border-2 border-ink rounded-2xl p-3 bg-paper">
-      <div className="flex items-center justify-between mb-2">
-        <div className="font-display font-bold text-sm">{paper.subject}</div>
-        {score != null && !editing && (
-          <span className="chip text-[10px] py-0 px-2 bg-leaf/40">
-            {score}/80
-          </span>
-        )}
-      </div>
-      <div className="grid grid-cols-2 gap-1.5 mb-2">
-        <Link
-          to={`/pdf${paper.qp}?title=${encodeURIComponent('Test ' + testNumber + ' · ' + paper.subject + ' · QP')}&back=/tests`}
-          className="text-[11px] font-bold text-center py-1.5 px-2 rounded-lg border-2 border-ink bg-flame/20 hover:bg-flame/30 transition-colors"
-        >
-          Question
-        </Link>
-        <Link
-          to={`/pdf${paper.key}?title=${encodeURIComponent('Test ' + testNumber + ' · ' + paper.subject + ' · Answer Key')}&back=/tests`}
-          className="text-[11px] font-bold text-center py-1.5 px-2 rounded-lg border-2 border-ink bg-leaf/30 hover:bg-leaf/40 transition-colors"
-        >
-          Answers
-        </Link>
-      </div>
-      {editing && (
-        <div className="mt-1">
-          <label className="text-[10px] font-mono uppercase tracking-wider text-ink/60">Marks (out of 80)</label>
-          <input
-            type="number"
-            min="0"
-            max="80"
-            value={val}
-            onChange={e => setVal(e.target.value)}
-            onBlur={() => save(val)}
-            onKeyDown={e => { if (e.key === 'Enter') { save(val); e.target.blur() } }}
-            className="w-full mt-1 px-2 py-1.5 text-sm rounded-lg border-2 border-ink bg-cream font-display font-bold focus:outline-none focus:bg-paper focus:shadow-pop"
-            placeholder="—"
-          />
-        </div>
-      )}
-    </div>
-  )
+  if (loading) return <div className="card p-8 text-center">Loading tests…</div>
+  return <div>
+    <div className="mb-5"><div className="font-mono text-xs uppercase tracking-widest text-ink/60">Your study plan</div><h1 className="heading-display text-3xl">Mock Tests</h1><p className="text-ink/70 mt-1">Schedule a test for later or start one immediately.</p></div>
+    {message && <div className="card p-3 mb-4 bg-sky/20 text-sm">{message}</div>}
+    {!plan ? <EmptyPlan /> : <>
+      <div className="grid grid-cols-2 gap-2 mb-5"><button className="btn-primary" onClick={() => setAdding(!adding)}>+ Add test</button>{unscheduled[0] && <button disabled={busy} className="btn-secondary" onClick={() => execute(unscheduled[0].id, todayISO(), true)}>▶ Run test now</button>}</div>
+      {adding && <AddTestForm form={form} setForm={setForm} tests={unscheduled} busy={busy} onSubmit={scheduleTest} />}
+      <h2 className="font-display font-extrabold text-xl mb-3">Scheduled tests</h2>
+      {!scheduled.length && <div className="card p-5 text-center text-ink/60">No tests scheduled yet.</div>}
+      <div className="space-y-3">{scheduled.map(task => { const test = tests.find(item => item.id === task.assessment_id); if (!test) return null; const attempt = attempts.find(item => item.schedule_task_id === task.id); return <TestCard key={task.id} task={task} test={test} attempt={attempt} busy={busy} onRun={() => execute(test.id, todayISO(), true)} onFinish={() => finish(attempt.id)} /> })}</div>
+      {!!unscheduled.length && <AvailableTests tests={unscheduled} busy={busy} onRun={id => execute(id, todayISO(), true)} />}
+    </>}
+  </div>
 }
+
+function EmptyPlan() { return <div className="card p-6 text-center"><h2 className="font-display font-extrabold text-xl">Create a schedule first</h2><p className="text-sm text-ink/60 mt-1">Tests belong to your personal study plan.</p><Link to="/schedule" className="btn-primary inline-flex mt-4">Create schedule</Link></div> }
+function AddTestForm({ form, setForm, tests, busy, onSubmit }) { return <form onSubmit={onSubmit} className="card p-5 mb-5 space-y-4"><label className="block"><span className="text-xs font-mono uppercase">Test</span><select required className="form-control" value={form.assessmentId} onChange={e => setForm({ ...form, assessmentId: e.target.value })}><option value="">Choose a test…</option>{tests.map(test => <option value={test.id} key={test.id}>{test.title}</option>)}</select></label><label className="block"><span className="text-xs font-mono uppercase">Date</span><input required className="form-control" type="date" value={form.dueOn} onChange={e => setForm({ ...form, dueOn: e.target.value })} /></label><button disabled={busy} className="btn-primary w-full">Add to schedule</button></form> }
+function AvailableTests({ tests, busy, onRun }) { return <section className="mt-7"><h2 className="font-display font-extrabold text-xl mb-3">Available tests</h2><div className="space-y-2">{tests.map(test => <div className="card p-4 flex items-center gap-3" key={test.id}><div className="text-2xl">📝</div><div className="flex-1"><div className="font-bold">{test.title}</div><div className="text-xs text-ink/60">{Number(test.maximum_marks)} marks</div></div><button disabled={busy} onClick={() => onRun(test.id)} className="btn-secondary text-sm px-3 py-2">Run now</button></div>)}</div></section> }
+
+function TestCard({ task, test, attempt, busy, onRun, onFinish }) {
+  const submitted = attempt?.status === 'submitted' || task.status === 'completed'
+  const started = attempt?.status === 'started'
+  const resources = [...(test.assessment_resources || [])].sort((a, b) => (a.assessment_sections?.sort_order || 0) - (b.assessment_sections?.sort_order || 0))
+  const sections = [...new Set(resources.map(resource => resource.assessment_sections?.title || 'Test'))]
+  return <div className={`card p-4 ${started ? 'bg-sun/15' : submitted ? 'bg-leaf/15' : ''}`}><div className="flex items-start gap-3"><div className="w-12 h-12 rounded-xl border-2 border-ink grid place-items-center text-xl bg-flame/20">{submitted ? '✓' : '📝'}</div><div className="flex-1"><h3 className="font-display font-extrabold text-lg">{test.title}</h3><div className="text-xs text-ink/60">{formatShort(task.due_on)} · {started ? 'In progress' : submitted ? 'Completed' : 'Scheduled'}</div></div>{!started && !submitted && <button disabled={busy} onClick={onRun} className="btn-primary text-sm px-3 py-2">Run now</button>}</div>
+    {(started || submitted) && <div className="grid sm:grid-cols-3 gap-2 mt-4">{sections.map(section => <PaperSection key={section} section={section} resources={resources.filter(resource => (resource.assessment_sections?.title || 'Test') === section)} showAnswers={submitted} testTitle={test.title} />)}</div>}
+    {started && <button disabled={busy} onClick={onFinish} className="btn-primary w-full mt-4 bg-leaf">Finish test and reveal answers</button>}
+  </div>
+}
+
+function PaperSection({ section, resources, showAnswers, testTitle }) {
+  return <div className="rounded-2xl border-2 border-ink p-3 bg-paper"><div className="font-bold mb-2">{section}</div><div className="grid grid-cols-2 gap-2">{resources.filter(resource => resource.purpose === 'question_paper' || showAnswers).map(resource => { const version = [...(resource.content_resources?.content_resource_versions || [])].sort((a,b) => b.version-a.version)[0]; if (!version) return null; const params = new URLSearchParams({ path: version.storage_path, title: `${testTitle} · ${section}`, back: '/tests' }); return <Link key={resource.id} to={`/pdf?${params}`} className={`text-xs font-bold text-center rounded-lg border-2 border-ink p-2 ${resource.purpose === 'answer_key' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{resource.purpose === 'answer_key' ? 'Answers' : 'Question paper'}</Link> })}</div></div>
+}
+

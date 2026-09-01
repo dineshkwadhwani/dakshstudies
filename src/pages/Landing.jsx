@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import SiteFooter from '../components/SiteFooter.jsx'
 
 const features = [
   ['📚', 'Chapter summaries & notes', 'Revise every CBSE Class 10 chapter with focused study material.'],
@@ -79,6 +80,7 @@ export default function Landing() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </div>
   )
 }

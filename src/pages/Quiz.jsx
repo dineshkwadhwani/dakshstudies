@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
-import { Link, useParams, Navigate, useNavigate } from 'react-router-dom'
-import { getChapter, mcqs, recordQuizAttempt } from '../hooks/useData.js'
+import { useState, useEffect, useRef } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useChapter } from '../hooks/useCatalog.js'
+import { supabase } from '../lib/supabase.js'
+import { useQuizAllowance } from '../hooks/useQuizAllowance.js'
 import { toHTML } from '../utils/text.js'
 
 /* ============================================================
@@ -25,54 +27,45 @@ function shuffled(arr) {
  *
  * `correctIndex` is the index (into the shuffled opts) of the correct option.
  */
-function buildQuizSet(chapter, count = 25) {
-  // Combine question pools. The original 25 always exist; questions2 may or may not.
-  const pool = []
-  for (let i = 0; i < chapter.questions.length; i++) {
-    pool.push({ q: chapter.questions[i].q, opts: chapter.questions[i].opts, ans: chapter.answers[i] })
-  }
-  if (Array.isArray(chapter.questions2) && Array.isArray(chapter.answers2)) {
-    for (let i = 0; i < chapter.questions2.length; i++) {
-      pool.push({ q: chapter.questions2[i].q, opts: chapter.questions2[i].opts, ans: chapter.answers2[i] })
-    }
-  }
-
-  // Shuffle and take the first `count`
-  const picked = shuffled(pool).slice(0, Math.min(count, pool.length))
-
-  // For each picked question, shuffle option order and remap the correct answer
-  const letters = ['A', 'B', 'C', 'D']
-  return picked.map(p => {
-    const correctOldIdx = letters.indexOf(p.ans)      // 0..3 in original
-    // create [{opt, isCorrect}] then shuffle
-    const tagged = p.opts.map((opt, i) => ({ opt, isCorrect: i === correctOldIdx }))
-    const tagShuffled = shuffled(tagged)
-    return {
-      q: p.q,
-      opts: tagShuffled.map(t => t.opt),
-      correctIndex: tagShuffled.findIndex(t => t.isCorrect),
-    }
-  })
-}
-
 export default function Quiz() {
   const { subject, chapterId } = useParams()
   const navigate = useNavigate()
-  const sub = mcqs.subjects[subject]
-  const ch = getChapter(subject, chapterId)
+  const { data, loading, error } = useChapter(subject, chapterId)
+  const { allowance, reload: reloadAllowance } = useQuizAllowance()
+  const sub = data?.subject ? { ...data.subject, parent: data.subject.parent?.name } : null
+  const ch = data?.chapter ? { ...data.chapter, number: data.chapter.chapter_number } : null
 
   const [mode, setMode] = useState(null)            // 'practice' | 'test'
   const [phase, setPhase] = useState('intro')       // intro | active | review
   const [result, setResult] = useState(null)
+  const [attempt, setAttempt] = useState(null)
+  const [startError, setStartError] = useState('')
+  const [starting, setStarting] = useState(false)
 
-  if (!sub || !ch) return <Navigate to="/chapters" replace />
+  if (loading) return <div className="card p-8 text-center">Loading quiz…</div>
+  if (error || !sub || !ch) return <div className="card p-8 text-center">This quiz could not be loaded.</div>
+
+  async function start(selectedMode) {
+    setStarting(true); setStartError('')
+    const { data: started, error: startFailure } = await supabase.rpc('start_chapter_quiz', { p_chapter_id: ch.id, p_mode: selectedMode })
+    setStarting(false)
+    if (startFailure) return setStartError(startFailure.message.includes('QUIZ_ALLOWANCE_REACHED') ? 'You have used all quiz attempts in your current package. Upgrade to continue taking quizzes.' : startFailure.message)
+    const quizSet = (started.questions || []).map(question => {
+      const shuffledOptions = shuffled(question.opts)
+      return { attemptQuestionId: question.attemptQuestionId, q: question.q, opts: shuffledOptions.map(option => option.text), optionIds: shuffledOptions.map(option => option.id), correctIndex: question.correctOptionId ? shuffledOptions.findIndex(option => option.id === question.correctOptionId) : -1 }
+    })
+    setAttempt({ ...started, quizSet }); setMode(selectedMode); setPhase('active')
+  }
 
   if (phase === 'intro') {
     return (
       <QuizIntro
         chapter={ch}
         subject={sub}
-        onStart={(m) => { setMode(m); setPhase('active') }}
+        onStart={start}
+        starting={starting}
+        error={startError}
+        allowance={allowance}
       />
     )
   }
@@ -83,17 +76,15 @@ export default function Quiz() {
         chapter={ch}
         subject={sub}
         mode={mode}
-        onFinish={(res) => {
-          recordQuizAttempt(chapterId, {
-            mode,
-            score: res.score,
-            total: res.total,
-            percent: Math.round((res.score / res.total) * 100),
-            date: new Date().toISOString(),
-            durationSec: res.durationSec,
-            answers: res.answers,
-          })
-          setResult(res)
+        quizSet={attempt.quizSet}
+        durationMinutes={attempt.durationMinutes || 25}
+        onFinish={async (res) => {
+          const selectedIds = res.answers.map((answer, index) => answer == null ? null : res.quizSet[index].optionIds[answer])
+          const { data: graded, error: submitError } = await supabase.rpc('submit_chapter_quiz', { p_attempt_id: attempt.attemptId, p_selected_option_ids: selectedIds, p_duration_seconds: res.durationSec })
+          if (submitError) throw submitError
+          const gradedSet = res.quizSet.map((question, index) => ({ ...question, correctIndex: question.optionIds.findIndex(id => id === graded.correctOptionIds[index]) }))
+          setResult({ ...res, quizSet: gradedSet, score: Number(graded.score), total: Number(graded.total), scheduleTaskCompleted: graded.scheduleTaskCompleted })
+          reloadAllowance()
           setPhase('review')
         }}
         onExit={() => navigate(`/chapter/${subject}/${chapterId}`)}
@@ -114,7 +105,7 @@ export default function Quiz() {
 }
 
 /* Intro */
-function QuizIntro({ chapter, subject, onStart }) {
+function QuizIntro({ chapter, subject, onStart, starting, error, allowance }) {
   return (
     <div>
       <div className="card p-5 mb-4">
@@ -134,9 +125,12 @@ function QuizIntro({ chapter, subject, onStart }) {
       </div>
 
       <h2 className="font-display font-extrabold text-lg mb-2">Pick a mode</h2>
+      {allowance && <div className={`card p-3 mb-3 text-sm ${allowance.allowed ? 'bg-sky/20' : 'bg-flame/20'}`}><strong>{allowance.used}/{allowance.limit}</strong> quiz attempts used on the {allowance.packageName} package.{!allowance.allowed && <Link to="/" className="font-bold underline ml-1">Upgrade to continue</Link>}</div>}
+      {error && <div className="card p-3 mb-3 bg-flame/20 text-sm">{error}</div>}
 
       <button
         onClick={() => onStart('practice')}
+        disabled={starting || allowance?.allowed === false}
         className="card-pop tappable w-full p-5 mb-3 text-left bg-leaf/25"
       >
         <div className="flex items-start gap-3">
@@ -154,6 +148,7 @@ function QuizIntro({ chapter, subject, onStart }) {
 
       <button
         onClick={() => onStart('test')}
+        disabled={starting || allowance?.allowed === false}
         className="card-pop tappable w-full p-5 mb-3 text-left bg-flame/20"
       >
         <div className="flex items-start gap-3">
@@ -173,19 +168,18 @@ function QuizIntro({ chapter, subject, onStart }) {
 }
 
 /* Active */
-function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
-  // Build the shuffled quiz set ONCE per quiz session. This freezes question
-  // order and option positions for the lifetime of this quiz attempt.
-  const quizSet = useMemo(() => buildQuizSet(chapter, 25), [chapter])
+function ActiveQuiz({ chapter, subject, mode, quizSet, durationMinutes, onFinish, onExit }) {
   const total = quizSet.length
 
   const [idx, setIdx] = useState(0)
   const [answers, setAnswers] = useState(() => Array(total).fill(null))  // stores chosen option INDEX (0..3) or null
   const [revealed, setRevealed] = useState(() => Array(total).fill(false))
   const [showSummary, setShowSummary] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const startTimeRef = useRef(Date.now())
 
-  const [secondsLeft, setSecondsLeft] = useState(25 * 60)
+  const [secondsLeft, setSecondsLeft] = useState(durationMinutes * 60)
   useEffect(() => {
     if (mode !== 'test') return
     const t = setInterval(() => {
@@ -214,10 +208,12 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
   const goPrev = () => { if (idx > 0) setIdx(idx - 1) }
   const answeredCount = answers.filter(a => a !== null).length
 
-  const submit = () => {
-    const score = answers.reduce((sum, a, i) => sum + (a === quizSet[i].correctIndex ? 1 : 0), 0)
+  const submit = async () => {
+    const score = mode === 'practice' ? answers.reduce((sum, a, i) => sum + (a === quizSet[i].correctIndex ? 1 : 0), 0) : 0
     const durationSec = Math.round((Date.now() - startTimeRef.current) / 1000)
-    onFinish({ score, total, durationSec, answers, quizSet })
+    setSubmitting(true); setSubmitError('')
+    try { await onFinish({ score, total, durationSec, answers, quizSet }) }
+    catch (error) { setSubmitting(false); setSubmitError(error.message || 'Quiz could not be submitted') }
   }
 
   if (showSummary) {
@@ -229,6 +225,8 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
         timeOut={mode === 'test' && secondsLeft === 0}
         onCancel={() => setShowSummary(false)}
         onSubmit={submit}
+        submitting={submitting}
+        error={submitError}
       />
     )
   }
@@ -334,7 +332,7 @@ function ActiveQuiz({ chapter, subject, mode, onFinish, onExit }) {
 }
 
 /* Submit confirmation */
-function SubmitConfirm({ answeredCount, total, mode, timeOut, onCancel, onSubmit }) {
+function SubmitConfirm({ answeredCount, total, mode, timeOut, onCancel, onSubmit, submitting, error }) {
   return (
     <div className="card p-6 mt-6">
       <div className="text-5xl mb-3 text-center">{timeOut ? '⏰' : '🎯'}</div>
@@ -345,12 +343,13 @@ function SubmitConfirm({ answeredCount, total, mode, timeOut, onCancel, onSubmit
         You answered <strong>{answeredCount}</strong> of {total} questions.
         {answeredCount < total && !timeOut && ' Unanswered questions will be marked wrong.'}
       </p>
+      {error && <div className="rounded-xl border-2 border-ink bg-flame/20 p-3 text-sm mb-3">{error}</div>}
       <div className="flex gap-2">
         {!timeOut && (
           <button onClick={onCancel} className="btn-secondary flex-1">Keep going</button>
         )}
-        <button onClick={onSubmit} className="btn-primary flex-1 bg-leaf">
-          {timeOut ? 'See results' : 'Submit'}
+        <button disabled={submitting} onClick={onSubmit} className="btn-primary flex-1 bg-leaf disabled:opacity-60">
+          {submitting ? 'Submitting…' : timeOut ? 'See results' : 'Submit'}
         </button>
       </div>
     </div>

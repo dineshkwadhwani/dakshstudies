@@ -18,6 +18,11 @@ import AdminSubjects from './pages/admin/AdminSubjects.jsx'
 import AdminContent from './pages/admin/AdminContent.jsx'
 import AdminUsers from './pages/admin/AdminUsers.jsx'
 import AdminConfig from './pages/admin/AdminConfig.jsx'
+import AttemptResult from './pages/AttemptResult.jsx'
+import Contact from './pages/Contact.jsx'
+import Terms from './pages/Terms.jsx'
+import Privacy from './pages/Privacy.jsx'
+import RefundPolicy from './pages/RefundPolicy.jsx'
 
 export default function App() {
   return (
@@ -25,6 +30,10 @@ export default function App() {
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/refund-policy" element={<RefundPolicy />} />
       <Route path="/onboarding" element={<ProtectedRoute allowIncompleteProfile><Onboarding /></ProtectedRoute>} />
       <Route path="/*" element={
         <ProtectedRoute>
@@ -39,6 +48,7 @@ export default function App() {
           <Route path="/tests" element={<Tests />} />
           <Route path="/pdf/*" element={<PdfView />} />
           <Route path="/progress" element={<Progress />} />
+          <Route path="/results/:attemptId" element={<AttemptResult />} />
           <Route path="/admin/subjects" element={<ProtectedRoute roles={['super_admin']}><AdminSubjects /></ProtectedRoute>} />
           <Route path="/admin/content" element={<ProtectedRoute roles={['super_admin']}><AdminContent /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute roles={['super_admin', 'account_manager']}><AdminUsers /></ProtectedRoute>} />

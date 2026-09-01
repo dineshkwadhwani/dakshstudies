@@ -2,12 +2,12 @@ import { createClient } from '@supabase/supabase-js'
 
 const json = (response, status, body) => response.status(status).json(body)
 
-export default async function handler(request, response) {
+export async function handleAccountManagers(request, response, env = process.env) {
   if (request.method !== 'POST') return json(response, 405, { error: 'Method not allowed' })
 
-  const projectUrl = process.env.SUPABASE_PROJECT_URL || process.env.VITE_SUPABASE_PROJECT_URL
-  const anonKey = process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const projectUrl = env.SUPABASE_PROJECT_URL || env.VITE_SUPABASE_PROJECT_URL
+  const anonKey = env.SUPABASE_ANON_KEY || env.VITE_SUPABASE_ANON_KEY
+  const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY
   if (!projectUrl || !anonKey || !serviceRoleKey) return json(response, 500, { error: 'Server configuration is incomplete' })
 
   const token = request.headers.authorization?.replace(/^Bearer\s+/i, '')
@@ -50,3 +50,6 @@ export default async function handler(request, response) {
   return json(response, 201, { user: { id: managerId, email, fullName, role: 'account_manager', status: 'active' } })
 }
 
+export default function handler(request, response) {
+  return handleAccountManagers(request, response)
+}

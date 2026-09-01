@@ -1,47 +1,27 @@
 import { Link } from 'react-router-dom'
-import { schedule, mcqs, useQuizScores, useScheduleDone, getTotalChapterCount, findChapterById, isDayComplete } from '../hooks/useData.js'
-import { todayISO, formatLong, parseISO, daysBetween } from '../utils/dates.js'
+import { getTotalChapterCount } from '../hooks/useData.js'
+import { todayISO, formatLong } from '../utils/dates.js'
 import { useAuth } from '../auth/AuthContext.jsx'
+import { planProgress, useStudyPlan } from '../hooks/useStudyPlan.js'
+import { useQuizAttempts } from '../hooks/useQuizAttempts.js'
+import { useQuizAllowance } from '../hooks/useQuizAllowance.js'
 
 export default function Home() {
   const { profile } = useAuth()
   const today = todayISO()
-  const scores = useQuizScores()
-  const [done] = useScheduleDone()
-
-  // Find today's day in the schedule
-  const todayEntry = schedule.find(s => s.date === today)
-
-  // If outside the 30-day window, find next or last entry
-  const start = schedule[0].date
-  const end   = schedule[schedule.length - 1].date
-
-  let bannerEntry = todayEntry
-  let dayLabel = 'Today'
-  let beforeStart = false
-  let afterEnd = false
-
-  if (!todayEntry) {
-    if (daysBetween(start, today) < 0) {
-      bannerEntry = schedule[0]
-      dayLabel = 'Day 1 starts soon'
-      beforeStart = true
-    } else if (daysBetween(end, today) > 0) {
-      bannerEntry = schedule[schedule.length - 1]
-      dayLabel = 'Schedule complete'
-      afterEnd = true
-    }
-  }
+  const { attempts, stats: quizStats } = useQuizAttempts()
+  const { allowance } = useQuizAllowance()
+  const { plan, loading: planLoading } = useStudyPlan()
+  const progress = planProgress(plan)
+  const todayTasks = progress.tasks.filter(task => task.due_on === today)
 
   const totalChapters = getTotalChapterCount()
-  const quizzesTaken = Object.keys(scores).length
-  const totalQuizzes = totalChapters
-  const avgScore = quizzesTaken > 0
-    ? Math.round(Object.values(scores).reduce((a, s) => a + (s.best || 0), 0) / quizzesTaken)
-    : 0
+  const quizzesTaken = allowance?.used ?? quizStats.totalAttempts
+  const totalQuizzes = allowance?.limit ?? totalChapters
+  const avgScore = quizStats.average
 
   // Streak: number of consecutive past+today days marked done
-  const streak = computeStreak(done, today)
+  const streak = computeStreak(progress.tasks, today)
 
   return (
     <div>
@@ -50,7 +30,7 @@ export default function Home() {
         <div className="flex items-end justify-between gap-3">
           <div>
             <div className="font-mono text-xs uppercase tracking-widest text-ink/60">
-              {beforeStart ? 'Get ready' : afterEnd ? 'You did it!' : `Day ${todayEntry?.day || ''}`}
+              {progress.complete ? 'You did it!' : plan?.status === 'active' ? 'Keep going' : 'Start planning'}
             </div>
             <h1 className="font-display font-extrabold text-3xl sm:text-4xl leading-tight mt-1">
               Hi, {profile?.full_name?.split(' ')[0] || 'Student'} 👋
@@ -64,52 +44,26 @@ export default function Home() {
       </div>
 
       {/* Today's plan */}
-      {bannerEntry && (
+      {!planLoading && !plan && <SchedulePrompt title="Create your schedule" text="Choose your dates and add the chapters you want to study." />}
+      {!planLoading && plan?.status === 'draft' && <SchedulePrompt title="Finish your schedule" text={`${progress.total} task${progress.total === 1 ? '' : 's'} added · Review and activate your plan.`} />}
+      {!planLoading && plan?.status === 'active' && (
         <section className="card p-5 sm:p-6 mt-2 relative overflow-hidden">
           <div className="absolute -top-12 -right-10 w-44 h-44 rounded-full bg-sun/30 blur-2xl" />
           <div className="relative">
             <div className="flex items-center gap-2 mb-3">
-              <span className="chip bg-sun">📚 {dayLabel}</span>
+              <span className={`chip ${progress.complete ? 'bg-leaf' : 'bg-sun'}`}>📚 {progress.complete ? 'Schedule complete' : 'Active schedule'}</span>
             </div>
 
-            <h2 className="font-display font-extrabold text-xl mb-3">Today's plan</h2>
-
-            <PlanItem
-              title={bannerEntry.primary.title}
-              subjectKey={bannerEntry.primary.subject}
-              chapterId={bannerEntry.primary.id}
-            />
-
-            {bannerEntry.secondary.type === 'chapter' ? (
-              <PlanItem
-                title={bannerEntry.secondary.title}
-                subjectKey={bannerEntry.secondary.subject}
-                chapterId={bannerEntry.secondary.id}
-              />
-            ) : (
-              <Link
-                to="/tests"
-                className="block mt-2 p-4 rounded-2xl bg-flame/15 border-2 border-ink tappable"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-flame border-2 border-ink grid place-items-center">
-                    📝
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-display font-bold">Test Day!</div>
-                    <div className="text-sm text-ink/70">{bannerEntry.secondary.title}</div>
-                  </div>
-                  <ArrowIcon />
-                </div>
-              </Link>
-            )}
+            <h2 className="font-display font-extrabold text-xl mb-3">{progress.complete ? 'All tasks completed' : "Today's plan"}</h2>
+            {!progress.complete && todayTasks.length === 0 && <div className="rounded-2xl border-2 border-ink bg-paper p-4 text-sm">No tasks scheduled today—enjoy your rest day or review your plan.</div>}
+            {todayTasks.map(task => <PlanItem key={task.id} task={task} />)}
           </div>
         </section>
       )}
 
       {/* Stats row */}
       <section className="grid grid-cols-3 gap-3 mt-5">
-        <StatCard icon="🎯" label="Quizzes" value={quizzesTaken} max={totalQuizzes} color="bg-sea/20" />
+        <StatCard icon="🎯" label="Quiz attempts" value={quizzesTaken} max={totalQuizzes} color="bg-sea/20" />
         <StatCard icon="🔥" label="Streak" value={streak} suffix={streak === 1 ? 'day' : 'days'} color="bg-flame/20" />
         <StatCard icon="⚡" label="Avg score" value={`${avgScore}%`} color="bg-leaf/20" />
       </section>
@@ -119,23 +73,29 @@ export default function Home() {
         <h3 className="font-display font-extrabold text-lg mb-3">Jump in</h3>
         <div className="grid grid-cols-2 gap-3">
           <QuickCard to="/chapters" icon="📚" title="Browse chapters" subtitle="50 chapters · MCQs & summaries" bg="bg-sky/30" />
-          <QuickCard to="/schedule" icon="📅" title="Study plan" subtitle="30-day schedule" bg="bg-violet/25" />
+          <QuickCard to="/schedule" icon="📅" title={plan ? 'Study plan' : 'Create a schedule'} subtitle={plan ? `${progress.completed}/${progress.total} tasks completed` : 'Build your personal plan'} bg="bg-violet/25" />
           <QuickCard to="/tests" icon="📝" title="Mock tests" subtitle="4 tests, 80 marks each" bg="bg-flame/20" />
           <QuickCard to="/progress" icon="📊" title="Your stats" subtitle="See your progress" bg="bg-leaf/25" />
         </div>
       </section>
 
       {/* Recently attempted */}
-      <RecentActivity scores={scores} />
+      <RecentActivity attempts={attempts} />
     </div>
   )
 }
 
-function PlanItem({ title, subjectKey, chapterId }) {
-  const subject = mcqs.subjects[subjectKey]
+function SchedulePrompt({ title, text }) {
+  return <section className="card p-5 sm:p-6 mt-2 bg-violet/20"><span className="chip bg-sun">📅 No active schedule</span><h2 className="font-display font-extrabold text-xl mt-4">{title}</h2><p className="text-sm text-ink/70 mt-1">{text}</p><Link to="/schedule" className="btn-primary inline-flex mt-4">{title} →</Link></section>
+}
+
+function PlanItem({ task }) {
+  const chapter = task.chapters
+  const subject = chapter?.subjects
+  if (task.task_type === 'mock_test') return <Link to="/tests" className="block mt-2 p-4 rounded-2xl border-2 border-ink bg-flame/15 tappable"><div className="flex items-center gap-3"><div className="w-10 h-10 rounded-xl border-2 border-ink grid place-items-center">📝</div><div className="flex-1"><div className="text-xs font-mono uppercase text-ink/60">Mock test</div><div className="font-display font-bold">{task.assessments?.title}</div></div><ArrowIcon /></div></Link>
   return (
     <Link
-      to={`/chapter/${subjectKey}/${chapterId}`}
+      to={`/chapter/${subject.slug}/${chapter.legacy_id || chapter.slug}`}
       className="block mt-2 p-4 rounded-2xl border-2 border-ink bg-cream tappable hover:shadow-pop transition-shadow"
     >
       <div className="flex items-center gap-3">
@@ -147,9 +107,9 @@ function PlanItem({ title, subjectKey, chapterId }) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-xs font-mono uppercase tracking-wider text-ink/60">
-            {subject.parent ? `${subject.parent} · ${subject.name}` : subject.name}
+            {subject.name} · {task.task_type.replace('_', ' ')}
           </div>
-          <div className="font-display font-bold truncate">{title}</div>
+          <div className="font-display font-bold truncate">{chapter.title}</div>
         </div>
         <ArrowIcon />
       </div>
@@ -182,11 +142,8 @@ function QuickCard({ to, icon, title, subtitle, bg }) {
   )
 }
 
-function RecentActivity({ scores }) {
-  const recent = Object.entries(scores)
-    .filter(([_, v]) => v.last)
-    .sort((a, b) => new Date(b[1].last.date) - new Date(a[1].last.date))
-    .slice(0, 3)
+function RecentActivity({ attempts }) {
+  const recent = attempts.slice(0, 3)
 
   if (recent.length === 0) return null
 
@@ -194,16 +151,16 @@ function RecentActivity({ scores }) {
     <section className="mt-6 mb-2">
       <h3 className="font-display font-extrabold text-lg mb-3">Recent quizzes</h3>
       <div className="space-y-2">
-        {recent.map(([chapterId, info]) => {
-          const found = findChapterById(chapterId)
-          if (!found) return null
-          const { subjectKey, subject, chapter } = found
-          const pct = info.last.percent
+        {recent.map(attempt => {
+          const chapter = attempt.assessments?.chapters
+          const subject = chapter?.subjects
+          if (!chapter || !subject) return null
+          const pct = Math.round(Number(attempt.percentage))
           const colorClass = pct >= 75 ? 'bg-leaf/30' : pct >= 50 ? 'bg-sun/30' : 'bg-flame/20'
           return (
             <Link
-              key={chapterId}
-              to={`/chapter/${subjectKey}/${chapterId}`}
+              key={attempt.id}
+              to={`/results/${attempt.id}`}
               className={`card p-3 tappable flex items-center gap-3 ${colorClass}`}
             >
               <div
@@ -214,7 +171,7 @@ function RecentActivity({ scores }) {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="font-bold text-sm truncate">{chapter.title}</div>
-                <div className="text-xs text-ink/60">Best: {info.best}% · Last: {pct}%</div>
+                <div className="text-xs text-ink/60">{attempt.mode === 'practice' ? 'Practice quiz' : 'MCQ test'} · {new Date(attempt.submitted_at).toLocaleDateString()}</div>
               </div>
               <div className="font-display font-extrabold text-xl">{pct}%</div>
             </Link>
@@ -225,23 +182,15 @@ function RecentActivity({ scores }) {
   )
 }
 
-function computeStreak(done, today) {
-  // Count contiguous days (going back from today) where the day is FULLY complete.
-  // A test day is complete when its primary (Maths) is ticked. A regular day needs both.
+function computeStreak(tasks, today) {
+  const completedDates = new Set(tasks.filter(task => task.status === 'completed').map(task => task.due_on))
   let streak = 0
   for (let i = 0; i < 60; i++) {
-    const d = parseISO(today)
+    const d = new Date(`${today}T00:00:00`)
     d.setDate(d.getDate() - i)
     const iso = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`
-    const entry = schedule.find(s => s.date === iso)
-    if (!entry) break
-    if (isDayComplete(done, entry)) {
-      streak++
-    } else {
-      // First day not done — if it's today, give grace; otherwise break.
-      if (i === 0) continue
-      break
-    }
+    if (completedDates.has(iso)) streak++
+    else if (i > 0) break
   }
   return streak
 }

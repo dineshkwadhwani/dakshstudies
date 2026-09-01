@@ -16,7 +16,9 @@ export default function AdminUsers() {
     event.preventDefault(); setCreating(true); setMessage('')
     try {
       const response = await fetch('/api/account-managers', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify(form) })
-      const body = await response.json()
+      const responseText = await response.text()
+      let body = {}
+      try { body = responseText ? JSON.parse(responseText) : {} } catch { body = { error: responseText } }
       if (!response.ok) throw new Error(body.error || 'Unable to create Account Manager')
       setForm({ fullName: '', email: '', password: '' }); setMessage('Account Manager created successfully. Share the temporary password securely.'); load()
     } catch (error) { setMessage(error.message) } finally { setCreating(false) }
