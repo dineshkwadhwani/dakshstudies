@@ -38,7 +38,7 @@ export default function Landing() {
               <a href="#features" className="btn-secondary">See how it helps</a>
             </div>
           </div>
-          <div className="card p-6 bg-violet/20 rotate-1">
+          <div className="card p-6 bg-violet/20">
             <div className="font-mono text-xs uppercase tracking-widest text-ink/60">Your preparation today</div>
             <div className="mt-4 space-y-3">
               {['Revise Real Numbers', 'Take a 25-question MCQ quiz', 'Complete Science worksheet'].map((item, i) => (
