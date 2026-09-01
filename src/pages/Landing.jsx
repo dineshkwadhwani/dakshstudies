@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import SiteFooter from '../components/SiteFooter.jsx'
+import { supabase } from '../lib/supabase.js'
 
 const features = [
   ['📚', 'Chapter summaries & notes', 'Revise every CBSE Class 10 chapter with focused study material.'],
@@ -8,13 +10,31 @@ const features = [
   ['📅', 'Your own study plan', 'Create a realistic plan around your exam date and track every day.'],
 ]
 
-const packages = [
-  { code: 'FREE', name: 'Free Trial', price: '₹0', note: '7 days', color: 'bg-sky/30' },
-  { code: 'BASIC', name: 'Basic', price: '₹299', note: 'One-time · academic year', color: 'bg-sun/35' },
-  { code: 'PRO', name: 'Pro', price: '₹999', note: 'One-time · academic year', color: 'bg-leaf/30' },
+const fallbackPackages = [
+  { code: 'FREE', name: 'Free Trial', price_paise: 0, trial_days: 7, package_type: 'trial', quiz_attempt_fixed_limit: 10, display_features: ['7-day access', 'Chapter summaries and notes', 'Worksheets and mock tests', '10 quiz attempts', 'Personal study schedule'] },
+  { code: 'BASIC', name: 'Basic', price_paise: 29900, package_type: 'paid', quiz_attempt_fixed_limit: 100, display_features: ['Access for the academic year', 'All chapter summaries and notes', 'Worksheets and mock tests', '100 quiz attempts', 'Progress reports'] },
+  { code: 'PRO', name: 'Pro', price_paise: 99900, package_type: 'paid', quiz_attempt_fixed_limit: 300, display_features: ['Access for the academic year', 'All chapter summaries and notes', 'Worksheets and mock tests', '300 quiz attempts', 'Progress reports'] },
 ]
 
+const packageColors = { FREE: 'bg-sky/30', BASIC: 'bg-sun/35', PRO: 'bg-leaf/30' }
+const price = paise => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format((Number(paise) || 0) / 100)
+
 export default function Landing() {
+  const [packages, setPackages] = useState(fallbackPackages)
+
+  useEffect(() => {
+    if (!supabase) return
+    let active = true
+    async function loadPackages() {
+      const { data: year } = await supabase.from('academic_years').select('id').eq('is_current', true).maybeSingle()
+      if (!year || !active) return
+      const { data, error } = await supabase.from('packages').select('code,name,rank,price_paise,original_price_paise,show_offer,package_type,trial_days,fixed_expires_on,quiz_attempt_fixed_limit,display_features').eq('academic_year_id', year.id).order('rank')
+      if (!error && data?.length && active) setPackages(data)
+    }
+    loadPackages()
+    return () => { active = false }
+  }, [])
+
   return (
     <div className="min-h-screen">
       <header className="max-w-6xl mx-auto px-4 py-5 flex items-center justify-between gap-4">
@@ -70,11 +90,14 @@ export default function Landing() {
           <p className="text-center text-ink/65 mt-2">One account, your own plan, and progress that follows you.</p>
           <div className="grid md:grid-cols-3 gap-4 mt-8">
             {packages.map(pkg => (
-              <article key={pkg.code} className={`card p-5 ${pkg.color}`}>
-                <h3 className="font-display font-extrabold text-xl">{pkg.name}</h3>
-                <div className="heading-display text-4xl mt-4">{pkg.price}</div>
-                <div className="text-sm text-ink/65 mt-1">{pkg.note}</div>
-                <Link to={`/register?package=${pkg.code}`} className="btn-primary w-full mt-5">Choose {pkg.name}</Link>
+              <article key={pkg.code} className={`card p-5 flex flex-col ${packageColors[pkg.code] || 'bg-paper'}`}>
+                <div className="flex items-start justify-between gap-2"><h3 className="font-display font-extrabold text-xl">{pkg.name}</h3>{pkg.show_offer && <span className="chip bg-paper text-xs">Special offer</span>}</div>
+                <div className="mt-4 flex items-baseline gap-2">{pkg.show_offer && <span className="text-ink/45 line-through text-lg">{price(pkg.original_price_paise)}</span>}<span className="heading-display text-4xl">{price(pkg.price_paise)}</span></div>
+                <div className="text-sm text-ink/65 mt-1">{pkg.package_type === 'trial' ? `${pkg.trial_days} days` : 'One-time · academic year'}</div>
+                <ul className="mt-5 space-y-2 flex-1">
+                  {(pkg.display_features || []).map(feature => <li className="flex gap-2 text-sm" key={feature}><span className="font-bold text-green-700">✓</span><span>{feature}</span></li>)}
+                </ul>
+                <Link to={`/register?package=${pkg.code}`} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
               </article>
             ))}
           </div>
