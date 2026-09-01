@@ -8,7 +8,7 @@ const allowedPackages = ['FREE', 'BASIC', 'PRO']
 export default function Register() {
   const [params] = useSearchParams()
   const requested = params.get('package')?.toUpperCase()
-  const capturedReferral = (params.get('ref') || params.get('source') || '').trim().toUpperCase()
+  const capturedReferral = (params.get('ref') || params.get('source') || window.sessionStorage.getItem('tenthkipadhai_referral_code') || '').trim().toUpperCase()
   const [packageCode, setPackageCode] = useState(allowedPackages.includes(requested) ? requested : 'FREE')
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -33,6 +33,7 @@ export default function Register() {
     })
     setSubmitting(false)
     if (signUpError) return setError(signUpError.message)
+    window.sessionStorage.removeItem('tenthkipadhai_referral_code')
     setComplete(true)
   }
 

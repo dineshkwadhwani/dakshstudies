@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { supabase } from '../lib/supabase.js'
+import ReferralShare from '../components/ReferralShare.jsx'
 
 const empty = { full_name: '', email: '', phone: '', school_name: '', city: '', date_of_birth: '', target_exam_date: '', parent_name: '', parent_email: '' }
 
@@ -10,7 +11,6 @@ export default function Profile() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState({ type: '', text: '' })
-  const [copied, setCopied] = useState(false)
   const isStudent = profile?.role === 'student'
 
   useEffect(() => {
@@ -51,19 +51,13 @@ export default function Profile() {
     await reloadProfile()
     setMessage({ type: 'success', text: 'Your profile has been updated.' })
   }
-  const referralUrl = `${window.location.origin}/register?ref=${encodeURIComponent(profile.referral_code || '')}`
-  const copyReferralUrl = async () => {
-    await navigator.clipboard.writeText(referralUrl)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
 
   if (loading) return <div className="card p-6">Loading your profile…</div>
   return <div>
     <div className="mb-5"><div className="font-mono text-xs uppercase tracking-widest text-ink/60">Your account</div><h1 className="heading-display text-3xl">Profile</h1><p className="text-ink/65 mt-1">Keep your personal and study information up to date.</p></div>
     <form onSubmit={submit} className="space-y-5">
       <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Account details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="Full name" value={form.full_name} onChange={set('full_name')} /><ReadOnly label="Email address" value={form.email} hint="Your verified login email cannot be changed here." /><ReadOnly label="Role" value={roleName(profile.role)} /><ReadOnly label="Account status" value={profile.status} /></div></section>
-      <section className="card p-5 sm:p-6 space-y-4 bg-sun/10"><div><h2 className="heading-display text-xl">Your referral</h2><p className="text-sm text-ink/55 mt-1">Share your link. When someone registers through it, the referral is credited to you.</p></div><ReadOnly label="Referral code" value={profile.referral_code} /><div className="flex flex-col sm:flex-row gap-2"><input className="form-control mt-0 flex-1 text-sm" value={referralUrl} readOnly aria-label="Referral URL" /><button type="button" className="btn-secondary shrink-0" onClick={copyReferralUrl}>{copied ? 'Copied!' : 'Copy referral URL'}</button></div></section>
+      <section className="card p-5 sm:p-6 space-y-4 bg-sun/10"><div><h2 className="heading-display text-xl">Your referral</h2><p className="text-sm text-ink/55 mt-1">Share your link or QR code. When someone registers through it, the referral is credited to you.</p></div><ReadOnly label="Referral code" value={profile.referral_code} /><ReferralShare code={profile.referral_code} compact /></section>
       <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Personal details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="Phone number" type="tel" required={isStudent} value={form.phone} onChange={set('phone')} /><Field label="City" required={isStudent} value={form.city} onChange={set('city')} />{isStudent && <Field label="Date of birth" type="date" value={form.date_of_birth} onChange={set('date_of_birth')} />}</div></section>
       {isStudent && <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Study details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="School name" value={form.school_name} onChange={set('school_name')} /><Field label="Target exam date" type="date" value={form.target_exam_date} onChange={set('target_exam_date')} /><ReadOnly label="Board" value="CBSE" /><ReadOnly label="Class" value="Class 10" /></div></section>}
       {isStudent && <section className="card p-5 sm:p-6 space-y-4"><div><h2 className="heading-display text-xl">Parent or guardian</h2><p className="text-sm text-ink/55 mt-1">Optional. Daily missed-schedule reports are sent to this address when configured.</p></div><div className="grid sm:grid-cols-2 gap-4"><Field label="Parent/guardian name" required={false} value={form.parent_name} onChange={set('parent_name')} /><Field label="Parent/guardian email" type="email" required={false} value={form.parent_email} onChange={set('parent_email')} /></div></section>}

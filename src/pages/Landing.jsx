@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import SiteFooter from '../components/SiteFooter.jsx'
 import { supabase } from '../lib/supabase.js'
 
@@ -20,7 +20,21 @@ const packageColors = { FREE: 'bg-sky/30', BASIC: 'bg-sun/35', PRO: 'bg-leaf/30'
 const price = paise => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format((Number(paise) || 0) / 100)
 
 export default function Landing() {
+  const [params] = useSearchParams()
+  const referralCode = (params.get('ref') || params.get('source') || '').trim().toUpperCase()
   const [packages, setPackages] = useState(fallbackPackages)
+
+  useEffect(() => {
+    if (referralCode) window.sessionStorage.setItem('tenthkipadhai_referral_code', referralCode)
+  }, [referralCode])
+
+  const registrationUrl = packageCode => {
+    const query = new URLSearchParams()
+    if (packageCode) query.set('package', packageCode)
+    if (referralCode) query.set('ref', referralCode)
+    const queryString = query.toString()
+    return queryString ? `/register?${queryString}` : '/register'
+  }
 
   useEffect(() => {
     if (!supabase) return
@@ -44,7 +58,7 @@ export default function Landing() {
         </div>
         <div className="flex gap-2">
           <Link to="/login" className="btn-ghost px-3 py-2">Log in</Link>
-          <Link to="/register" className="btn-primary px-4 py-2">Start studying</Link>
+          <Link to={registrationUrl()} className="btn-primary px-4 py-2">Start studying</Link>
         </div>
       </header>
 
@@ -55,7 +69,7 @@ export default function Landing() {
             <h1 className="heading-display text-4xl sm:text-6xl leading-[1.05]">A study plan that turns preparation into progress.</h1>
             <p className="text-lg text-ink/70 mt-5 max-w-xl">Plan your days, revise chapters, practise MCQs, complete worksheets and see exactly where you are improving.</p>
             <div className="flex flex-wrap gap-3 mt-7">
-              <Link to="/register?package=FREE" className="btn-primary">Try free for 7 days →</Link>
+              <Link to={registrationUrl('FREE')} className="btn-primary">Try free for 7 days →</Link>
               <a href="#features" className="btn-secondary">See how it helps</a>
             </div>
           </div>
@@ -97,7 +111,7 @@ export default function Landing() {
                 <ul className="mt-5 space-y-2 flex-1">
                   {(pkg.display_features || []).map(feature => <li className="flex gap-2 text-sm" key={feature}><span className="font-bold text-green-700">✓</span><span>{feature}</span></li>)}
                 </ul>
-                <Link to={`/register?package=${pkg.code}`} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
+                <Link to={registrationUrl(pkg.code)} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
               </article>
             ))}
           </div>
