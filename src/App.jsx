@@ -23,6 +23,8 @@ import Contact from './pages/Contact.jsx'
 import Terms from './pages/Terms.jsx'
 import Privacy from './pages/Privacy.jsx'
 import RefundPolicy from './pages/RefundPolicy.jsx'
+import Profile from './pages/Profile.jsx'
+import Referrals from './pages/Referrals.jsx'
 
 export default function App() {
   return (
@@ -49,6 +51,8 @@ export default function App() {
           <Route path="/pdf/*" element={<PdfView />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/results/:attemptId" element={<AttemptResult />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/referrals" element={<Referrals />} />
           <Route path="/admin/subjects" element={<ProtectedRoute roles={['super_admin']}><AdminSubjects /></ProtectedRoute>} />
           <Route path="/admin/content" element={<ProtectedRoute roles={['super_admin']}><AdminContent /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute roles={['super_admin', 'account_manager']}><AdminUsers /></ProtectedRoute>} />

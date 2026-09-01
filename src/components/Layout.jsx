@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.jsx'
 
@@ -27,30 +28,24 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Platform users always retain account and sign-out controls. */}
-      {(!isHome || isPlatformUser) && (
-        <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur-md border-b-2 border-ink">
+      <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur-md border-b-2 border-ink">
           <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
-            <button
+            {!isHome && <button
               onClick={() => navigate(-1)}
               className="w-10 h-10 grid place-items-center rounded-xl border-2 border-ink bg-paper shadow-pop hover:shadow-pop-lg active:shadow-none active:translate-x-0.5 active:translate-y-0.5 transition-all"
               aria-label="Back"
             >
               <BackIcon />
-            </button>
+            </button>}
             <Link to="/dashboard" className="flex items-center gap-2">
               <img src="/tenthkipadhai_logo.jpeg" alt="" className="w-9 h-9 rounded-xl border-2 border-ink object-cover" />
               <div className="font-display font-bold text-lg leading-none">
                 Tenth Ki Padhai
               </div>
             </Link>
-            <div className="ml-auto flex items-center gap-2">
-              {profile?.full_name && <span className="hidden sm:block text-xs font-bold text-ink/60 max-w-36 truncate">{profile.full_name}</span>}
-              <button onClick={signOut} className="text-xs font-bold underline">Sign out</button>
-            </div>
+            <div className="ml-auto"><AccountMenu profile={profile} nav={nav} location={loc} signOut={signOut} /></div>
           </div>
         </header>
-      )}
 
       {/* Main content */}
       <main className="flex-1 max-w-3xl w-full mx-auto px-4 pt-4 pb-32 relative">
@@ -86,6 +81,39 @@ export default function Layout({ children }) {
     </div>
   )
 }
+
+function AccountMenu({ profile, nav, location, signOut }) {
+  const [open, setOpen] = useState(false)
+  const menuRef = useRef(null)
+  const navigate = useNavigate()
+  useEffect(() => { setOpen(false) }, [location.pathname])
+  useEffect(() => {
+    const close = event => { if (!menuRef.current?.contains(event.target)) setOpen(false) }
+    const escape = event => { if (event.key === 'Escape') setOpen(false) }
+    document.addEventListener('pointerdown', close); document.addEventListener('keydown', escape)
+    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', escape) }
+  }, [])
+  const logout = async () => { setOpen(false); await signOut(); navigate('/', { replace: true }) }
+  const initials = (profile?.full_name || 'User').split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()
+  return <div className="relative" ref={menuRef}>
+    <button type="button" aria-label="Open account menu" aria-expanded={open} onClick={() => setOpen(value => !value)} className="flex items-center gap-2 rounded-xl border-2 border-ink bg-paper p-1.5 pr-2.5 shadow-pop hover:shadow-pop-lg transition-all">
+      <span className="w-8 h-8 rounded-lg bg-sun border-2 border-ink grid place-items-center font-display font-extrabold text-xs">{initials}</span>
+      <span className="hidden sm:block text-xs font-bold max-w-28 truncate">{profile?.full_name || 'My account'}</span>
+      <ChevronIcon />
+    </button>
+    {open && <div className="absolute right-0 mt-3 w-64 card rounded-2xl p-2 shadow-pop-lg bg-paper z-50">
+      <div className="px-3 py-2 border-b border-ink/15 mb-1"><div className="font-bold truncate">{profile?.full_name || 'My account'}</div><div className="text-xs text-ink/50 capitalize">{profile?.role?.replace('_', ' ')}</div></div>
+      <MenuLink to="/profile" label="Profile" icon={ProfileIcon} active={location.pathname === '/profile'} />
+      <MenuLink to="/referrals" label="My referrals" icon={ReferralIcon} active={location.pathname === '/referrals'} />
+      <div className="my-1 border-t border-ink/15" />
+      {nav.map(item => <MenuLink key={item.to} to={item.to} label={item.label} icon={item.icon} active={item.to === '/dashboard' ? location.pathname === '/dashboard' : location.pathname.startsWith(item.to)} />)}
+      <div className="my-1 border-t border-ink/15" />
+      <button type="button" onClick={logout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left font-bold text-sm hover:bg-flame/15"><LogoutIcon />Log out</button>
+    </div>}
+  </div>
+}
+
+function MenuLink({ to, label, icon: Icon, active }) { return <Link to={to} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold ${active ? 'bg-sun/35' : 'hover:bg-cream'}`}><span className="w-6 grid place-items-center"><Icon /></span>{label}</Link> }
 
 function HomeIcon() {
   return (
@@ -129,6 +157,10 @@ function BackIcon() {
     </svg>
   )
 }
+function ChevronIcon() { return <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg> }
+function ProfileIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg> }
+function ReferralIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"/></svg> }
+function LogoutIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M10 17l5-5-5-5M15 12H3"/><path d="M14 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-6"/></svg> }
 function UploadIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 15v5h16v-5"/></svg> }
 function UsersIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M16 5c3 0 4 2 4 4s-1 4-4 4"/></svg> }
 function ConfigIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1-2-4-2 1a7 7 0 0 0-2-1l-.3-2h-5l-.3 2a7 7 0 0 0-2 1l-2-1-2 4 2 1a7 7 0 0 0 0 2l-2 1 2 4 2-1a7 7 0 0 0 2 1l.3 2h5l.3-2a7 7 0 0 0 2-1l2 1 2-4-2-1c.1-.3.1-.7.1-1Z"/></svg> }

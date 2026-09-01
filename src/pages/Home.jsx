@@ -39,7 +39,6 @@ export default function Home() {
               {formatLong(today)}
             </div>
           </div>
-          <img src="/tenthkipadhai_logo.jpeg" alt="Tenth Ki Padhai" className="w-14 h-14 rounded-2xl border-2 border-ink shadow-pop object-cover" />
         </div>
       </div>
 
