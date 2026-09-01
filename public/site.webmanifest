@@ -1,0 +1,21 @@
+{
+  "name": "Tenth Ki Padhai",
+  "short_name": "Tenth Ki Padhai",
+  "description": "A CBSE Class 10 study planning and exam preparation companion.",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8E7",
+  "theme_color": "#FFC857"
+}
