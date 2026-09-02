@@ -1,3 +1,6 @@
+-- CURRENT_ROLE is a PostgreSQL built-in expression with type `name`. Using
+-- current_role as a PL/pgSQL variable caused the audit insert to resolve the
+-- built-in instead of the public.app_role value selected from the profile.
 create or replace function public.update_my_profile(
   full_name_input text,
   phone_input text default null,

@@ -29,6 +29,7 @@ export default function Login() {
     <form onSubmit={submit} className="space-y-4">
       <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
       <Field label="Password" type="password" value={password} onChange={setPassword} autoComplete="current-password" />
+      <div className="text-right -mt-2"><Link className="text-sm font-bold underline" to="/forgot-password">Forgot password?</Link></div>
       {error && <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm">{error}</div>}
       <button className="btn-primary w-full" disabled={submitting}>{submitting ? 'Logging in…' : 'Log in →'}</button>
       <div className="text-center text-sm text-ink/65">New here? <Link className="font-bold underline" to="/register">Create an account</Link></div>
