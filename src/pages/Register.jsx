@@ -43,7 +43,7 @@ export default function Register() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/login`,
+        emailRedirectTo: `${import.meta.env.PROD ? 'https://tenthkipadhai.online' : window.location.origin}/login`,
         data: { full_name: fullName, selected_package: packageCode, referral_code: referralCode.trim().toUpperCase() || null },
       },
     })
