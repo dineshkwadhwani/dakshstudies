@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../auth/AuthContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import { PageTitle } from './AdminSubjects.jsx'
@@ -10,6 +10,9 @@ export default function AdminUsers() {
   const [creating, setCreating] = useState(false)
   const [sendingFor, setSendingFor] = useState('')
   const [impersonatingFor, setImpersonatingFor] = useState('')
+  const [search, setSearch] = useState('')
+  const [roleFilter, setRoleFilter] = useState('all')
+  const [statusFilter, setStatusFilter] = useState('all')
   const [form, setForm] = useState({ fullName: '', email: '', password: '' })
   async function load() { const { data, error } = await supabase.from('profiles').select('id,email,full_name,role,status,created_at,referral_code,referred_by_user_id,acquisition_source_code').order('created_at', { ascending: false }); if (error) setMessage(error.message); else setUsers(data || []) }
   useEffect(() => { load() }, [])
@@ -45,8 +48,29 @@ export default function AdminUsers() {
       setForm({ fullName: '', email: '', password: '' }); setMessage('Account Manager created successfully. Share the temporary password securely.'); load()
     } catch (error) { setMessage(error.message) } finally { setCreating(false) }
   }
+  const filteredUsers = useMemo(() => {
+    const term = search.trim().toLocaleLowerCase()
+    return users.filter(user => {
+      const referrer = users.find(item => item.id === user.referred_by_user_id)
+      const searchable = [user.full_name, user.email, user.referral_code, user.acquisition_source_code, referrer?.full_name, referrer?.email, referrer?.referral_code]
+        .filter(Boolean).join(' ').toLocaleLowerCase()
+      return (!term || searchable.includes(term))
+        && (roleFilter === 'all' || user.role === roleFilter)
+        && (statusFilter === 'all' || user.status === statusFilter)
+    })
+  }, [users, search, roleFilter, statusFilter])
+  const clearFilters = () => { setSearch(''); setRoleFilter('all'); setStatusFilter('all') }
   return <div><PageTitle eyebrow="Platform accounts" title="Users" text="Create Account Managers and activate or deactivate platform access." />
     {message && <div className="card p-3 mb-4 bg-sky/20">{message}</div>}
     {me?.role === 'super_admin' && <form onSubmit={createManager} className="card p-5 mb-6"><h2 className="font-display font-extrabold text-lg">Create Account Manager</h2><p className="text-xs text-ink/60 mt-1 mb-3">The email is confirmed immediately. Give the manager their temporary password securely.</p><div className="grid sm:grid-cols-3 gap-3"><label><span className="text-xs font-mono uppercase">Full name</span><input required value={form.fullName} onChange={e => setForm({ ...form, fullName: e.target.value })} /></label><label><span className="text-xs font-mono uppercase">Email</span><input required type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} /></label><label><span className="text-xs font-mono uppercase">Temporary password</span><input required type="password" minLength="12" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} /></label></div><button disabled={creating} className="btn-primary mt-4">{creating ? 'Creating…' : 'Create Account Manager'}</button></form>}
-    <div className="space-y-2">{users.map(user => { const referralCount = users.filter(item => item.referred_by_user_id === user.id).length; const referrer = users.find(item => item.id === user.referred_by_user_id); return <div key={user.id} className="card p-4 flex flex-col sm:flex-row sm:items-center gap-3"><div className="flex-1 min-w-0"><div className="font-bold truncate">{user.full_name || 'Unnamed user'}</div><div className="text-xs text-ink/60 truncate">{user.email} · {user.role.replace('_', ' ')}</div><div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-ink/55"><span>Code: <strong>{user.referral_code || '—'}</strong></span><span>Referrals: <strong>{referralCount}</strong></span><span>Source: <strong>{referrer?.full_name || user.acquisition_source_code || 'DIRECT'}</strong></span></div></div><div className="flex flex-wrap items-center gap-2"><span className={`chip text-[10px] ${user.status === 'active' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{user.status}</span>{me?.role === 'super_admin' && user.id !== me.id && <button disabled={Boolean(impersonatingFor)} className="btn-primary text-xs px-2 py-1" onClick={() => impersonate(user)}>{impersonatingFor === user.id ? 'Switching…' : 'Impersonate'}</button>}{me?.role === 'super_admin' && <button disabled={Boolean(sendingFor)} className="btn-secondary text-xs px-2 py-1" onClick={() => sendAuthEmail(user)}>{sendingFor === user.id ? 'Sending…' : 'Send verification/reset email'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button className="btn-secondary text-xs px-2 py-1" onClick={() => toggle(user)}>{user.status === 'active' ? 'Deactivate' : 'Activate'}</button>}</div></div>})}</div></div>
+    <section className="card p-4 mb-4" aria-label="Filter users">
+      <div className="grid sm:grid-cols-[minmax(0,2fr)_1fr_1fr_auto] gap-3 items-end">
+        <label><span className="text-xs font-mono uppercase text-ink/60">Search users or referrals</span><input type="search" className="form-control" placeholder="Name, email, referral or source…" value={search} onChange={event => setSearch(event.target.value)} /></label>
+        <label><span className="text-xs font-mono uppercase text-ink/60">Role</span><select className="form-control" value={roleFilter} onChange={event => setRoleFilter(event.target.value)}><option value="all">All roles</option><option value="student">Students</option><option value="account_manager">Account Managers</option><option value="super_admin">SuperAdmins</option></select></label>
+        <label><span className="text-xs font-mono uppercase text-ink/60">Status</span><select className="form-control" value={statusFilter} onChange={event => setStatusFilter(event.target.value)}><option value="all">All statuses</option><option value="active">Active</option><option value="deactivated">Deactivated</option></select></label>
+        <button type="button" className="btn-secondary py-3" onClick={clearFilters} disabled={!search && roleFilter === 'all' && statusFilter === 'all'}>Clear</button>
+      </div>
+      <div className="text-xs text-ink/55 mt-3">Showing <strong>{filteredUsers.length}</strong> of <strong>{users.length}</strong> users</div>
+    </section>
+    <div className="space-y-2">{filteredUsers.map(user => { const referralCount = users.filter(item => item.referred_by_user_id === user.id).length; const referrer = users.find(item => item.id === user.referred_by_user_id); return <div key={user.id} className="card p-4 flex flex-col sm:flex-row sm:items-center gap-3"><div className="flex-1 min-w-0"><div className="font-bold truncate">{user.full_name || 'Unnamed user'}</div><div className="text-xs text-ink/60 truncate">{user.email} · {user.role.replace('_', ' ')}</div><div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-ink/55"><span>Code: <strong>{user.referral_code || '—'}</strong></span><span>Referrals: <strong>{referralCount}</strong></span><span>Source: <strong>{referrer?.full_name || user.acquisition_source_code || 'DIRECT'}</strong></span></div></div><div className="flex flex-wrap items-center gap-2"><span className={`chip text-[10px] ${user.status === 'active' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{user.status}</span>{me?.role === 'super_admin' && user.id !== me.id && <button disabled={Boolean(impersonatingFor)} className="btn-primary text-xs px-2 py-1" onClick={() => impersonate(user)}>{impersonatingFor === user.id ? 'Switching…' : 'Impersonate'}</button>}{me?.role === 'super_admin' && <button disabled={Boolean(sendingFor)} className="btn-secondary text-xs px-2 py-1" onClick={() => sendAuthEmail(user)}>{sendingFor === user.id ? 'Sending…' : 'Send verification/reset email'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button className="btn-secondary text-xs px-2 py-1" onClick={() => toggle(user)}>{user.status === 'active' ? 'Deactivate' : 'Activate'}</button>}</div></div>})}{!filteredUsers.length && <div className="card p-6 text-center text-ink/60">No users match the selected filters.</div>}</div></div>
 }
