@@ -2,12 +2,19 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { isSupabaseConfigured, supabase } from '../lib/supabase.js'
 
 const AuthContext = createContext(null)
+const IMPERSONATION_KEY = 'daksh-impersonation-session'
+
+function readImpersonation() {
+  try { return JSON.parse(window.sessionStorage.getItem(IMPERSONATION_KEY)) }
+  catch { return null }
+}
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(isSupabaseConfigured)
   const [profileError, setProfileError] = useState(null)
+  const [impersonation, setImpersonation] = useState(readImpersonation)
 
   const loadProfile = useCallback(async (user) => {
     if (!supabase || !user) {
@@ -63,7 +70,36 @@ export function AuthProvider({ children }) {
   }, [loadProfile])
 
   const signOut = useCallback(async () => {
+    window.sessionStorage.removeItem(IMPERSONATION_KEY)
+    setImpersonation(null)
     if (supabase) await supabase.auth.signOut()
+  }, [])
+
+  const startImpersonation = useCallback(async (tokenHash, targetProfile) => {
+    if (!supabase || !session || profile?.role !== 'super_admin' || impersonation) throw new Error('Impersonation is not available')
+    const saved = {
+      accessToken: session.access_token,
+      refreshToken: session.refresh_token,
+      originalProfile: profile,
+      targetProfile: { id: targetProfile.id, full_name: targetProfile.full_name, email: targetProfile.email },
+    }
+    window.sessionStorage.setItem(IMPERSONATION_KEY, JSON.stringify(saved))
+    setImpersonation(saved)
+    const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'magiclink' })
+    if (error) {
+      window.sessionStorage.removeItem(IMPERSONATION_KEY)
+      setImpersonation(null)
+      throw error
+    }
+  }, [session, profile, impersonation])
+
+  const stopImpersonation = useCallback(async () => {
+    const saved = readImpersonation()
+    if (!supabase || !saved?.accessToken || !saved?.refreshToken) throw new Error('The original session is no longer available. Please sign in again.')
+    const { error } = await supabase.auth.setSession({ access_token: saved.accessToken, refresh_token: saved.refreshToken })
+    if (error) throw error
+    window.sessionStorage.removeItem(IMPERSONATION_KEY)
+    setImpersonation(null)
   }, [])
 
   const value = useMemo(() => ({
@@ -75,7 +111,11 @@ export function AuthProvider({ children }) {
     loading,
     reloadProfile: () => loadProfile(session?.user),
     signOut,
-  }), [session, profile, profileError, loading, loadProfile, signOut])
+    isImpersonating: Boolean(impersonation),
+    impersonation,
+    startImpersonation,
+    stopImpersonation,
+  }), [session, profile, profileError, loading, impersonation, loadProfile, signOut, startImpersonation, stopImpersonation])
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -85,4 +125,3 @@ export function useAuth() {
   if (!context) throw new Error('useAuth must be used within AuthProvider')
   return context
 }
-

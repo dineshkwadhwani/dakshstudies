@@ -21,13 +21,14 @@ const ADMIN_NAV = [
 export default function Layout({ children }) {
   const loc = useLocation()
   const navigate = useNavigate()
-  const { profile, signOut } = useAuth()
+  const { profile, signOut, isImpersonating, impersonation, stopImpersonation } = useAuth()
   const isHome = loc.pathname === '/dashboard'
   const isPlatformUser = profile?.role === 'super_admin' || profile?.role === 'account_manager'
   const nav = isPlatformUser ? ADMIN_NAV.filter(item => profile?.role === 'super_admin' || !['/admin/subjects', '/admin/content', '/admin/config'].includes(item.to)) : STUDENT_NAV
 
   return (
     <div className="min-h-screen flex flex-col">
+      {isImpersonating && <ImpersonationBanner impersonation={impersonation} stopImpersonation={stopImpersonation} />}
       <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur-md border-b-2 border-ink">
           <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
             {!isHome && <button
@@ -80,6 +81,17 @@ export default function Layout({ children }) {
       </nav>
     </div>
   )
+}
+
+function ImpersonationBanner({ impersonation, stopImpersonation }) {
+  const [stopping, setStopping] = useState(false)
+  const [error, setError] = useState('')
+  const stop = async () => {
+    setStopping(true); setError('')
+    try { await stopImpersonation(); window.location.assign('/admin/users') }
+    catch (stopError) { setError(stopError.message); setStopping(false) }
+  }
+  return <div className="sticky top-0 z-50 bg-flame text-paper border-b-2 border-ink"><div className="max-w-3xl mx-auto px-4 py-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm"><strong>Viewing as {impersonation?.targetProfile?.full_name || impersonation?.targetProfile?.email || 'another user'}</strong><button type="button" disabled={stopping} onClick={stop} className="rounded-lg border-2 border-ink bg-paper text-ink px-3 py-1 font-bold shadow-pop">{stopping ? 'Returning…' : 'Return to SuperAdmin'}</button>{error && <span className="w-full text-center text-xs">{error}</span>}</div></div>
 }
 
 function AccountMenu({ profile, nav, location, signOut }) {
