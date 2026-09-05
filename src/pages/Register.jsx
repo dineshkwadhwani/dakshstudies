@@ -48,7 +48,14 @@ export default function Register() {
       },
     })
     setSubmitting(false)
-    if (signUpError) return setError(signUpError.message)
+    if (signUpError) {
+      fetch('/api/client-audit-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ eventType: 'registration.failed', errorCode: signUpError.code, status: signUpError.status, message: signUpError.message }),
+      }).catch(() => {})
+      return setError(signUpError.message)
+    }
     window.sessionStorage.removeItem('tenthkipadhai_referral_code')
     setComplete(true)
   }

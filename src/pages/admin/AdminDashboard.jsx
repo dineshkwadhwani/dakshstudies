@@ -75,6 +75,7 @@ export default function AdminDashboard() {
             <AdminLink to="/admin/content" icon="⬆️" label="Upload content" />
             <AdminLink to="/admin/users" icon="👥" label="Manage users" />
             <AdminLink to="/admin/config" icon="⚙️" label="Package config" />
+            <AdminLink to="/admin/audit" icon="🧾" label="Audit log" />
           </div>
           <h2 className="font-display font-extrabold text-xl mb-3">Packages</h2>
           <div className="grid sm:grid-cols-3 gap-3">

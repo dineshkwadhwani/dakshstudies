@@ -53,10 +53,11 @@ export function AuthProvider({ children }) {
       if (mounted) setLoading(false)
     })
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, nextSession) => {
       setSession(nextSession)
       if (nextSession?.user) {
         setTimeout(() => loadProfile(nextSession.user), 0)
+        if (event === 'SIGNED_IN' && !readImpersonation()) setTimeout(() => supabase.rpc('record_own_login'), 0)
       } else {
         setProfile(null)
         setProfileError(null)

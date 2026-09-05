@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { handleAccountManagers } from './api/account-managers.js'
 import { handleContact } from './api/contact.js'
+import { handleClientAuditEvent } from './api/client-audit-event.js'
 
 function localServerApis(env) {
   return {
@@ -38,6 +39,20 @@ function localServerApis(env) {
             json(body) { response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify(body)) },
           }
           await handleContact(request, adapter, env)
+        } catch (error) {
+          response.statusCode = 500
+          response.setHeader('Content-Type', 'application/json')
+          response.end(JSON.stringify({ error: error.message || 'Local API error' }))
+        }
+      })
+      server.middlewares.use('/api/client-audit-event', async (request, response, next) => {
+        if (request.method !== 'POST') return next()
+        try {
+          const chunks = []
+          for await (const chunk of request) chunks.push(chunk)
+          request.body = JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}')
+          const adapter = { status(code) { response.statusCode = code; return adapter }, json(body) { response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify(body)) } }
+          await handleClientAuditEvent(request, adapter, env)
         } catch (error) {
           response.statusCode = 500
           response.setHeader('Content-Type', 'application/json')
