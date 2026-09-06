@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { AuthShell, Field } from './Login.jsx'
+import Turnstile from '../components/Turnstile.jsx'
 
 const allowedPackages = ['FREE', 'BASIC', 'PRO']
+const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim()
+const validName = value => /^[\p{L}][\p{L}\p{M} .'-]{1,79}$/u.test(value.trim())
 
 export default function Register() {
   const [params] = useSearchParams()
@@ -18,6 +21,11 @@ export default function Register() {
   const [error, setError] = useState('')
   const [complete, setComplete] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState('')
+  const [captchaKey, setCaptchaKey] = useState(0)
+  const [website, setWebsite] = useState('')
+  const formOpenedAt = useRef(Date.now())
+  const captchaError = useCallback(() => setError('The security check could not be completed. Please try again.'), [])
 
   useEffect(() => {
     let active = true
@@ -37,18 +45,34 @@ export default function Register() {
   const submit = async (event) => {
     event.preventDefault()
     if (!supabase) return setError('Supabase is not configured.')
+    const cleanName = fullName.trim().replace(/\s+/g, ' ')
+    const cleanEmail = email.trim().toLowerCase()
+    const cleanReferral = referralCode.trim().toUpperCase()
+    if (website || Date.now() - formOpenedAt.current < 1500) return setError('Please wait a moment and try again.')
+    if (!validName(cleanName)) return setError('Enter a valid full name using letters, spaces, apostrophes or hyphens.')
+    if (password.length < 8) return setError('Password must be at least 8 characters.')
+    if (turnstileSiteKey && !captchaToken) return setError('Please complete the security check.')
     setSubmitting(true)
     setError('')
+    if (cleanReferral) {
+      const { data: referralValid, error: referralError } = await supabase.rpc('is_valid_referral_code', { code_input: cleanReferral })
+      if (referralError || !referralValid) {
+        setSubmitting(false)
+        return setError(referralError ? 'Referral validation is temporarily unavailable.' : 'This referral code is not valid.')
+      }
+    }
     const { error: signUpError } = await supabase.auth.signUp({
-      email,
+      email: cleanEmail,
       password,
       options: {
+        captchaToken: captchaToken || undefined,
         emailRedirectTo: `${import.meta.env.PROD ? 'https://tenthkipadhai.online' : window.location.origin}/login`,
-        data: { full_name: fullName, selected_package: packageCode, referral_code: referralCode.trim().toUpperCase() || null },
+        data: { full_name: cleanName, selected_package: packageCode, referral_code: cleanReferral || null },
       },
     })
     setSubmitting(false)
     if (signUpError) {
+      if (turnstileSiteKey) { setCaptchaToken(''); setCaptchaKey(value => value + 1) }
       fetch('/api/client-audit-event', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -73,10 +97,12 @@ export default function Register() {
           {availablePackages.map(pkg => <option value={pkg.code} key={pkg.code}>{pkg.name} — {pkg.price_paise ? `₹${Math.round(pkg.price_paise / 100)}` : `${pkg.trial_days} days free`}</option>)}
         </select>
       </label>
-      <Field label="Full name" value={fullName} onChange={setFullName} autoComplete="name" />
+      <Field label="Full name" value={fullName} onChange={setFullName} autoComplete="name" minLength="2" maxLength="80" title="Use letters, spaces, apostrophes or hyphens." />
       <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
-      <Field label="Password" type="password" value={password} onChange={setPassword} autoComplete="new-password" />
-      <Field label="Referral or source code" value={referralCode} onChange={setReferralCode} required={false} />
+      <Field label="Password" type="password" minLength="8" value={password} onChange={setPassword} autoComplete="new-password" />
+      <Field label="Referral code" value={referralCode} onChange={setReferralCode} required={false} />
+      <label className="hidden" aria-hidden="true">Website<input tabIndex="-1" autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} /></label>
+      {turnstileSiteKey && <Turnstile key={captchaKey} siteKey={turnstileSiteKey} onToken={setCaptchaToken} onError={captchaError} />}
       <p className="text-xs text-ink/60">Use at least 8 characters. By registering, you agree to the platform terms and privacy policy.</p>
       {error && <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm">{error}</div>}
       <button className="btn-primary w-full" disabled={submitting}>{submitting ? 'Creating account…' : 'Create account →'}</button>
