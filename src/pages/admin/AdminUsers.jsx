@@ -3,6 +3,42 @@ import { useAuth } from '../../auth/AuthContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import { PageTitle } from './AdminSubjects.jsx'
 
+function UserDetailsModal({ user, loading, error, onClose }) {
+  useEffect(() => {
+    const onKeyDown = event => { if (event.key === 'Escape') onClose() }
+    document.addEventListener('keydown', onKeyDown)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = previousOverflow
+    }
+  }, [onClose])
+
+  const fields = user ? [
+    ['Name', user.full_name || 'Not provided'],
+    ['Email', user.email || 'Not provided'],
+    ['Status', user.status || 'Not available'],
+    ['Package', user.package_name || 'No package assigned'],
+    ['Phone', user.phone || 'Not provided'],
+    ['City', user.city || 'Not provided'],
+  ] : []
+
+  return <div className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/60 p-4" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
+    <section className="card w-full max-w-lg max-h-[90vh] overflow-y-auto p-5 sm:p-6" role="dialog" aria-modal="true" aria-labelledby="user-details-title">
+      <div className="flex items-start justify-between gap-4">
+        <div><div className="text-xs font-mono uppercase text-ink/55">User details</div><h2 id="user-details-title" className="font-display font-extrabold text-2xl mt-1">{user?.full_name || 'User'}</h2></div>
+        <button type="button" className="btn-secondary px-3 py-1.5" onClick={onClose} aria-label="Close user details">Close</button>
+      </div>
+      {loading && <div className="py-10 text-center text-ink/60" aria-live="polite">Loading user details…</div>}
+      {error && <div className="mt-5 rounded-xl border-2 border-flame bg-flame/10 p-3 text-sm text-flame" role="alert">{error}</div>}
+      {!loading && !error && user && <dl className="grid sm:grid-cols-2 gap-3 mt-6">
+        {fields.map(([label, value]) => <div key={label} className="rounded-xl border-2 border-ink/15 bg-cream/40 p-3"><dt className="text-xs font-mono uppercase text-ink/55">{label}</dt><dd className={`mt-1 font-semibold break-words ${label === 'Status' ? 'capitalize' : ''}`}>{value}</dd></div>)}
+      </dl>}
+    </section>
+  </div>
+}
+
 export default function AdminUsers() {
   const { profile: me, session, startImpersonation } = useAuth()
   const [users, setUsers] = useState([])
@@ -14,9 +50,21 @@ export default function AdminUsers() {
   const [roleFilter, setRoleFilter] = useState('all')
   const [statusFilter, setStatusFilter] = useState('all')
   const [verificationFilter, setVerificationFilter] = useState('all')
+  const [selectedUser, setSelectedUser] = useState(null)
+  const [detailsLoading, setDetailsLoading] = useState(false)
+  const [detailsError, setDetailsError] = useState('')
   const [form, setForm] = useState({ fullName: '', email: '', password: '' })
   async function load() { const { data, error } = await supabase.from('profiles').select('id,email,email_verified,full_name,role,status,created_at,referral_code,referred_by_user_id,acquisition_source_code').order('created_at', { ascending: false }); if (error) setMessage(error.message); else setUsers(data || []) }
   useEffect(() => { load() }, [])
+  async function openUserDetails(user) {
+    setSelectedUser(user)
+    setDetailsLoading(true)
+    setDetailsError('')
+    const { data, error } = await supabase.rpc('get_user_directory_details', { user_id_input: user.id }).single()
+    if (error) setDetailsError(error.message)
+    else setSelectedUser(data)
+    setDetailsLoading(false)
+  }
   async function toggle(user) { const status = user.status === 'active' ? 'deactivated' : 'active'; const { error } = await supabase.from('profiles').update({ status }).eq('id', user.id); if (error) setMessage(error.message); else load() }
   async function sendAuthEmail(user) {
     setSendingFor(user.id); setMessage('')
@@ -77,5 +125,7 @@ export default function AdminUsers() {
       </div>
       <div className="text-xs text-ink/55 mt-3">Showing <strong>{filteredUsers.length}</strong> of <strong>{availableUserCount}</strong> users</div>
     </section>
-    <div className="space-y-2">{filteredUsers.map(user => { const referralCount = users.filter(item => item.referred_by_user_id === user.id).length; const referrer = users.find(item => item.id === user.referred_by_user_id); return <div key={user.id} className="card p-4 flex flex-col sm:flex-row sm:items-center gap-3"><div className="flex-1 min-w-0"><div className="font-bold truncate">{user.full_name || 'Unnamed user'}</div><div className="text-xs text-ink/60 truncate">{user.email} · {user.role.replace('_', ' ')}</div><div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-ink/55"><span>Code: <strong>{user.referral_code || '—'}</strong></span><span>Referrals: <strong>{referralCount}</strong></span><span>Source: <strong>{referrer?.full_name || user.acquisition_source_code || 'DIRECT'}</strong></span></div></div><div className="flex flex-wrap items-center gap-2"><span className={`chip text-[10px] ${user.email_verified ? 'bg-leaf/30' : 'bg-sun/40'}`}>{user.email_verified ? 'verified' : 'unverified'}</span><span className={`chip text-[10px] ${user.status === 'active' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{user.status}</span>{me?.role === 'super_admin' && user.id !== me.id && <button disabled={Boolean(impersonatingFor)} className="btn-primary text-xs px-2 py-1" onClick={() => impersonate(user)}>{impersonatingFor === user.id ? 'Switching…' : 'Impersonate'}</button>}{me?.role === 'super_admin' && <button disabled={Boolean(sendingFor)} className="btn-secondary text-xs px-2 py-1" onClick={() => sendAuthEmail(user)}>{sendingFor === user.id ? 'Sending…' : 'Send verification/reset email'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button className="btn-secondary text-xs px-2 py-1" onClick={() => toggle(user)}>{user.status === 'active' ? 'Deactivate' : 'Activate'}</button>}</div></div>})}{!filteredUsers.length && <div className="card p-6 text-center text-ink/60">No users match the selected filters.</div>}</div></div>
+    <div className="space-y-2">{filteredUsers.map(user => { const referralCount = users.filter(item => item.referred_by_user_id === user.id).length; const referrer = users.find(item => item.id === user.referred_by_user_id); return <div key={user.id} className="card p-4 flex flex-col sm:flex-row sm:items-center gap-3 cursor-pointer transition-transform hover:-translate-y-0.5" role="button" tabIndex="0" aria-label={`View details for ${user.full_name || user.email}`} onClick={() => openUserDetails(user)} onKeyDown={event => { if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); openUserDetails(user) } }}><div className="flex-1 min-w-0"><div className="font-bold truncate">{user.full_name || 'Unnamed user'}</div><div className="text-xs text-ink/60 truncate">{user.email} · {user.role.replace('_', ' ')}</div><div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-ink/55"><span>Code: <strong>{user.referral_code || '—'}</strong></span><span>Referrals: <strong>{referralCount}</strong></span><span>Source: <strong>{referrer?.full_name || user.acquisition_source_code || 'DIRECT'}</strong></span></div></div><div className="flex flex-wrap items-center gap-2"><span className={`chip text-[10px] ${user.email_verified ? 'bg-leaf/30' : 'bg-sun/40'}`}>{user.email_verified ? 'verified' : 'unverified'}</span><span className={`chip text-[10px] ${user.status === 'active' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{user.status}</span>{me?.role === 'super_admin' && user.id !== me.id && <button disabled={Boolean(impersonatingFor)} className="btn-primary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); impersonate(user) }}>{impersonatingFor === user.id ? 'Switching…' : 'Impersonate'}</button>}{me?.role === 'super_admin' && <button disabled={Boolean(sendingFor)} className="btn-secondary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); sendAuthEmail(user) }}>{sendingFor === user.id ? 'Sending…' : 'Send verification/reset email'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button className="btn-secondary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); toggle(user) }}>{user.status === 'active' ? 'Deactivate' : 'Activate'}</button>}</div></div>})}{!filteredUsers.length && <div className="card p-6 text-center text-ink/60">No users match the selected filters.</div>}</div>
+    {selectedUser && <UserDetailsModal user={selectedUser} loading={detailsLoading} error={detailsError} onClose={() => { setSelectedUser(null); setDetailsError('') }} />}
+  </div>
 }
