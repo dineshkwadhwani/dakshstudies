@@ -9,6 +9,7 @@ const LABELS = {
   'account_manager.created': 'Account Manager created',
   'user.verification_email_resent': 'Verification email resent',
   'user.password_reset_email_sent': 'Password reset email sent',
+  'user.password_changed': 'Password changed',
   'user.impersonation_started': 'Impersonation started',
   'profile.updated': 'Profile updated',
   'quiz.attempt_finished': 'Quiz completed',

@@ -6,7 +6,7 @@ import ReferralShare from '../components/ReferralShare.jsx'
 const empty = { full_name: '', email: '', phone: '', school_name: '', city: '', date_of_birth: '', target_exam_date: '', parent_name: '', parent_email: '' }
 
 export default function Profile() {
-  const { profile, user, reloadProfile } = useAuth()
+  const { profile, user, reloadProfile, isImpersonating } = useAuth()
   const [form, setForm] = useState(empty)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -64,7 +64,51 @@ export default function Profile() {
       {message.text && <div role="status" className={`card p-3 ${message.type === 'success' ? 'bg-leaf/25' : 'bg-flame/15'}`}>{message.text}</div>}
       <button className="btn-primary w-full" disabled={saving}>{saving ? 'Saving…' : 'Save profile'}</button>
     </form>
+    <PasswordChange email={user.email} disabled={isImpersonating} />
   </div>
+}
+
+function PasswordChange({ email, disabled }) {
+  const [passwords, setPasswords] = useState({ current: '', next: '', confirmation: '' })
+  const [submitting, setSubmitting] = useState(false)
+  const [message, setMessage] = useState({ type: '', text: '' })
+  const setPassword = key => event => setPasswords(current => ({ ...current, [key]: event.target.value }))
+
+  const submit = async event => {
+    event.preventDefault()
+    setMessage({ type: '', text: '' })
+    if (passwords.next.length < 8) return setMessage({ type: 'error', text: 'The new password must be at least 8 characters.' })
+    if (passwords.next !== passwords.confirmation) return setMessage({ type: 'error', text: 'The new passwords do not match.' })
+    if (passwords.current === passwords.next) return setMessage({ type: 'error', text: 'Choose a new password that is different from your current password.' })
+
+    setSubmitting(true)
+    const { error: verificationError } = await supabase.auth.signInWithPassword({ email, password: passwords.current })
+    if (verificationError) {
+      setSubmitting(false)
+      return setMessage({ type: 'error', text: 'Your current password is incorrect.' })
+    }
+    const { error: updateError } = await supabase.auth.updateUser({ password: passwords.next })
+    setSubmitting(false)
+    if (updateError) return setMessage({ type: 'error', text: updateError.message })
+
+    supabase.rpc('record_own_password_change').then(() => {})
+    setPasswords({ current: '', next: '', confirmation: '' })
+    setMessage({ type: 'success', text: 'Your password has been changed successfully.' })
+  }
+
+  return <section className="card p-5 sm:p-6 mt-6">
+    <h2 className="heading-display text-xl">Change password</h2>
+    <p className="text-sm text-ink/55 mt-1 mb-4">Confirm your current password, then choose a new password with at least 8 characters.</p>
+    {disabled ? <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm">Password changes are unavailable while impersonating another user.</div> : <form onSubmit={submit} className="space-y-4">
+      <Field label="Current password" type="password" autoComplete="current-password" value={passwords.current} onChange={setPassword('current')} />
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label="New password" type="password" minLength="8" autoComplete="new-password" value={passwords.next} onChange={setPassword('next')} />
+        <Field label="Confirm new password" type="password" minLength="8" autoComplete="new-password" value={passwords.confirmation} onChange={setPassword('confirmation')} />
+      </div>
+      {message.text && <div role="status" aria-live="polite" className={`rounded-xl border-2 border-ink p-3 text-sm ${message.type === 'success' ? 'bg-leaf/25' : 'bg-flame/15'}`}>{message.text}</div>}
+      <button type="submit" className="btn-primary" disabled={submitting}>{submitting ? 'Changing password…' : 'Change password'}</button>
+    </form>}
+  </section>
 }
 
 function Field({ label, required = true, ...props }) { return <label className="block"><span className="text-xs font-mono uppercase tracking-wider text-ink/60">{label}</span><input className="form-control" required={required} {...props} /></label> }
