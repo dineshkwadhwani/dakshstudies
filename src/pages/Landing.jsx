@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import SiteFooter from '../components/SiteFooter.jsx'
 import { supabase } from '../lib/supabase.js'
+import { analyticsConsent, disableAnalytics, enableLandingAnalytics, setAnalyticsConsent, trackLandingEvent } from '../lib/analytics.js'
 
 const features = [
   ['📚', 'Chapter summaries & notes', 'Revise every CBSE Class 10 chapter with focused study material.'],
@@ -23,6 +24,18 @@ export default function Landing() {
   const [params] = useSearchParams()
   const referralCode = (params.get('ref') || params.get('source') || '').trim().toUpperCase()
   const [packages, setPackages] = useState(fallbackPackages)
+  const [analyticsChoice, setAnalyticsChoice] = useState(analyticsConsent)
+
+  useEffect(() => {
+    if (analyticsChoice === 'granted') enableLandingAnalytics()
+    else disableAnalytics()
+    return disableAnalytics
+  }, [analyticsChoice])
+
+  const chooseAnalytics = allowed => {
+    setAnalyticsConsent(allowed)
+    setAnalyticsChoice(allowed ? 'granted' : 'denied')
+  }
 
   useEffect(() => {
     if (referralCode) window.sessionStorage.setItem('tenthkipadhai_referral_code', referralCode)
@@ -57,8 +70,8 @@ export default function Landing() {
           <span className="font-display font-extrabold text-xl">Tenth Ki Padhai</span>
         </div>
         <div className="flex gap-2">
-          <Link to="/login" className="btn-ghost px-3 py-2">Log in</Link>
-          <Link to={registrationUrl()} className="btn-primary px-4 py-2">Start studying</Link>
+          <Link to="/login" onClick={() => trackLandingEvent('login_click', { placement: 'header' })} className="btn-ghost px-3 py-2">Log in</Link>
+          <Link to={registrationUrl()} onClick={() => trackLandingEvent('sign_up_click', { placement: 'header' })} className="btn-primary px-4 py-2">Start studying</Link>
         </div>
       </header>
 
@@ -69,8 +82,8 @@ export default function Landing() {
             <h1 className="heading-display text-4xl sm:text-6xl leading-[1.05]">A study plan that turns preparation into progress.</h1>
             <p className="text-lg text-ink/70 mt-5 max-w-xl">Plan your days, revise chapters, practise MCQs, complete worksheets and see exactly where you are improving.</p>
             <div className="flex flex-wrap gap-3 mt-7">
-              <Link to={registrationUrl('FREE')} className="btn-primary">Try free for 7 days →</Link>
-              <a href="#features" className="btn-secondary">See how it helps</a>
+              <Link to={registrationUrl('FREE')} onClick={() => trackLandingEvent('sign_up_click', { placement: 'hero', package_code: 'FREE' })} className="btn-primary">Try free for 7 days →</Link>
+              <a href="#features" onClick={() => trackLandingEvent('view_features_click')} className="btn-secondary">See how it helps</a>
             </div>
           </div>
           <div className="card p-6 bg-violet/20">
@@ -112,7 +125,7 @@ export default function Landing() {
                   {(pkg.display_features || []).map(feature => <li className="flex gap-2 text-sm" key={feature}><span className="font-bold text-green-700">✓</span><span>{feature}</span></li>)}
                 </ul>
                 {pkg.sale_enabled
-                  ? <Link to={registrationUrl(pkg.code)} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
+                  ? <Link to={registrationUrl(pkg.code)} onClick={() => trackLandingEvent('select_package', { package_code: pkg.code, package_name: pkg.name })} className="btn-primary w-full mt-6">Choose {pkg.name}</Link>
                   : <button type="button" disabled className="btn-secondary w-full mt-6 cursor-not-allowed opacity-65">Coming Soon</button>}
               </article>
             ))}
@@ -120,6 +133,7 @@ export default function Landing() {
         </section>
       </main>
       <SiteFooter />
+      {analyticsChoice === null && <div className="fixed inset-x-3 bottom-3 z-50 max-w-2xl sm:mx-auto card p-4 bg-paper" role="dialog" aria-label="Analytics preference"><div className="sm:flex items-center gap-4"><div className="flex-1"><div className="font-display font-extrabold">Help us improve Tenth Ki Padhai</div><p className="text-xs text-ink/65 mt-1">With your permission, we use Google Analytics on this landing page to understand visits and sign-up clicks. We do not send your name, email, or study activity.</p></div><div className="flex gap-2 mt-3 sm:mt-0 shrink-0"><button type="button" className="btn-secondary px-3 py-2 text-sm" onClick={() => chooseAnalytics(false)}>No thanks</button><button type="button" className="btn-primary px-3 py-2 text-sm" onClick={() => chooseAnalytics(true)}>Allow analytics</button></div></div></div>}
     </div>
   )
 }
