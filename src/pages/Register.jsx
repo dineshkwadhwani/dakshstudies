@@ -7,6 +7,13 @@ import Turnstile from '../components/Turnstile.jsx'
 const allowedPackages = ['FREE', 'BASIC', 'PRO']
 const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim()
 const validName = value => /^[\p{L}][\p{L}\p{M} .'-]{1,79}$/u.test(value.trim())
+const validEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+const normalizePhone = value => {
+  const digits = value.replace(/\D/g, '')
+  const indianNumber = digits.length === 12 && digits.startsWith('91') ? digits.slice(2) : digits
+  return /^[6-9]\d{9}$/.test(indianNumber) ? `+91${indianNumber}` : ''
+}
+const validReferral = value => /^[A-Z0-9]{3,20}$/.test(value)
 
 export default function Register() {
   const [params] = useSearchParams()
@@ -16,6 +23,7 @@ export default function Register() {
   const [availablePackages, setAvailablePackages] = useState([])
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [referralCode, setReferralCode] = useState(capturedReferral)
   const [error, setError] = useState('')
@@ -47,16 +55,21 @@ export default function Register() {
     if (!supabase) return setError('Supabase is not configured.')
     const cleanName = fullName.trim().replace(/\s+/g, ' ')
     const cleanEmail = email.trim().toLowerCase()
+    const cleanPhone = normalizePhone(phone)
     const cleanReferral = referralCode.trim().toUpperCase()
     if (website || Date.now() - formOpenedAt.current < 1500) return setError('Please wait a moment and try again.')
+    if (!allowedPackages.includes(packageCode) || !availablePackages.some(pkg => pkg.code === packageCode)) return setError('Please select an available package.')
     if (!validName(cleanName)) return setError('Enter a valid full name using letters, spaces, apostrophes or hyphens.')
+    if (!validEmail(cleanEmail)) return setError('Enter a valid email address.')
+    if (!cleanPhone) return setError('Enter a valid 10-digit Indian mobile number.')
     if (password.length < 8) return setError('Password must be at least 8 characters.')
+    if (cleanReferral && !validReferral(cleanReferral)) return setError('Enter a valid referral code using 3–20 letters and numbers.')
     if (turnstileSiteKey && !captchaToken) return setError('Please complete the security check.')
     setSubmitting(true)
     setError('')
     if (cleanReferral) {
-      const { data: referralValid, error: referralError } = await supabase.rpc('is_valid_referral_code', { code_input: cleanReferral })
-      if (referralError || !referralValid) {
+      const { data: referralIsValid, error: referralError } = await supabase.rpc('is_valid_referral_code', { code_input: cleanReferral })
+      if (referralError || !referralIsValid) {
         setSubmitting(false)
         return setError(referralError ? 'Referral validation is temporarily unavailable.' : 'This referral code is not valid.')
       }
@@ -67,7 +80,7 @@ export default function Register() {
       options: {
         captchaToken: captchaToken || undefined,
         emailRedirectTo: `${import.meta.env.PROD ? 'https://tenthkipadhai.online' : window.location.origin}/login`,
-        data: { full_name: cleanName, selected_package: packageCode, referral_code: cleanReferral || null },
+        data: { full_name: cleanName, phone: cleanPhone, selected_package: packageCode, referral_code: cleanReferral || null },
       },
     })
     setSubmitting(false)
@@ -99,11 +112,12 @@ export default function Register() {
       </label>
       <Field label="Full name" value={fullName} onChange={setFullName} autoComplete="name" minLength="2" maxLength="80" title="Use letters, spaces, apostrophes or hyphens." />
       <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
+      <Field label="Phone number" type="tel" value={phone} onChange={setPhone} autoComplete="tel" inputMode="numeric" minLength="10" maxLength="18" pattern="[+0-9 ()-]{10,18}" placeholder="98765 43210" title="Enter a valid 10-digit Indian mobile number." />
       <Field label="Password" type="password" minLength="8" value={password} onChange={setPassword} autoComplete="new-password" />
-      <Field label="Referral code" value={referralCode} onChange={setReferralCode} required={false} />
+      <Field label="Referral code (optional)" value={referralCode} onChange={value => setReferralCode(value.toUpperCase())} required={false} minLength="3" maxLength="20" pattern="[A-Za-z0-9]{3,20}" autoComplete="off" title="Use 3–20 letters and numbers." />
       <label className="hidden" aria-hidden="true">Website<input tabIndex="-1" autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} /></label>
       {turnstileSiteKey && <Turnstile key={captchaKey} siteKey={turnstileSiteKey} onToken={setCaptchaToken} onError={captchaError} />}
-      <p className="text-xs text-ink/60">Use at least 8 characters. By registering, you agree to the platform terms and privacy policy.</p>
+      <p className="text-xs text-ink/60">All fields except referral code are required. Use at least 8 characters for your password. By registering, you agree to the platform terms and privacy policy.</p>
       {error && <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm">{error}</div>}
       <button className="btn-primary w-full" disabled={submitting}>{submitting ? 'Creating account…' : 'Create account →'}</button>
       <div className="text-center text-sm text-ink/65">Already registered? <Link className="font-bold underline" to="/login">Log in</Link></div>

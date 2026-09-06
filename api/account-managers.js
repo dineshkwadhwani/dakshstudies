@@ -31,6 +31,7 @@ export async function handleAccountManagers(request, response, env = process.env
 
   const { data: created, error: createError } = await admin.auth.admin.createUser({
     email, password, email_confirm: true,
+    app_metadata: { provisioned_role: 'account_manager' },
     user_metadata: { full_name: fullName, created_by: authData.user.id },
   })
   if (createError) return json(response, createError.message?.toLowerCase().includes('already') ? 409 : 400, { error: createError.message })
