@@ -100,7 +100,7 @@ export default function Register() {
   </AuthShell>
 
   return <AuthShell title="Create your account" subtitle="Choose a package now. Paid checkout starts after email verification.">
-    <form onSubmit={submit} className="space-y-4">
+    <form onSubmit={submit} className="space-y-3">
       <label className="block">
           <span className="text-xs font-mono uppercase tracking-wider text-ink/60">Package <span className="text-flame" aria-hidden="true">*</span></span>
         <select required value={packageCode} onChange={e => setPackageCode(e.target.value)} className="form-control">
