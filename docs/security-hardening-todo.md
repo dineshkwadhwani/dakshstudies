@@ -25,14 +25,14 @@ Priority definitions:
   - Verify active account, entitlement, published state, package feature, and answer-key release policy.
   - Add tests proving that guessed paths, unpublished resources, and pre-submission answer keys are denied.
 
-- [x] **SEC-P0-03: Rotate and correctly scope exposed secrets** *(completed by owner)*
+- [ ] **SEC-P0-03: Rotate and correctly scope exposed secrets** *(variable scope corrected; Turnstile secret was exposed again and requires final rotation)*
   - Rotate the previously exposed Resend API key.
   - Remove the `VITE_` prefix from the Turnstile secret and rotate it if it was deployed.
   - Confirm service-role, database, Razorpay, Groq, and administrative credentials exist only in server-side secret storage.
   - Remove long-lived SuperAdmin passwords from developer environment files where possible.
   - Done when old credentials are revoked and the deployed application works with replacements.
 
-- [ ] **SEC-P0-04: Protect anonymous registration, contact, and audit endpoints from abuse** *(implemented and tested locally; awaiting configuration and deployment verification)*
+- [x] **SEC-P0-04: Protect anonymous registration, contact, and audit endpoints from abuse** *(deployed and production checks passed)*
   - Verify Turnstile tokens server-side; do not rely only on displaying the widget.
   - Add IP/device/email rate limits for registration and contact submissions.
   - Rate-limit or redesign anonymous `registration.failed` audit ingestion.
