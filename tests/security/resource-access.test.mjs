@@ -23,3 +23,13 @@ test('resource authorization enforces answer release, entitlement, and publicati
   assert.match(migration, /resource\.status = 'published'/)
   assert.match(migration, /Only SuperAdmin can directly read learning content files/)
 })
+
+test('corrective authorization migration avoids the PostgreSQL CURRENT_ROLE expression and preserves access rules', async () => {
+  const original = await read('supabase/migrations/202609070004_secure_learning_resource_access.sql')
+  const correction = await read('supabase/migrations/202609070008_fix_learning_resource_actor_role.sql')
+  const functionBody = sql => sql.slice(sql.indexOf('create or replace function'), sql.indexOf('$$;') + 3)
+  assert.equal(functionBody(correction), functionBody(original).replaceAll('current_role', 'actor_app_role'))
+  assert.doesNotMatch(functionBody(correction), /\bcurrent_role\b/i)
+  assert.match(correction, /revoke all on function public\.authorize_learning_resource\(uuid, uuid\) from anon/)
+  assert.match(correction, /grant execute on function public\.authorize_learning_resource\(uuid, uuid\) to authenticated/)
+})
