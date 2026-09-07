@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { supabase } from '../lib/supabase.js'
 import ReferralShare from '../components/ReferralShare.jsx'
+import CitySelect from '../components/CitySelect.jsx'
 
 const empty = { full_name: '', email: '', phone: '', school_name: '', city: '', date_of_birth: '', target_exam_date: '', parent_name: '', parent_email: '' }
 
@@ -58,7 +59,7 @@ export default function Profile() {
     <form onSubmit={submit} className="space-y-5">
       <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Account details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="Full name" value={form.full_name} onChange={set('full_name')} /><ReadOnly label="Email address" value={form.email} hint="Your verified login email cannot be changed here." /><ReadOnly label="Role" value={roleName(profile.role)} /><ReadOnly label="Account status" value={profile.status} /></div></section>
       <section className="card p-5 sm:p-6 space-y-4 bg-sun/10"><div><h2 className="heading-display text-xl">Your referral</h2><p className="text-sm text-ink/55 mt-1">Share your link or QR code. When someone registers through it, the referral is credited to you.</p></div><ReadOnly label="Referral code" value={profile.referral_code} /><ReferralShare code={profile.referral_code} compact /></section>
-      <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Personal details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="Phone number" type="tel" required={isStudent} value={form.phone} onChange={set('phone')} /><Field label="City" required={isStudent} value={form.city} onChange={set('city')} />{isStudent && <Field label="Date of birth" type="date" value={form.date_of_birth} onChange={set('date_of_birth')} />}</div></section>
+      <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Personal details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="Phone number" type="tel" required={isStudent} value={form.phone} onChange={set('phone')} /><CitySelect required={isStudent} value={form.city} onChange={value => setForm(current => ({ ...current, city: value }))} />{isStudent && <Field label="Date of birth" type="date" value={form.date_of_birth} onChange={set('date_of_birth')} />}</div></section>
       {isStudent && <section className="card p-5 sm:p-6 space-y-4"><h2 className="heading-display text-xl">Study details</h2><div className="grid sm:grid-cols-2 gap-4"><Field label="School name" value={form.school_name} onChange={set('school_name')} /><Field label="Target exam date" type="date" value={form.target_exam_date} onChange={set('target_exam_date')} /><ReadOnly label="Board" value="CBSE" /><ReadOnly label="Class" value="Class 10" /></div></section>}
       {isStudent && <section className="card p-5 sm:p-6 space-y-4"><div><h2 className="heading-display text-xl">Parent or guardian</h2><p className="text-sm text-ink/55 mt-1">Optional. Daily missed-schedule reports are sent to this address when configured.</p></div><div className="grid sm:grid-cols-2 gap-4"><Field label="Parent/guardian name" required={false} value={form.parent_name} onChange={set('parent_name')} /><Field label="Parent/guardian email" type="email" required={false} value={form.parent_email} onChange={set('parent_email')} /></div></section>}
       {message.text && <div role="status" className={`card p-3 ${message.type === 'success' ? 'bg-leaf/25' : 'bg-flame/15'}`}>{message.text}</div>}
@@ -111,6 +112,6 @@ function PasswordChange({ email, disabled }) {
   </section>
 }
 
-function Field({ label, required = true, ...props }) { return <label className="block"><span className="text-xs font-mono uppercase tracking-wider text-ink/60">{label}</span><input className="form-control" required={required} {...props} /></label> }
+function Field({ label, required = true, ...props }) { return <label className="block"><span className="text-xs font-mono uppercase tracking-wider text-ink/60">{label} {required ? <span className="text-flame" aria-hidden="true">*</span> : <span className="normal-case">(optional)</span>}</span><input className="form-control" required={required} {...props} /></label> }
 function ReadOnly({ label, value, hint }) { return <label className="block"><span className="text-xs font-mono uppercase tracking-wider text-ink/60">{label}</span><input className="form-control bg-ink/5 text-ink/60 cursor-not-allowed" value={value || '—'} readOnly aria-readonly="true" />{hint && <span className="block text-xs text-ink/50 mt-1">{hint}</span>}</label> }
 function roleName(role) { return ({ student: 'Student', super_admin: 'SuperAdmin', account_manager: 'Account Manager' })[role] || role }

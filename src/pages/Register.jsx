@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { AuthShell, Field } from './Login.jsx'
 import Turnstile from '../components/Turnstile.jsx'
+import CitySelect from '../components/CitySelect.jsx'
 
 const allowedPackages = ['FREE', 'BASIC', 'PRO']
 const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim()
@@ -14,6 +15,7 @@ const normalizePhone = value => {
   return /^[6-9]\d{9}$/.test(indianNumber) ? `+91${indianNumber}` : ''
 }
 const validReferral = value => /^[A-Z0-9]{3,20}$/.test(value)
+const validCity = value => /^[\p{L}\p{M}][\p{L}\p{M} .'-]{1,79}$/u.test(value)
 
 export default function Register() {
   const [params] = useSearchParams()
@@ -24,6 +26,7 @@ export default function Register() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
+  const [city, setCity] = useState('')
   const [password, setPassword] = useState('')
   const [referralCode, setReferralCode] = useState(capturedReferral)
   const [error, setError] = useState('')
@@ -56,12 +59,14 @@ export default function Register() {
     const cleanName = fullName.trim().replace(/\s+/g, ' ')
     const cleanEmail = email.trim().toLowerCase()
     const cleanPhone = normalizePhone(phone)
+    const cleanCity = city.trim()
     const cleanReferral = referralCode.trim().toUpperCase()
     if (website || Date.now() - formOpenedAt.current < 1500) return setError('Please wait a moment and try again.')
     if (!allowedPackages.includes(packageCode) || !availablePackages.some(pkg => pkg.code === packageCode)) return setError('Please select an available package.')
     if (!validName(cleanName)) return setError('Enter a valid full name using letters, spaces, apostrophes or hyphens.')
     if (!validEmail(cleanEmail)) return setError('Enter a valid email address.')
     if (!cleanPhone) return setError('Enter a valid 10-digit Indian mobile number.')
+    if (!validCity(cleanCity)) return setError('Please select your city.')
     if (password.length < 8) return setError('Password must be at least 8 characters.')
     if (cleanReferral && !validReferral(cleanReferral)) return setError('Enter a valid referral code using 3–20 letters and numbers.')
     if (!turnstileSiteKey) return setError('Registration security is temporarily unavailable.')
@@ -78,7 +83,7 @@ export default function Register() {
     const response = await fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fullName: cleanName, email: cleanEmail, phone: cleanPhone, password, packageCode, referralCode: cleanReferral || null, captchaToken, website }),
+      body: JSON.stringify({ fullName: cleanName, email: cleanEmail, phone: cleanPhone, city: cleanCity, password, packageCode, referralCode: cleanReferral || null, captchaToken, website }),
     })
     const responseBody = await response.json().catch(() => ({}))
     setSubmitting(false)
@@ -97,7 +102,7 @@ export default function Register() {
   return <AuthShell title="Create your account" subtitle="Choose a package now. Paid checkout starts after email verification.">
     <form onSubmit={submit} className="space-y-4">
       <label className="block">
-        <span className="text-xs font-mono uppercase tracking-wider text-ink/60">Package</span>
+          <span className="text-xs font-mono uppercase tracking-wider text-ink/60">Package <span className="text-flame" aria-hidden="true">*</span></span>
         <select required value={packageCode} onChange={e => setPackageCode(e.target.value)} className="form-control">
           {!availablePackages.length && <option value="">Loading available packages…</option>}
           {availablePackages.map(pkg => <option value={pkg.code} key={pkg.code}>{pkg.name} — {pkg.price_paise ? `₹${Math.round(pkg.price_paise / 100)}` : `${pkg.trial_days} days free`}</option>)}
@@ -106,8 +111,9 @@ export default function Register() {
       <Field label="Full name" value={fullName} onChange={setFullName} autoComplete="name" minLength="2" maxLength="80" title="Use letters, spaces, apostrophes or hyphens." />
       <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
       <Field label="Phone number" type="tel" value={phone} onChange={setPhone} autoComplete="tel" inputMode="numeric" minLength="10" maxLength="18" pattern="[+0-9 ()-]{10,18}" placeholder="98765 43210" title="Enter a valid 10-digit Indian mobile number." />
+      <CitySelect value={city} onChange={setCity} />
       <Field label="Password" type="password" minLength="8" value={password} onChange={setPassword} autoComplete="new-password" />
-      <Field label="Referral code (optional)" value={referralCode} onChange={value => setReferralCode(value.toUpperCase())} required={false} minLength="3" maxLength="20" pattern="[A-Za-z0-9]{3,20}" autoComplete="off" title="Use 3–20 letters and numbers." />
+      <Field label="Referral code" value={referralCode} onChange={value => setReferralCode(value.toUpperCase())} required={false} minLength="3" maxLength="20" pattern="[A-Za-z0-9]{3,20}" autoComplete="off" title="Use 3–20 letters and numbers." />
       <label className="hidden" aria-hidden="true">Website<input tabIndex="-1" autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} /></label>
       {turnstileSiteKey && <Turnstile key={captchaKey} siteKey={turnstileSiteKey} onToken={setCaptchaToken} onError={captchaError} />}
       <p className="text-xs text-ink/60">All fields except referral code are required. Use at least 8 characters for your password. By registering, you agree to the platform terms and privacy policy.</p>

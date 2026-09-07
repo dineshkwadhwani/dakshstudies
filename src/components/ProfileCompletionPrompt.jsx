@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { supabase } from '../lib/supabase.js'
+import CitySelect from './CitySelect.jsx'
 
 const normalizePhone = value => {
   const digits = value.replace(/\D/g, '')
@@ -73,7 +74,7 @@ export default function ProfileCompletionPrompt() {
       </div>
       <form onSubmit={save} className="space-y-4 mt-5" noValidate>
         <label className="block"><span className="text-xs font-mono uppercase text-ink/60">Phone number <span className="normal-case">(optional)</span></span><input type="tel" inputMode="numeric" autoComplete="tel" className="form-control" value={phone} onChange={event => setPhone(event.target.value)} placeholder="98765 43210" maxLength="18" /></label>
-        <label className="block"><span className="text-xs font-mono uppercase text-ink/60">City <span className="normal-case">(optional)</span></span><input type="text" autoComplete="address-level2" className="form-control" value={city} onChange={event => setCity(event.target.value)} maxLength="80" /></label>
+        <CitySelect required={false} value={city} onChange={setCity} />
         {error && <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm" role="alert">{error}</div>}
         <button type="submit" className="btn-primary w-full" disabled={saving}>{saving ? 'Saving…' : 'Save details'}</button>
       </form>

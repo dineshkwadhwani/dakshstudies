@@ -57,7 +57,9 @@ export function AuthShell({ title, subtitle, children }) {
 
 export function Field({ label, type = 'text', value, onChange, autoComplete, required = true, ...props }) {
   return <label className="block">
-    <span className="text-xs font-mono uppercase tracking-wider text-ink/60">{label}</span>
+    <span className="text-xs font-mono uppercase tracking-wider text-ink/60">
+      {label} {required ? <span className="text-flame" aria-hidden="true">*</span> : <span className="normal-case">(optional)</span>}
+    </span>
     <input type={type} required={required} value={value} onChange={e => onChange(e.target.value)} autoComplete={autoComplete}
       className="w-full mt-1 px-4 py-3 rounded-xl border-2 border-ink bg-paper focus:outline-none focus:shadow-pop" {...props} />
   </label>

@@ -9,6 +9,7 @@ const json = (response, status, body, retryAfter) => {
 const validName = value => /^[\p{L}][\p{L}\p{M} .'-]{1,79}$/u.test(value)
 const validEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 const validPhone = value => /^\+91[6-9]\d{9}$/.test(value)
+const validCity = value => /^[\p{L}\p{M}][\p{L}\p{M} .'-]{1,79}$/u.test(value)
 const validReferral = value => /^[A-Z0-9]{3,20}$/.test(value)
 const allowedPackages = new Set(['FREE', 'BASIC', 'PRO'])
 
@@ -35,6 +36,7 @@ export async function handleRegister(request, response, env = process.env) {
   const fullName = String(request.body?.fullName || '').trim().replace(/\s+/g, ' ')
   const email = String(request.body?.email || '').trim().toLowerCase()
   const phone = String(request.body?.phone || '').trim()
+  const city = String(request.body?.city || '').trim().replace(/\s+/g, ' ')
   const password = String(request.body?.password || '')
   const packageCode = String(request.body?.packageCode || '').trim().toUpperCase()
   const referralCode = String(request.body?.referralCode || '').trim().toUpperCase()
@@ -49,7 +51,7 @@ export async function handleRegister(request, response, env = process.env) {
     return json(response, 503, { error: 'Registration is temporarily unavailable' })
   }
 
-  if (!validName(fullName) || !validEmail(email) || !validPhone(phone) || password.length < 8 || !allowedPackages.has(packageCode) || (referralCode && !validReferral(referralCode))) {
+  if (!validName(fullName) || !validEmail(email) || !validPhone(phone) || !validCity(city) || password.length < 8 || !allowedPackages.has(packageCode) || (referralCode && !validReferral(referralCode))) {
     return json(response, 400, { error: 'Please check the registration details and try again.' })
   }
   if (!captchaToken) return json(response, 400, { error: 'Please complete the security check.' })
@@ -75,7 +77,7 @@ export async function handleRegister(request, response, env = process.env) {
     options: {
       captchaToken,
       emailRedirectTo: `${siteUrl}/login`,
-      data: { full_name: fullName, phone, selected_package: packageCode, referral_code: referralCode || null },
+      data: { full_name: fullName, phone, city, selected_package: packageCode, referral_code: referralCode || null },
     },
   })
 

@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { supabase } from '../lib/supabase.js'
 import { AuthShell, Field } from './Login.jsx'
+import CitySelect from '../components/CitySelect.jsx'
 
 const initial = {
   fullName: '', phone: '', school: '', city: '', birthDate: '', examDate: '', parentName: '', parentEmail: '',
@@ -11,7 +12,12 @@ const initial = {
 export default function Onboarding() {
   const { profile, reloadProfile } = useAuth()
   const navigate = useNavigate()
-  const [form, setForm] = useState(() => ({ ...initial, fullName: profile?.full_name || '' }))
+  const [form, setForm] = useState(() => ({
+    ...initial,
+    fullName: profile?.full_name || '',
+    phone: profile?.phone || '',
+    city: profile?.city || '',
+  }))
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -44,7 +50,7 @@ export default function Onboarding() {
       <Field label="Full name" value={form.fullName} onChange={set('fullName')} autoComplete="name" />
       <Field label="Phone number" type="tel" value={form.phone} onChange={set('phone')} autoComplete="tel" />
       <Field label="School name" value={form.school} onChange={set('school')} />
-      <Field label="City" value={form.city} onChange={set('city')} autoComplete="address-level2" />
+      <CitySelect value={form.city} onChange={set('city')} />
       <div className="grid grid-cols-2 gap-3">
         <Field label="Date of birth" type="date" value={form.birthDate} onChange={set('birthDate')} />
         <Field label="Target exam date" type="date" value={form.examDate} onChange={set('examDate')} />
