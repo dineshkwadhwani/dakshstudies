@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.jsx'
+import ProfileCompletionPrompt from './ProfileCompletionPrompt.jsx'
 
 const STUDENT_NAV = [
   { to: '/dashboard', label: 'Home',     icon: HomeIcon },
@@ -30,6 +31,7 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen flex flex-col">
       {isImpersonating && <ImpersonationBanner impersonation={impersonation} stopImpersonation={stopImpersonation} />}
+      <ProfileCompletionPrompt />
       <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur-md border-b-2 border-ink">
           <div className="max-w-3xl mx-auto px-4 py-3 flex items-center gap-3">
             {!isHome && <button

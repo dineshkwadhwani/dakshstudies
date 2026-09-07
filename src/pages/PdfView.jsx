@@ -8,7 +8,8 @@ export default function PdfView() {
   const { search } = useLocation()
   const navigate = useNavigate()
   const params = new URLSearchParams(search)
-  const storagePath = params.get('path')
+  const resourceVersionId = params.get('version')
+  const assessmentResourceId = params.get('assessmentResource')
   const title = params.get('title') || 'Document'
   const back = params.get('back') || '/dashboard'
   const [state, setState] = useState({ url: null, loading: true, error: null })
@@ -16,11 +17,11 @@ export default function PdfView() {
 
   useEffect(() => {
     let active = true
-    if (!storagePath) { setState({ url: null, loading: false, error: new Error('Document path is missing') }); return () => {} }
+    if (!resourceVersionId) { setState({ url: null, loading: false, error: new Error('Document reference is missing') }); return () => {} }
     setState({ url: null, loading: true, error: null })
-    createLearningContentUrl(storagePath).then(url => { if (active) { setState({ url, loading: false, error: null }); setModalOpen(true) } }).catch(error => active && setState({ url: null, loading: false, error }))
+    createLearningContentUrl(resourceVersionId, assessmentResourceId).then(url => { if (active) { setState({ url, loading: false, error: null }); setModalOpen(true) } }).catch(error => active && setState({ url: null, loading: false, error }))
     return () => { active = false }
-  }, [storagePath])
+  }, [resourceVersionId, assessmentResourceId])
 
   if (state.loading) return <div className="card p-8 text-center">Preparing your secure document…</div>
   if (state.error) return <div className="card p-8 text-center"><div className="text-4xl mb-3">🔒</div><p>This document could not be opened. Check that your package is active.</p><Link className="btn-secondary inline-flex mt-4" to={back}>Go back</Link></div>

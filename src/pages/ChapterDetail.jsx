@@ -23,8 +23,7 @@ export default function ChapterDetail() {
 function ResourceLink({ resource, subjectSlug, chapterKey }) {
   const latest = [...resource.content_resource_versions].sort((a, b) => b.version - a.version)[0]
   const display = resourcePresentation(resource)
-  const params = new URLSearchParams({ path: latest.storage_path, title: display.title, back: `/chapter/${subjectSlug}/${chapterKey}` })
+  const params = new URLSearchParams({ version: latest.id, title: display.title, back: `/chapter/${subjectSlug}/${chapterKey}` })
   return <Link to={`/pdf?${params}`} className={`card-pop block p-4 mb-2 tappable ${RESOURCE_COLORS[resource.resource_type] || 'bg-cream'}`}><div className="flex items-center gap-3"><div className="text-2xl">{display.icon}</div><div className="flex-1 min-w-0"><div className="font-display font-bold">{display.title}</div><div className="text-xs text-ink/60">{display.subtitle}</div></div><span className="text-xl">›</span></div></Link>
 }
 function Status({ message, action }) { return <div className="card p-8 text-center"><p>{message}</p>{action && <button className="btn-secondary mt-4" onClick={action}>Try again</button>}</div> }
-

@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import PublicPageLayout, { InfoSection } from '../components/PublicPageLayout.jsx'
+import Turnstile from '../components/Turnstile.jsx'
 
 const initialForm = { name: '', email: '', phone: '', subject: '', message: '', website: '' }
+const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim()
 
 export default function Contact() {
   const [form, setForm] = useState(initialForm)
   const [status, setStatus] = useState({ type: '', message: '' })
   const [submitting, setSubmitting] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState('')
+  const [captchaKey, setCaptchaKey] = useState(0)
+  const captchaError = useCallback(() => setStatus({ type: 'error', message: 'The security check could not be completed. Please try again.' }), [])
 
   const update = (key) => (event) => setForm(current => ({ ...current, [key]: event.target.value }))
   const submit = async (event) => {
@@ -14,13 +19,17 @@ export default function Contact() {
     setSubmitting(true)
     setStatus({ type: '', message: '' })
     try {
-      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) })
+      if (!turnstileSiteKey || !captchaToken) throw new Error('Please complete the security check.')
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, captchaToken }) })
       const data = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(data.error || 'Your message could not be sent. Please email us directly.')
       setForm(initialForm)
+      setCaptchaToken('')
+      setCaptchaKey(value => value + 1)
       setStatus({ type: 'success', message: 'Thank you. Your message has been sent to our customer-care team.' })
     } catch (error) {
       setStatus({ type: 'error', message: error.message })
+      if (captchaToken) { setCaptchaToken(''); setCaptchaKey(value => value + 1) }
     } finally {
       setSubmitting(false)
     }
@@ -38,6 +47,7 @@ export default function Contact() {
           <ContactField label="Subject *" value={form.subject} onChange={update('subject')} />
           <label className="sm:col-span-2"><span className="text-xs font-mono uppercase tracking-wider text-ink/60">Message *</span><textarea className="form-control min-h-36 resize-y" required maxLength={4000} value={form.message} onChange={update('message')} /></label>
           <label className="hidden" aria-hidden="true">Website<input tabIndex="-1" autoComplete="off" value={form.website} onChange={update('website')} /></label>
+          {turnstileSiteKey && <div className="sm:col-span-2"><Turnstile key={captchaKey} siteKey={turnstileSiteKey} onToken={setCaptchaToken} onError={captchaError} /></div>}
           {status.message && <div role="status" className={`sm:col-span-2 rounded-xl border-2 p-3 text-sm ${status.type === 'success' ? 'border-ink bg-leaf/25' : 'border-flame bg-flame/15'}`}>{status.message}</div>}
           <button className="btn-primary sm:col-span-2" disabled={submitting}>{submitting ? 'Sending…' : 'Send enquiry →'}</button>
         </form>

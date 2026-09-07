@@ -64,7 +64,8 @@ export default function Register() {
     if (!cleanPhone) return setError('Enter a valid 10-digit Indian mobile number.')
     if (password.length < 8) return setError('Password must be at least 8 characters.')
     if (cleanReferral && !validReferral(cleanReferral)) return setError('Enter a valid referral code using 3–20 letters and numbers.')
-    if (turnstileSiteKey && !captchaToken) return setError('Please complete the security check.')
+    if (!turnstileSiteKey) return setError('Registration security is temporarily unavailable.')
+    if (!captchaToken) return setError('Please complete the security check.')
     setSubmitting(true)
     setError('')
     if (cleanReferral) {
@@ -74,24 +75,16 @@ export default function Register() {
         return setError(referralError ? 'Referral validation is temporarily unavailable.' : 'This referral code is not valid.')
       }
     }
-    const { error: signUpError } = await supabase.auth.signUp({
-      email: cleanEmail,
-      password,
-      options: {
-        captchaToken: captchaToken || undefined,
-        emailRedirectTo: `${import.meta.env.PROD ? 'https://tenthkipadhai.online' : window.location.origin}/login`,
-        data: { full_name: cleanName, phone: cleanPhone, selected_package: packageCode, referral_code: cleanReferral || null },
-      },
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fullName: cleanName, email: cleanEmail, phone: cleanPhone, password, packageCode, referralCode: cleanReferral || null, captchaToken, website }),
     })
+    const responseBody = await response.json().catch(() => ({}))
     setSubmitting(false)
-    if (signUpError) {
-      if (turnstileSiteKey) { setCaptchaToken(''); setCaptchaKey(value => value + 1) }
-      fetch('/api/client-audit-event', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventType: 'registration.failed', errorCode: signUpError.code, status: signUpError.status, message: signUpError.message }),
-      }).catch(() => {})
-      return setError(signUpError.message)
+    if (!response.ok) {
+      setCaptchaToken(''); setCaptchaKey(value => value + 1)
+      return setError(responseBody.error || 'Your account could not be created. Please try again.')
     }
     window.sessionStorage.removeItem('tenthkipadhai_referral_code')
     setComplete(true)

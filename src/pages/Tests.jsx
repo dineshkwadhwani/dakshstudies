@@ -17,7 +17,7 @@ export default function Tests() {
 
   async function load() {
     const [catalog, history] = await Promise.all([
-      supabase.from('assessments').select('id,title,maximum_marks,assessment_resources(id,purpose,assessment_sections(id,title,sort_order),content_resources(id,title,content_resource_versions(version,storage_path,mime_type)))').eq('assessment_type', 'pdf_mock_test').eq('status', 'published').order('title'),
+      supabase.from('assessments').select('id,title,maximum_marks,assessment_resources(id,purpose,assessment_sections(id,title,sort_order),content_resources(id,title,content_resource_versions(id,version,mime_type)))').eq('assessment_type', 'pdf_mock_test').eq('status', 'published').order('title'),
       user ? supabase.from('assessment_attempts').select('id,assessment_id,schedule_task_id,status,started_at,submitted_at').eq('student_id', user.id).eq('mode', 'manual').order('started_at', { ascending: false }) : Promise.resolve({ data: [] }),
     ])
     if (catalog.error) setMessage(catalog.error.message)
@@ -74,6 +74,5 @@ function TestCard({ task, test, attempt, busy, onRun, onFinish }) {
 }
 
 function PaperSection({ section, resources, showAnswers, testTitle }) {
-  return <div className="rounded-2xl border-2 border-ink p-3 bg-paper"><div className="font-bold mb-2">{section}</div><div className="grid grid-cols-2 gap-2">{resources.filter(resource => resource.purpose === 'question_paper' || showAnswers).map(resource => { const version = [...(resource.content_resources?.content_resource_versions || [])].sort((a,b) => b.version-a.version)[0]; if (!version) return null; const params = new URLSearchParams({ path: version.storage_path, title: `${testTitle} · ${section}`, back: '/tests' }); return <Link key={resource.id} to={`/pdf?${params}`} className={`text-xs font-bold text-center rounded-lg border-2 border-ink p-2 ${resource.purpose === 'answer_key' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{resource.purpose === 'answer_key' ? 'Answers' : 'Question paper'}</Link> })}</div></div>
+  return <div className="rounded-2xl border-2 border-ink p-3 bg-paper"><div className="font-bold mb-2">{section}</div><div className="grid grid-cols-2 gap-2">{resources.filter(resource => resource.purpose === 'question_paper' || showAnswers).map(resource => { const version = [...(resource.content_resources?.content_resource_versions || [])].sort((a,b) => b.version-a.version)[0]; if (!version) return null; const params = new URLSearchParams({ version: version.id, assessmentResource: resource.id, title: `${testTitle} · ${section}`, back: '/tests' }); return <Link key={resource.id} to={`/pdf?${params}`} className={`text-xs font-bold text-center rounded-lg border-2 border-ink p-2 ${resource.purpose === 'answer_key' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{resource.purpose === 'answer_key' ? 'Answers' : 'Question paper'}</Link> })}</div></div>
 }
-

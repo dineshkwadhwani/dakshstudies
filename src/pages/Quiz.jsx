@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useChapter } from '../hooks/useCatalog.js'
 import { supabase } from '../lib/supabase.js'
 import { useQuizAllowance } from '../hooks/useQuizAllowance.js'
-import { toHTML } from '../utils/text.js'
+import MathText from '../components/MathText.js'
 
 /* ============================================================
    Helpers
@@ -259,10 +259,7 @@ function ActiveQuiz({ chapter, subject, mode, quizSet, durationMinutes, onFinish
       </div>
 
       <div className="card p-5 mt-4 animate-pop-in" key={idx}>
-        <div
-          className="font-display font-bold text-lg leading-snug"
-          dangerouslySetInnerHTML={{ __html: toHTML(q.q) }}
-        />
+        <MathText as="div" className="font-display font-bold text-lg leading-snug" text={q.q} />
         <div className="mt-4 space-y-2">
           {q.opts.map((opt, i) => {
             const letter = letters[i]
@@ -291,7 +288,7 @@ function ActiveQuiz({ chapter, subject, mode, quizSet, durationMinutes, onFinish
                   }`}>
                     {letter}
                   </div>
-                  <div className="flex-1 pt-1" dangerouslySetInnerHTML={{ __html: toHTML(opt) }} />
+                  <MathText as="div" className="flex-1 pt-1" text={opt} />
                   {isRevealed && isCorrect && <span className="text-xl">✓</span>}
                   {isRevealed && isSelected && !isCorrect && <span className="text-xl">✗</span>}
                 </div>
@@ -469,10 +466,7 @@ function ReviewSingleQuestion({ chapter, result, subject, idx, onPrev, onNext, o
       </div>
 
       <div className="card p-5 mt-4">
-        <div
-          className="font-display font-bold text-lg leading-snug"
-          dangerouslySetInnerHTML={{ __html: toHTML(q.q) }}
-        />
+        <MathText as="div" className="font-display font-bold text-lg leading-snug" text={q.q} />
         <div className="mt-4 space-y-2">
           {q.opts.map((opt, i) => {
             const letter = letters[i]
@@ -493,7 +487,7 @@ function ReviewSingleQuestion({ chapter, result, subject, idx, onPrev, onNext, o
                   }`}>
                     {letter}
                   </div>
-                  <div className="flex-1 pt-1" dangerouslySetInnerHTML={{ __html: toHTML(opt) }} />
+                  <MathText as="div" className="flex-1 pt-1" text={opt} />
                   {isCorrect && <span className="text-xl">✓</span>}
                   {isUser && !isCorrect && <span className="text-xl">✗</span>}
                 </div>

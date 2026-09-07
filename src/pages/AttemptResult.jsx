@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
-import { toHTML } from '../utils/text.js'
+import MathText from '../components/MathText.js'
 
 export default function AttemptResult() {
   const { attemptId } = useParams()
@@ -35,9 +35,8 @@ function QuestionResult({ question }) {
   const response = question.attempt_responses?.[0]
   const selected = response?.selected_option
   const correct = question.correct_option_snapshot
-  return <article className={`card p-4 ${response?.is_correct ? 'bg-leaf/10' : 'bg-flame/10'}`}><div className="flex justify-between gap-3"><div className="font-mono text-xs uppercase text-ink/60">Question {question.position}</div><span className={`chip text-[10px] py-0.5 ${response?.is_correct ? 'bg-leaf/40' : 'bg-flame/30'}`}>{response?.is_correct ? '✓ Correct' : selected ? '✗ Incorrect' : '— Skipped'}</span></div><div className="font-display font-bold mt-3" dangerouslySetInnerHTML={{ __html: toHTML(question.prompt_snapshot) }} /><div className="space-y-2 mt-3">{(question.options_snapshot || []).map((option, index) => { const isCorrect = option.id === correct; const isSelected = option.id === selected; return <div key={option.id} className={`rounded-xl border-2 p-3 flex gap-2 ${isCorrect ? 'border-ink bg-leaf/35' : isSelected ? 'border-ink bg-flame/30' : 'border-ink/20 bg-paper'}`}><span className="font-bold">{String.fromCharCode(65 + index)}.</span><span className="flex-1" dangerouslySetInnerHTML={{ __html: toHTML(option.text) }} />{isCorrect && <span>✓</span>}{isSelected && !isCorrect && <span>✗</span>}</div>})}</div></article>
+  return <article className={`card p-4 ${response?.is_correct ? 'bg-leaf/10' : 'bg-flame/10'}`}><div className="flex justify-between gap-3"><div className="font-mono text-xs uppercase text-ink/60">Question {question.position}</div><span className={`chip text-[10px] py-0.5 ${response?.is_correct ? 'bg-leaf/40' : 'bg-flame/30'}`}>{response?.is_correct ? '✓ Correct' : selected ? '✗ Incorrect' : '— Skipped'}</span></div><MathText as="div" className="font-display font-bold mt-3" text={question.prompt_snapshot} /><div className="space-y-2 mt-3">{(question.options_snapshot || []).map((option, index) => { const isCorrect = option.id === correct; const isSelected = option.id === selected; return <div key={option.id} className={`rounded-xl border-2 p-3 flex gap-2 ${isCorrect ? 'border-ink bg-leaf/35' : isSelected ? 'border-ink bg-flame/30' : 'border-ink/20 bg-paper'}`}><span className="font-bold">{String.fromCharCode(65 + index)}.</span><MathText className="flex-1" text={option.text} />{isCorrect && <span>✓</span>}{isSelected && !isCorrect && <span>✗</span>}</div>})}</div></article>
 }
 
 function MiniStat({ label, value }) { return <div className="card p-3 text-center"><div className="font-display font-extrabold text-lg leading-tight">{value}</div><div className="text-[10px] font-mono uppercase text-ink/60 mt-1">{label}</div></div> }
 function formatDuration(seconds = 0) { const minutes = Math.floor(seconds / 60); const remaining = seconds % 60; return minutes ? `${minutes}m ${remaining}s` : `${remaining}s` }
-

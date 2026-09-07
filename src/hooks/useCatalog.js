@@ -49,7 +49,7 @@ export function useSubjectChapters(subjectSlug) {
     const [{ data: chapters, error: chapterError }, { data: parent, error: parentError }] = await Promise.all([
       supabase
         .from('chapters')
-        .select('id, subject_id, chapter_number, title, slug, description, sort_order, legacy_id, content_resources(id, resource_type, title, description, current_version, content_resource_versions(id, version, storage_path, mime_type))')
+        .select('id, subject_id, chapter_number, title, slug, description, sort_order, legacy_id, content_resources(id, resource_type, title, description, current_version, content_resource_versions(id, version, mime_type))')
         .eq('subject_id', subject.id)
         .eq('status', 'published')
         .order('sort_order'),
@@ -76,12 +76,18 @@ export function useChapter(subjectSlug, chapterKey) {
   }
 }
 
-export async function createLearningContentUrl(storagePath, expiresIn = 900) {
-  const { data, error } = await supabase.storage
-    .from('learning-content')
-    .createSignedUrl(storagePath, expiresIn)
-  if (error) throw error
-  return data.signedUrl
+export async function createLearningContentUrl(resourceVersionId, assessmentResourceId = null) {
+  const { data: sessionData } = await supabase.auth.getSession()
+  const token = sessionData.session?.access_token
+  if (!token) throw new Error('Authentication required')
+  const response = await fetch('/api/learning-resource-url', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ resourceVersionId, assessmentResourceId }),
+  })
+  const body = await response.json().catch(() => ({}))
+  if (!response.ok || !body.url) throw new Error(body.error || 'The document could not be prepared')
+  return body.url
 }
 
 function useCatalogQuery(query, dependencies) {
@@ -100,4 +106,3 @@ function useCatalogQuery(query, dependencies) {
   useEffect(() => reload(), [reload])
   return { ...state, reload }
 }
-
