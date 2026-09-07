@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
-import { AuthShell, Field } from './Login.jsx'
+import { AuthShell } from './Login.jsx'
 
 export default function UpdatePassword() {
   const [password, setPassword] = useState('')
@@ -11,6 +11,16 @@ export default function UpdatePassword() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [complete, setComplete] = useState(false)
+
+  const changePassword = value => {
+    setPassword(value)
+    if (error) setError('')
+  }
+
+  const changeConfirmation = value => {
+    setConfirmation(value)
+    if (error) setError('')
+  }
 
   useEffect(() => {
     let active = true
@@ -57,11 +67,48 @@ export default function UpdatePassword() {
 
   return <AuthShell title="Set a new password" subtitle="Choose a password you don’t use elsewhere.">
     <form onSubmit={submit} className="space-y-4">
-      <Field label="New password" type="password" value={password} onChange={setPassword} autoComplete="new-password" />
-      <Field label="Confirm new password" type="password" value={confirmation} onChange={setConfirmation} autoComplete="new-password" />
+      <PasswordField label="New password" value={password} onChange={changePassword} />
+      <PasswordField label="Confirm new password" value={confirmation} onChange={changeConfirmation} />
       <p className="text-xs text-ink/60">Use at least 8 characters.</p>
       {error && <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm">{error}</div>}
       <button className="btn-primary w-full" disabled={submitting}>{submitting ? 'Updating…' : 'Update password →'}</button>
     </form>
   </AuthShell>
+}
+
+function PasswordField({ label, value, onChange }) {
+  const [visible, setVisible] = useState(false)
+  return <label className="block">
+    <span className="text-xs font-mono uppercase tracking-wider text-ink/60">
+      {label} <span className="text-flame" aria-hidden="true">*</span>
+    </span>
+    <span className="relative mt-1 block">
+      <input
+        type={visible ? 'text' : 'password'}
+        required
+        minLength="8"
+        value={value}
+        onChange={event => onChange(event.target.value)}
+        autoComplete="new-password"
+        className="w-full rounded-xl border-2 border-ink bg-paper px-4 py-3 pr-12 focus:outline-none focus:shadow-pop"
+      />
+      <button
+        type="button"
+        onClick={() => setVisible(current => !current)}
+        className="absolute inset-y-0 right-0 grid w-12 place-items-center rounded-r-xl text-ink/65 hover:text-ink focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ink"
+        aria-label={visible ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`}
+        aria-pressed={visible}
+      >
+        {visible ? <EyeOffIcon /> : <EyeIcon />}
+      </button>
+    </span>
+  </label>
+}
+
+function EyeIcon() {
+  return <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+}
+
+function EyeOffIcon() {
+  return <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m3 3 18 18"/><path d="M10.6 5.2A11.6 11.6 0 0 1 12 5c6.5 0 10 7 10 7a16.6 16.6 0 0 1-2.1 3.1M6.6 6.6C3.6 8.6 2 12 2 12s3.5 7 10 7c1.6 0 3-.4 4.2-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>
 }
