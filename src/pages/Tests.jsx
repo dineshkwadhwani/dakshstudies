@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { compareAssessmentResources } from '../utils/resourceOrder.js'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext.jsx'
 import { useStudyPlan } from '../hooks/useStudyPlan.js'
@@ -74,5 +75,5 @@ function TestCard({ task, test, attempt, busy, onRun, onFinish }) {
 }
 
 function PaperSection({ section, resources, showAnswers, testTitle }) {
-  return <div className="rounded-2xl border-2 border-ink p-3 bg-paper"><div className="font-bold mb-2">{section}</div><div className="grid grid-cols-2 gap-2">{resources.filter(resource => resource.purpose === 'question_paper' || showAnswers).map(resource => { const version = [...(resource.content_resources?.content_resource_versions || [])].sort((a,b) => b.version-a.version)[0]; if (!version) return null; const params = new URLSearchParams({ version: version.id, assessmentResource: resource.id, title: `${testTitle} · ${section}`, back: '/tests' }); return <Link key={resource.id} to={`/pdf?${params}`} className={`text-xs font-bold text-center rounded-lg border-2 border-ink p-2 ${resource.purpose === 'answer_key' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{resource.purpose === 'answer_key' ? 'Answers' : 'Question paper'}</Link> })}</div></div>
+  return <div className="rounded-2xl border-2 border-ink p-3 bg-paper"><div className="font-bold mb-2">{section}</div><div className="grid grid-cols-2 gap-2">{resources.filter(resource => resource.purpose === 'question_paper' || showAnswers).sort(compareAssessmentResources).map(resource => { const version = [...(resource.content_resources?.content_resource_versions || [])].sort((a,b) => b.version-a.version)[0]; if (!version) return null; const params = new URLSearchParams({ version: version.id, assessmentResource: resource.id, title: `${testTitle} · ${section}`, back: '/tests' }); return <Link key={resource.id} to={`/pdf?${params}`} className={`text-xs font-bold text-center rounded-lg border-2 border-ink p-2 ${resource.purpose === 'answer_key' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{resource.purpose === 'answer_key' ? 'Answers' : 'Question paper'}</Link> })}</div></div>
 }
