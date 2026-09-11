@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
+import { randomUUID } from 'node:crypto'
 import { consumeRateLimit, getClientIp, requestBodyTooLarge } from '../server/request-security.js'
 
 const json = (response, status, body, retryAfter) => {
@@ -12,6 +13,14 @@ const validPhone = value => /^\+91[6-9]\d{9}$/.test(value)
 const validCity = value => /^[\p{L}\p{M}][\p{L}\p{M} .'-]{1,79}$/u.test(value)
 const validReferral = value => /^[A-Z0-9]{3,20}$/.test(value)
 const allowedPackages = new Set(['FREE', 'BASIC', 'PRO'])
+
+function razorpayConfig(env) {
+  const production = String(env.RAZOR_PAYENV || 'DEV').trim().toUpperCase() === 'PROD'
+  return {
+    keyId: production ? env.RAZORPAY_KEY_ID : env.RAZORPAY_KEY_ID_TEST,
+    secret: production ? env.RAZOR_PAY_SECRET_KEY : env.RAZOR_PAY_SECRET_KEY_TEST,
+  }
+}
 
 function publicRegistrationError(error) {
   const message = String(error?.message || '').toLowerCase()
@@ -54,7 +63,8 @@ export async function handleRegister(request, response, env = process.env) {
   if (!validName(fullName) || !validEmail(email) || !validPhone(phone) || !validCity(city) || password.length < 8 || !allowedPackages.has(packageCode) || (referralCode && !validReferral(referralCode))) {
     return json(response, 400, { error: 'Please check the registration details and try again.' })
   }
-  if (!captchaToken) return json(response, 400, { error: 'Please complete the security check.' })
+  const isDevelopmentEnvironment = String(env.RAZOR_PAYENV || 'DEV').trim().toUpperCase() !== 'PROD'
+  if (!captchaToken && !isDevelopmentEnvironment) return json(response, 400, { error: 'Please complete the security check.' })
 
   try {
     const emailAllowed = await consumeRateLimit(admin, { action: 'registration.email', identifier: email, maximum: 4, windowSeconds: 1800, secret: rateLimitSecret })
@@ -71,7 +81,7 @@ export async function handleRegister(request, response, env = process.env) {
   }
 
   const siteUrl = (env.PUBLIC_SITE_URL || env.SITE_URL || 'https://tenthkipadhai.online').replace(/\/$/, '')
-  const { error: signUpError } = await authClient.auth.signUp({
+  const { data: signUpData, error: signUpError } = await authClient.auth.signUp({
     email,
     password,
     options: {
@@ -95,8 +105,26 @@ export async function handleRegister(request, response, env = process.env) {
     })
     return json(response, signUpError.status === 429 ? 429 : 400, { error: publicRegistrationError(signUpError) })
   }
-
-  return json(response, 201, { ok: true })
+  const studentId = signUpData?.user?.id
+  let payment = null
+  if (packageCode !== 'FREE' && studentId) {
+    const { data: year } = await admin.from('academic_years').select('id').eq('is_current', true).maybeSingle()
+    const { data: packages } = year ? await admin.from('packages').select('id,code,price_paise,currency,fixed_expires_on,status,sale_enabled').eq('academic_year_id', year.id).eq('code', packageCode).eq('status', 'published').eq('sale_enabled', true).maybeSingle() : { data: null }
+    const config = razorpayConfig(env)
+    if (year && packages && config.keyId && config.secret) {
+      const idempotencyKey = randomUUID()
+      const { data: transaction, error: transactionError } = await admin.from('payment_transactions').insert({ student_id: studentId, package_id: packages.id, academic_year_id: year.id, transaction_type: 'purchase', amount_paise: packages.price_paise, currency: packages.currency || 'INR', idempotency_key: idempotencyKey, provider_metadata: { environment: String(env.RAZOR_PAYENV || 'DEV').toUpperCase(), source: 'registration' } }).select('id').single()
+      if (!transactionError && transaction) {
+        const orderResponse = await fetch('https://api.razorpay.com/v1/orders', { method: 'POST', headers: { Authorization: `Basic ${Buffer.from(`${config.keyId}:${config.secret}`).toString('base64')}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: packages.price_paise, currency: packages.currency || 'INR', receipt: transaction.id, notes: { transaction_id: transaction.id, student_id: studentId, package_code: packageCode } }) })
+        const order = await orderResponse.json().catch(() => ({}))
+        if (orderResponse.ok && order.id) {
+          await admin.from('payment_transactions').update({ razorpay_order_id: order.id }).eq('id', transaction.id)
+          payment = { keyId: config.keyId, orderId: order.id, amount: packages.price_paise, currency: packages.currency || 'INR', transactionId: transaction.id }
+        }
+      }
+    }
+  }
+  return json(response, 201, { ok: true, payment })
 }
 
 export default function handler(request, response) {

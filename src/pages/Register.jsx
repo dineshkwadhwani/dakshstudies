@@ -7,6 +7,7 @@ import CitySelect from '../components/CitySelect.jsx'
 
 const allowedPackages = ['FREE', 'BASIC', 'PRO']
 const turnstileSiteKey = String(import.meta.env.VITE_TURNSTILE_SITE_KEY || '').trim()
+const isDevelopmentEnvironment = import.meta.env.DEV || ['localhost', '127.0.0.1'].includes(window.location.hostname)
 const validName = value => /^[\p{L}][\p{L}\p{M} .'-]{1,79}$/u.test(value.trim())
 const validEmail = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
 const normalizePhone = value => {
@@ -31,6 +32,7 @@ export default function Register() {
   const [referralCode, setReferralCode] = useState(capturedReferral)
   const [error, setError] = useState('')
   const [complete, setComplete] = useState(false)
+  const [paymentMessage, setPaymentMessage] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [captchaToken, setCaptchaToken] = useState('')
   const [captchaKey, setCaptchaKey] = useState(0)
@@ -69,8 +71,8 @@ export default function Register() {
     if (!validCity(cleanCity)) return setError('Please select your city.')
     if (password.length < 8) return setError('Password must be at least 8 characters.')
     if (cleanReferral && !validReferral(cleanReferral)) return setError('Enter a valid referral code using 3–20 letters and numbers.')
-    if (!turnstileSiteKey) return setError('Registration security is temporarily unavailable.')
-    if (!captchaToken) return setError('Please complete the security check.')
+    if (!isDevelopmentEnvironment && !turnstileSiteKey) return setError('Registration security is temporarily unavailable.')
+    if (!isDevelopmentEnvironment && !captchaToken) return setError('Please complete the security check.')
     setSubmitting(true)
     setError('')
     if (cleanReferral) {
@@ -92,10 +94,28 @@ export default function Register() {
       return setError(responseBody.error || 'Your account could not be created. Please try again.')
     }
     window.sessionStorage.removeItem('tenthkipadhai_referral_code')
+    if (responseBody.payment) return openPayment(responseBody.payment)
+    if (packageCode !== 'FREE') setPaymentMessage('Payment could not be started. Your account has been registered with the free trial package.')
     setComplete(true)
   }
 
-  if (complete) return <AuthShell title="Check your email" subtitle="We sent you a verification link. Verify your email before logging in.">
+  async function openPayment(payment) {
+    setSubmitting(true)
+    try {
+      if (!window.Razorpay) {
+        await new Promise((resolve, reject) => { const script = document.createElement('script'); script.src = 'https://checkout.razorpay.com/v1/checkout.js'; script.onload = resolve; script.onerror = () => reject(new Error('Unable to load payment checkout')) ; document.body.appendChild(script) })
+      }
+      const checkout = new window.Razorpay({ key: payment.keyId, amount: payment.amount, currency: payment.currency, name: 'Tenth Ki Padhai', description: 'Paid study package', order_id: payment.orderId, prefill: { name: fullName, email, contact: phone }, theme: { color: '#f6c453' }, handler: async result => {
+        const verify = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transactionId: payment.transactionId, razorpayOrderId: result.razorpay_order_id, razorpayPaymentId: result.razorpay_payment_id, razorpaySignature: result.razorpay_signature }) })
+        const body = await verify.json().catch(() => ({}))
+        setPaymentMessage(verify.ok ? 'Payment successful. Your paid package will be activated after verification.' : 'Payment verification did not succeed. Your account has been registered with the free trial package.')
+        setComplete(true)
+      }, modal: { ondismiss: () => { setPaymentMessage('The payment was not completed. Your account has been registered with the free trial package.'); setComplete(true) } } })
+      checkout.open()
+    } catch (error) { setPaymentMessage(`Payment could not be started. Your account has been registered with the free trial package.`); setComplete(true) } finally { setSubmitting(false) }
+  }
+
+  if (complete) return <AuthShell title="Registration complete" subtitle={paymentMessage || 'We sent you a verification link. Verify your email before logging in.'}>
     <Link to="/login" className="btn-primary w-full">Go to login</Link>
   </AuthShell>
 
@@ -115,7 +135,7 @@ export default function Register() {
       <Field label="Password" type="password" minLength="8" value={password} onChange={setPassword} autoComplete="new-password" />
       <Field label="Referral code" value={referralCode} onChange={value => setReferralCode(value.toUpperCase())} required={false} minLength="3" maxLength="20" pattern="[A-Za-z0-9]{3,20}" autoComplete="off" title="Use 3–20 letters and numbers." />
       <label className="hidden" aria-hidden="true">Website<input tabIndex="-1" autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} /></label>
-      {turnstileSiteKey && <Turnstile key={captchaKey} siteKey={turnstileSiteKey} onToken={setCaptchaToken} onError={captchaError} />}
+      {!isDevelopmentEnvironment && turnstileSiteKey && <Turnstile key={captchaKey} siteKey={turnstileSiteKey} onToken={setCaptchaToken} onError={captchaError} />}
       <p className="text-xs text-ink/60">All fields except referral code are required. Use at least 8 characters for your password. By registering, you agree to the platform terms and privacy policy.</p>
       {error && <div className="rounded-xl border-2 border-flame bg-flame/15 p-3 text-sm">{error}</div>}
       <button className="btn-primary w-full" disabled={submitting}>{submitting ? 'Creating account…' : 'Create account →'}</button>
