@@ -81,6 +81,10 @@ export default function AdminUsers() {
       supabase.from('profiles').select('id,email,full_name').eq('role', 'account_manager').eq('status', 'active').order('full_name'),
     ])
     if (profileError || entitlementError || assignmentError || managerError) return setMessage((profileError || entitlementError || assignmentError || managerError).message)
+    const directoryDetails = new Map()
+    const studentProfiles = (profiles || []).filter(user => user.role === 'student')
+    const detailResults = await Promise.all(studentProfiles.map(user => supabase.rpc('get_user_directory_details', { user_id_input: user.id }).maybeSingle()))
+    detailResults.forEach(({ data }) => { if (data?.id) directoryDetails.set(data.id, data) })
     const latest = new Map()
     for (const entitlement of entitlements || []) if (!latest.has(entitlement.student_id)) latest.set(entitlement.student_id, entitlement)
     const currentAssignments = new Map()
@@ -89,7 +93,8 @@ export default function AdminUsers() {
     setUsers((profiles || []).map(user => {
       const entitlement = latest.get(user.id)
       const assignment = currentAssignments.get(user.id)
-      return { ...user, entitlement, package_name: entitlement?.packages?.name || null, package_status: packageState(entitlement), account_manager_id: assignment?.account_manager_id || '' }
+      const directory = directoryDetails.get(user.id)
+      return { ...user, entitlement, package_name: entitlement?.packages?.name || directory?.package_name || null, package_status: packageState(entitlement) === 'none' ? (directory?.package_ends_at && new Date(directory.package_ends_at).getTime() <= Date.now() ? 'expired' : directory?.package_ends_at ? 'active' : 'none') : packageState(entitlement), account_manager_id: assignment?.account_manager_id || '' }
     }))
   }
   async function assignManager(managerId) {
