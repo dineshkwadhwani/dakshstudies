@@ -95,7 +95,7 @@ export default function Register() {
     }
     window.sessionStorage.removeItem('tenthkipadhai_referral_code')
     if (responseBody.payment) return openPayment(responseBody.payment)
-    if (packageCode !== 'FREE') setPaymentMessage('Payment could not be started. Your account has been registered with the free trial package.')
+    if (packageCode !== 'FREE') setPaymentMessage(`${responseBody.paymentError || 'Payment could not be started.'} Your account has been registered with the free trial package.`)
     setComplete(true)
   }
 

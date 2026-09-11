@@ -107,24 +107,37 @@ export async function handleRegister(request, response, env = process.env) {
   }
   const studentId = signUpData?.user?.id
   let payment = null
+  let paymentError = null
   if (packageCode !== 'FREE' && studentId) {
     const { data: year } = await admin.from('academic_years').select('id').eq('is_current', true).maybeSingle()
     const { data: packages } = year ? await admin.from('packages').select('id,code,price_paise,currency,fixed_expires_on,status,sale_enabled').eq('academic_year_id', year.id).eq('code', packageCode).eq('status', 'published').eq('sale_enabled', true).maybeSingle() : { data: null }
     const config = razorpayConfig(env)
-    if (year && packages && config.keyId && config.secret) {
+    if (!year || !packages) {
+      paymentError = 'The selected package is currently unavailable.'
+      console.error('Razorpay setup unavailable: package lookup failed', { packageCode, hasYear: Boolean(year) })
+    } else if (!config.keyId || !config.secret) {
+      paymentError = 'Payment setup is temporarily unavailable.'
+      console.error('Razorpay setup unavailable: required environment variables are missing', { environment: String(env.RAZOR_PAYENV || 'DEV').toUpperCase() })
+    } else {
       const idempotencyKey = randomUUID()
       const { data: transaction, error: transactionError } = await admin.from('payment_transactions').insert({ student_id: studentId, package_id: packages.id, academic_year_id: year.id, transaction_type: 'purchase', amount_paise: packages.price_paise, currency: packages.currency || 'INR', idempotency_key: idempotencyKey, provider_metadata: { environment: String(env.RAZOR_PAYENV || 'DEV').toUpperCase(), source: 'registration' } }).select('id').single()
-      if (!transactionError && transaction) {
+      if (transactionError || !transaction) {
+        paymentError = 'Payment setup is temporarily unavailable.'
+        console.error('Razorpay setup unavailable: transaction insert failed', { code: transactionError?.code || null, message: transactionError?.message || null })
+      } else {
         const orderResponse = await fetch('https://api.razorpay.com/v1/orders', { method: 'POST', headers: { Authorization: `Basic ${Buffer.from(`${config.keyId}:${config.secret}`).toString('base64')}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ amount: packages.price_paise, currency: packages.currency || 'INR', receipt: transaction.id, notes: { transaction_id: transaction.id, student_id: studentId, package_code: packageCode } }) })
         const order = await orderResponse.json().catch(() => ({}))
         if (orderResponse.ok && order.id) {
           await admin.from('payment_transactions').update({ razorpay_order_id: order.id }).eq('id', transaction.id)
           payment = { keyId: config.keyId, orderId: order.id, amount: packages.price_paise, currency: packages.currency || 'INR', transactionId: transaction.id }
+        } else {
+          paymentError = 'Payment setup is temporarily unavailable.'
+          console.error('Razorpay order creation failed', { status: orderResponse.status, code: order?.error?.code || null, description: order?.error?.description || null })
         }
       }
     }
   }
-  return json(response, 201, { ok: true, payment })
+  return json(response, 201, { ok: true, payment, paymentError })
 }
 
 export default function handler(request, response) {
