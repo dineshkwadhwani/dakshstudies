@@ -1,0 +1,24 @@
+{
+  "topics": [
+    {
+      "slug": "recognising-an-arithmetic-progression",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "2c5346b37c01bf99542842880f9552e06b3d3186b9d16da669d969041bc6df38"
+    },
+    {
+      "slug": "the-nth-term-of-an-arithmetic-progression",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "920d235dabc603372c916aa29cb0f46f8b8e53e862fc7ecba9a689f53366ff45"
+    },
+    {
+      "slug": "the-sum-of-the-first-n-terms",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "2f176a5e46eb5f0dcd3c0320836e333ae8cbdff00fa83eeb900fca1376df71a7"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-07T18:51:26.237Z"
+}

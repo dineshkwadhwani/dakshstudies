@@ -1,0 +1,19 @@
+{
+  "source_section": "Areas of Sector and Segment of a Circle",
+  "source_page_start": 1,
+  "source_page_end": 3,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:52:38.192Z",
+  "usage": {
+    "queue_time": 0.344093095,
+    "prompt_tokens": 2808,
+    "prompt_time": 0.149249282,
+    "completion_tokens": 2512,
+    "completion_time": 5.273647015,
+    "total_tokens": 5320,
+    "total_time": 5.422896297,
+    "completion_tokens_details": {
+      "reasoning_tokens": 1823
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "topics": [
+    {
+      "slug": "the-distance-formula",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "cd4e4497deafae5354a258b13c53d6ef068d19aa06c70b2acec097a6f957b0d3"
+    },
+    {
+      "slug": "the-section-formula-and-midpoint",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "ab671483dff04029464f89495d2711c419ccd8ff9e61fa7b7f40c205b27e72c7"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-08T01:48:00.777Z"
+}

@@ -1,0 +1,756 @@
+{
+  "Maths_Ch01_RealNumbers/prime-factorisation-and-the-fundamental-theorem-of-arithmetic": {
+    "approved": true,
+    "summary_sha256": "5186c3ab42f3d662a210cd1a48aea82e9bad19957b9ce3c06a90f3e290f38af8",
+    "notes": "Reviewed against the supplied chapter. Checked definitions, examples and formulas; removed out-of-syllabus complex-root discussion and added constructing a quadratic from its zeroes where relevant."
+  },
+  "Maths_Ch01_RealNumbers/hcf-and-lcm-using-prime-factors": {
+    "approved": true,
+    "summary_sha256": "c1b6c21b1f591965e51756b93c5caa50c934b454e04ee4ab5b1dbb7f48194057",
+    "notes": "Reviewed against the supplied chapter. Checked definitions, examples and formulas; removed out-of-syllabus complex-root discussion and added constructing a quadratic from its zeroes where relevant."
+  },
+  "Maths_Ch01_RealNumbers/irrational-numbers-and-proofs-of-irrationality": {
+    "approved": true,
+    "summary_sha256": "1e252c896f933bc0923fd2389c1288ae81f33ffd0181637d9016d725e1d76560",
+    "notes": "Reviewed against the supplied chapter. Checked definitions, examples and formulas; removed out-of-syllabus complex-root discussion and added constructing a quadratic from its zeroes where relevant."
+  },
+  "Maths_Ch02_Polynomials/polynomials-and-the-geometrical-meaning-of-zeroes": {
+    "approved": true,
+    "summary_sha256": "5906f98b142f99bc7396a5f69dc4c2a36f67bbd546915a1d6cd6754353978879",
+    "notes": "Reviewed against the supplied chapter. Checked definitions, examples and formulas; removed out-of-syllabus complex-root discussion and added constructing a quadratic from its zeroes where relevant."
+  },
+  "Maths_Ch02_Polynomials/relationships-between-zeroes-and-coefficients": {
+    "approved": true,
+    "summary_sha256": "075b3e3b15773456e85b8e02cfd71e1233a350973f41c150123c78c516eb5222",
+    "notes": "Reviewed against the supplied chapter. Checked definitions, examples and formulas; removed out-of-syllabus complex-root discussion and added constructing a quadratic from its zeroes where relevant."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/chemical-changes-and-writing-chemical-equations": {
+    "approved": true,
+    "summary_sha256": "b534462ea9e16eb6c34fa24cf4e208b48a24bec6e2a42e5217ddbff57b23f530",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/balancing-chemical-equations": {
+    "approved": true,
+    "summary_sha256": "444e70585182c06ed44f01b6b5d3b978fbf859f2af8f5f3d631aa5202955f4cc",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/combination-reactions-and-energy-changes": {
+    "approved": true,
+    "summary_sha256": "173060e17a060687e45414326996c03fce8899e95adf779694dae51010dcde78",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/decomposition-reactions": {
+    "approved": true,
+    "summary_sha256": "d9e4f93d6b60b2815bade81bc84ee011c540e0b534cc37a4b123bbbfebcacb4c",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/displacement-and-double-displacement-reactions": {
+    "approved": true,
+    "summary_sha256": "68a5bd661e051cd3fa5121a3e4ce5c83fad839693271e67054f0361a1b03a2ab",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/oxidation-and-reduction": {
+    "approved": true,
+    "summary_sha256": "45e8cef16aaf7aefb3da78e701836f01bca54621c7bcae104592b64f4c379f79",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Science_Ch01_ChemicalReactionsAndEquations/corrosion-and-rancidity": {
+    "approved": true,
+    "summary_sha256": "a081ec17823b9d2c0e426e51aafd46bb2b3a7d58a236ca25945a911d37d68190",
+    "notes": "Written and checked against the supplied Science chapter. Verified atom balance, reaction classifications, observations, and the distinction between coefficients and formula subscripts."
+  },
+  "Maths_Ch03_PairOfLinearEquations/consistent-and-inconsistent-pairs-of-equations": {
+    "approved": true,
+    "summary_sha256": "97e20e58ce0bfcc995fec80fb25d34e0c0f60a30cb2c07dc28e25410d3fb0329",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch03_PairOfLinearEquations/linear-equations-and-their-graphical-solutions": {
+    "approved": true,
+    "summary_sha256": "f59dd2d77780d5c23e4dadebc1946055d85d2e120a3951c345148a80a90d2d4a",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch03_PairOfLinearEquations/solving-by-elimination-and-forming-equations-from-problems": {
+    "approved": true,
+    "summary_sha256": "e54f128c2311d34da525467e24a58ddc03584bd980601e8d048135c48d0e738a",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch03_PairOfLinearEquations/solving-by-substitution": {
+    "approved": true,
+    "summary_sha256": "5c44921f87833b991baec7d78946c0af1ff8a496d0cad6949041e9f09fa9ac6e",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch04_QuadraticEquations/recognising-and-forming-quadratic-equations": {
+    "approved": true,
+    "summary_sha256": "0d3f8d36ae874694a4a410bcd3f0ddf11ae71c057c490ec54e85245eb52c5520",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch04_QuadraticEquations/solving-quadratic-equations-by-factorisation": {
+    "approved": true,
+    "summary_sha256": "887d4c2f7ea8b35a1a7d5e99c5e8935bd8ea9092cb72f6b9975ef030c0fd9a03",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch04_QuadraticEquations/the-discriminant-and-the-nature-of-roots": {
+    "approved": true,
+    "summary_sha256": "41a50b301afbf7887135cfc07dfe05c297d2219ab7119a3412630eabb342ce62",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch05_ArithmeticProgressions/recognising-an-arithmetic-progression": {
+    "approved": true,
+    "summary_sha256": "2c5346b37c01bf99542842880f9552e06b3d3186b9d16da669d969041bc6df38",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch05_ArithmeticProgressions/the-nth-term-of-an-arithmetic-progression": {
+    "approved": true,
+    "summary_sha256": "1e657f74af503e4758a5a80052878b38438b581e5b77ce59e58312bf733ce169",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch05_ArithmeticProgressions/the-sum-of-the-first-n-terms": {
+    "approved": true,
+    "summary_sha256": "2ef30df46fb212bc2aea518f06b46ca957b7eb0048c49ce009387c65a294d669",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch06_Triangles/aa-sss-and-sas-similarity-criteria": {
+    "approved": true,
+    "summary_sha256": "43b889e6fbb6e4e58593559472fb1bfb31c04fccf3d27dd52f404196970c897f",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch06_Triangles/similar-figures-and-corresponding-parts": {
+    "approved": true,
+    "summary_sha256": "91fbbc62b7dbc638b95436015cea051035af9d326af24b4ae43821fedf517c45",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch06_Triangles/the-basic-proportionality-theorem-and-its-converse": {
+    "approved": true,
+    "summary_sha256": "3e2ceb3436672bcefc30f92861fc18fccc57f6f7aa852fd328e0bd2d0d6e7f29",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch06_Triangles/using-similarity-to-find-unknown-lengths": {
+    "approved": true,
+    "summary_sha256": "0653511651e64be4114a0f6c3db4697515430220145e2ca14fff689b439bbb86",
+    "notes": "Editorial review: checked definitions, equation solutions, coefficient conditions and corresponding side ratios; corrected worked examples and rendered formulas. For triangles confirmed AAA, AA, SSS and SAS in the supplied chapter and used its area proof for BPT."
+  },
+  "Maths_Ch07_CoordinateGeometry/the-distance-formula": {
+    "approved": true,
+    "summary_sha256": "3710baf6a0da8d07c30992d88f24eaa3c27c1ed2c95d2526eaa4b9c6fb9d4e1a",
+    "notes": "Rewritten editorially. Verified distance and internal section formulas, worked arithmetic, endpoint ordering, and removed external-division material."
+  },
+  "Maths_Ch07_CoordinateGeometry/the-section-formula-and-midpoint": {
+    "approved": true,
+    "summary_sha256": "836484b2d8969f342329888a58fefbf27917916dbeaafa03e8ce3b7eaef2c5e0",
+    "notes": "Rewritten editorially. Verified distance and internal section formulas, worked arithmetic, endpoint ordering, and removed external-division material."
+  },
+  "Maths_Ch08_IntroductionToTrigonometry/trigonometric-identities": {
+    "approved": true,
+    "summary_sha256": "e9504982406ec8973ba801b8a9d82e354edf42d4154824d9c84c21af3c79e78c",
+    "notes": "Editorial review verified ratios, standard-angle values and identities; removed unsupported applications and addition formula, corrected eye-level and hypotenuse assumptions. Verified heights examples against source PDF pages 3–5."
+  },
+  "Maths_Ch08_IntroductionToTrigonometry/trigonometric-ratios-in-a-right-triangle": {
+    "approved": true,
+    "summary_sha256": "c3b61e1f79844b2b13458ec33aebedd2e4fc72932a726aef5197f458fb11415d",
+    "notes": "Editorial review verified ratios, standard-angle values and identities; removed unsupported applications and addition formula, corrected eye-level and hypotenuse assumptions. Verified heights examples against source PDF pages 3–5."
+  },
+  "Maths_Ch08_IntroductionToTrigonometry/trigonometric-ratios-of-standard-angles": {
+    "approved": true,
+    "summary_sha256": "2c11b436cf9ccbff878f09a31c1451ebed987027b6abc040e4d4726ae4d2687b",
+    "notes": "Editorial review verified ratios, standard-angle values and identities; removed unsupported applications and addition formula, corrected eye-level and hypotenuse assumptions. Verified heights examples against source PDF pages 3–5."
+  },
+  "Maths_Ch09_ApplicationsOfTrigonometry/line-of-sight-and-angles-of-elevation-and-depression": {
+    "approved": true,
+    "summary_sha256": "c72540a563b533c3c608232d323699712d50f6d8521789c0184ed285636f68cd",
+    "notes": "Editorial review verified ratios, standard-angle values and identities; removed unsupported applications and addition formula, corrected eye-level and hypotenuse assumptions. Verified heights examples against source PDF pages 3–5."
+  },
+  "Maths_Ch09_ApplicationsOfTrigonometry/solving-heights-and-distances-problems": {
+    "approved": true,
+    "summary_sha256": "e1d941bf94b2dac3f0522612e603ec5d1d8281ad547981893015373ce751427e",
+    "notes": "Editorial review verified ratios, standard-angle values and identities; removed unsupported applications and addition formula, corrected eye-level and hypotenuse assumptions. Verified heights examples against source PDF pages 3–5."
+  },
+  "Maths_Ch10_Circles/tangents-from-an-external-point": {
+    "approved": true,
+    "summary_sha256": "d7a6180e42011a5ca29093df241301ad0789a7b92215cf80aacb366fa7676bb8",
+    "notes": "Editorial review checked tangent definitions, right-triangle congruence, Pythagorean example and angle sum. Removed incorrect gear, rolling and mirror claims."
+  },
+  "Maths_Ch10_Circles/tangents-to-a-circle-and-perpendicular-radii": {
+    "approved": true,
+    "summary_sha256": "c8dd5e120b2f4320278a0ff86a7ed6c4ebbc08dc2f25248ed5066c8e0ab73130",
+    "notes": "Editorial review checked tangent definitions, right-triangle congruence, Pythagorean example and angle sum. Removed incorrect gear, rolling and mirror claims."
+  },
+  "Maths_Ch12_AreasRelatedToCircles/arc-length-and-the-area-of-a-sector": {
+    "approved": true,
+    "summary_sha256": "545a7eb3be78e0b3cf23b50b2ad5a648e92b1006254f46df0d446090878e40a0",
+    "notes": "Rewritten editorially with correct degree-based sector and arc formulas, sector perimeter, minor/major segments and checked examples."
+  },
+  "Maths_Ch12_AreasRelatedToCircles/areas-of-segments-and-combined-figures": {
+    "approved": true,
+    "summary_sha256": "821621f9570fef46a19fc5cfe3dc2eb62572a8cca10e90491c42225861581d97",
+    "notes": "Rewritten editorially with correct degree-based sector and arc formulas, sector perimeter, minor/major segments and checked examples."
+  },
+  "Maths_Ch13_SurfaceAreasAndVolumes/surface-area-of-combined-solids": {
+    "approved": true,
+    "summary_sha256": "18cad083a3144205b0a1593a6b2a3912cf3b210f25f579a67cbfe11bbd9d1152",
+    "notes": "Editorially checked against the supplied chapter. Verified exposed versus joined surfaces, cone slant height, hemisphere and cylinder examples, and unit handling."
+  },
+  "Maths_Ch13_SurfaceAreasAndVolumes/volume-of-combined-solids": {
+    "approved": true,
+    "summary_sha256": "7cc56e7f2c9cc260f9deaa1e817da5ab6aed42a1dd8ab5ba694608f29fb1cc5a",
+    "notes": "Editorially checked against the supplied chapter. Verified component volume formulas, subtraction for cavities, half-cylinder roofs, and material versus empty-space interpretation."
+  },
+  "Maths_Ch14_Statistics/the-mean-of-grouped-data": {
+    "approved": true,
+    "summary_sha256": "7258e3031c1bd6dcc260b4151fffe0f0467669d60e0ec497d5d7c7682aff5f1b",
+    "notes": "Editorially checked grouped mean, class marks, direct, assumed-mean and step-deviation methods, including the approximation caused by grouping."
+  },
+  "Maths_Ch14_Statistics/the-mode-of-grouped-data": {
+    "approved": true,
+    "summary_sha256": "2bab01cd92edb8d381dc1e3a3efebfc7f0386a607b19772d110d2ca0bd52599e",
+    "notes": "Editorially checked modal-class definitions, grouped mode formula, continuous boundaries, example arithmetic and limitations."
+  },
+  "Maths_Ch14_Statistics/the-median-of-grouped-data": {
+    "approved": true,
+    "summary_sha256": "97fe3f1cda3a3be111093629a28a2aeb98fb83a133323b6f6588a9fc5013bb55",
+    "notes": "Editorially checked cumulative-frequency selection, grouped median formula, continuity correction, example arithmetic and interpretation."
+  },
+  "Maths_Ch15_Probability/random-experiments-and-equally-likely-outcomes": {
+    "approved": true,
+    "summary_sha256": "43ccf8212faeeca0c9d896d7fed2be8fd035bb061b53e4062b357cc3e8074da2",
+    "notes": "Editorially checked sample spaces, elementary outcomes, ordered dice outcomes, equal-likelihood assumptions and experimental versus theoretical probability."
+  },
+  "Maths_Ch15_Probability/theoretical-probability-of-an-event": {
+    "approved": true,
+    "summary_sha256": "3c9cda88a1d20ee9b025facb472304588dcfaece0db026e8f058486fa94ad982",
+    "notes": "Editorially checked favourable-outcome counting, balls and cards examples, complements and without-replacement assumptions."
+  },
+  "Maths_Ch15_Probability/complementary-impossible-and-certain-events": {
+    "approved": true,
+    "summary_sha256": "0851a916d632c91b0159b7c876e25b51a510dfbfa8b4ae30c3c385830dcbc34e",
+    "notes": "Editorially checked complement, impossible and sure event definitions, at-least-one example and probability bounds."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/indicators-and-the-properties-of-acids-and-bases": {
+    "approved": true,
+    "summary_sha256": "26666d8b4de0e426bb867c36e65eae5ea84c5a66afaee203474dd2cd3b913b2d",
+    "notes": "Editorially checked natural, synthetic and olfactory indicators, observations and safe laboratory interpretation against the supplied chapter."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/reactions-with-metals-carbonates-and-hydrogencarbonates": {
+    "approved": true,
+    "summary_sha256": "d35c9ce7310730c8f1fabe4eb1607a7fc8bca508b36372aa91b3343cfb381b0c",
+    "notes": "Editorially checked balanced reactions with metals, carbonates, hydrogencarbonates, limewater and amphoteric zinc."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/neutralisation-and-reactions-with-metal-and-non-metal-oxides": {
+    "approved": true,
+    "summary_sha256": "ef49ca2a38e6d64b05922ae15896bb37747637fb69556b695a780cf31f071173",
+    "notes": "Editorially checked neutralisation, metal and non-metal oxide reactions, applications and concentration caveat."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/acids-and-bases-in-aqueous-solution": {
+    "approved": true,
+    "summary_sha256": "df445d785b01b2905c6f19710c1344af9b17f03e8368255f07e50e1be175bc08",
+    "notes": "Editorially checked hydronium, hydroxide, ionisation, strength versus concentration and safe dilution."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/the-ph-scale-and-its-importance-in-everyday-life": {
+    "approved": true,
+    "summary_sha256": "197fa53c9ceb7fc893d6ee96a2ceee00b790d84d8d947e2616e076bc79c8f57d",
+    "notes": "Editorially checked pH scale interpretation, logarithmic comparison, everyday uses and strength/concentration distinction."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/salts-and-chemicals-obtained-from-common-salt": {
+    "approved": true,
+    "summary_sha256": "2ef0a58c7b521b4c42cce631be505062b58e557f42f19b9ba5fe0a8d759b168c",
+    "notes": "Editorially checked brine electrolysis, products, uses and industrial safety."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/baking-soda-and-washing-soda": {
+    "approved": true,
+    "summary_sha256": "efb6b72cc6b53098923922bdcbc5d9151b3357b224aed7a8b8bf4e11f6c6a0d8",
+    "notes": "Editorially checked formulae, decomposition, baking powder, washing soda, crystallisation and uses."
+  },
+  "Science_Ch02_AcidsBasesAndSalts/water-of-crystallisation-and-plaster-of-paris": {
+    "approved": true,
+    "summary_sha256": "b1b9e262ba3e85958c9014ed2934098795a01c1005213af41a5844ded19a37ba",
+    "notes": "Editorially checked hydrated salts, copper sulphate, gypsum, plaster of Paris setting equation and uses."
+  },
+  "Science_Ch03_MetalsAndNonMetals/physical-properties-of-metals-and-non-metals": {
+    "approved": true,
+    "summary_sha256": "bd9d007466bc056f53c9231ea8d2489e6dc2a90941eba4620a25a81d529dc3ca",
+    "notes": "Editorially checked metal and non-metal properties, exceptions and applications."
+  },
+  "Science_Ch03_MetalsAndNonMetals/reactions-of-metals-with-air-water-and-acids": {
+    "approved": true,
+    "summary_sha256": "fe3fe248a2429f8c1a92d0a8fe7f8b77b2c112673feae0102b5653f7bf49922b",
+    "notes": "Editorially checked reactions with oxygen, water, acids, bases and safe hydrogen testing."
+  },
+  "Science_Ch03_MetalsAndNonMetals/the-reactivity-series-and-displacement-reactions": {
+    "approved": true,
+    "summary_sha256": "56458fabb7134467ea928f125201c9bd647996d42b7a60c5a6e080a3b3dc9767",
+    "notes": "Editorially checked reactivity ordering, displacement examples and electron-transfer interpretation."
+  },
+  "Science_Ch03_MetalsAndNonMetals/ionic-bonding-and-the-properties-of-ionic-compounds": {
+    "approved": true,
+    "summary_sha256": "dbcffd8b595675e07ebecae549d8f63efe61c7c52afc690edad68cb8ed4d2791",
+    "notes": "Editorially checked ion formation, charge-balanced formulae, lattice properties and conductivity."
+  },
+  "Science_Ch03_MetalsAndNonMetals/minerals-ores-and-the-extraction-of-metals": {
+    "approved": true,
+    "summary_sha256": "d0133c930ef870384593bbbec7331bba5e1d51c194edcf922b301f12cb9ceec0",
+    "notes": "Editorially checked ore concentration, roasting, calcination, reduction, electrolysis and recycling."
+  },
+  "Science_Ch03_MetalsAndNonMetals/refining-metals-corrosion-and-its-prevention": {
+    "approved": true,
+    "summary_sha256": "767db288187435120ea463ec6cdb574064dff18b84ef62759b29aa8ce62c3412",
+    "notes": "Editorially checked electrolytic refining, rusting, galvanising, sacrificial protection and electroplating."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/covalent-bonding-in-carbon-compounds": {
+    "approved": true,
+    "summary_sha256": "0df89b9bd3cdf58b883e42c8dc52b3e481820fe74b884c49bb0fc0c5673476f3",
+    "notes": "Editorially checked covalent sharing, structures, properties and graphite exception."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/catenation-tetravalency-and-the-versatility-of-carbon": {
+    "approved": true,
+    "summary_sha256": "6dd2288e7e5421b6a5a9e1bbcae4a158d3bd845b1d59fc0c6ae0c5654f0209a3",
+    "notes": "Editorially checked catenation, tetravalency, isomerism and multiple bonding."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/saturated-and-unsaturated-compounds-chains-branches-and-rings": {
+    "approved": true,
+    "summary_sha256": "b6dda25303088427845c6a6ce54f8a94fcd1b4affa45ce30ee366185b9d0b7d7",
+    "notes": "Editorially checked hydrocarbon classes, chains, rings, combustion and unsaturation test."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/functional-groups-and-homologous-series": {
+    "approved": true,
+    "summary_sha256": "d6c4a3e9a54dc496ea17b987935977dbb0871451064d5c872c322f3e56786d65",
+    "notes": "Editorially checked functional groups, homologous-series pattern and reaction relationships."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/naming-carbon-compounds": {
+    "approved": true,
+    "summary_sha256": "ac19df34fc306c5435bf01473d838b2627665b652f52749ab9593a2ebc5a2771",
+    "notes": "Editorially checked parent-chain selection, numbering, suffixes, branches and examples."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/combustion-oxidation-addition-and-substitution": {
+    "approved": true,
+    "summary_sha256": "1c52f3b82a50430cdbd102bd15da33c9f8946c8c42e8f8940e8f44c10c5a22a6",
+    "notes": "Editorially checked combustion, oxidation, addition, substitution, equations and conditions."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/ethanol-and-ethanoic-acid": {
+    "approved": true,
+    "summary_sha256": "113b613799914bc0d8a5c563949052aa0f65f338b035d56ec586024b659c5a1b",
+    "notes": "Editorially checked fermentation, oxidation, acid reactions and reversible esterification."
+  },
+  "Science_Ch04_CarbonAndItsCompounds/soaps-detergents-and-micelles": {
+    "approved": true,
+    "summary_sha256": "5805de616bfde67ff32562d7715fafc0650bb76ac55d44815c8d01d489f59dc1",
+    "notes": "Editorially checked soap structure, saponification, hard water, detergents and micelles."
+  },
+  "Science_Ch05_LifeProcesses/life-processes-and-the-need-for-maintenance": {
+    "approved": true,
+    "summary_sha256": "6add50939a92384766da3fd26ca40d55d58d425b7ed19fba6b22949ca46c9bab",
+    "notes": "Editorially checked interdependence of nutrition, respiration, transport and excretion."
+  },
+  "Science_Ch05_LifeProcesses/autotrophic-nutrition-and-photosynthesis": {
+    "approved": true,
+    "summary_sha256": "29bc22a86317a34f379b7279b1a7094703d1f246cf12ea7870a4d38136c31c99",
+    "notes": "Editorially checked photosynthesis equation, stomata, limiting factors, starch test and glucose use."
+  },
+  "Science_Ch05_LifeProcesses/heterotrophic-nutrition-and-human-digestion": {
+    "approved": true,
+    "summary_sha256": "8e03fd0c771f75eb08d391d330f476375992f89f105fb0d9796d8b0c0260bc75",
+    "notes": "Editorially checked digestion organs, enzymes, bile, villi, absorption and egestion."
+  },
+  "Science_Ch05_LifeProcesses/respiration-and-the-release-of-energy": {
+    "approved": true,
+    "summary_sha256": "13a70709b13681ad0f9860e370d9d9e5bce25410f3d8a394392a3476714c0ce2",
+    "notes": "Editorially checked aerobic and anaerobic respiration, equations, alveoli, exercise and ATP."
+  },
+  "Science_Ch05_LifeProcesses/transport-of-substances-in-human-beings": {
+    "approved": true,
+    "summary_sha256": "5d15dec8a71d0b38277e837ca84fa0379bfa159302d6628976d7cf4569d74166",
+    "notes": "Editorially checked blood components, four-chambered heart, double circulation and vessels."
+  },
+  "Science_Ch05_LifeProcesses/transport-of-water-and-food-in-plants": {
+    "approved": true,
+    "summary_sha256": "edde16f70d408998bfd7c363622349f857234992d90a985d32a927186502158d",
+    "notes": "Editorially checked root absorption, transpiration, xylem, phloem and translocation."
+  },
+  "Science_Ch05_LifeProcesses/excretion-in-human-beings-and-plants": {
+    "approved": true,
+    "summary_sha256": "4c24c65d5ace3539a326e4f6ae235c9484174f0b2905f99e149a1482f5b2e79c",
+    "notes": "Editorially checked nephron filtration and reabsorption, urine, plant waste storage and osmoregulation."
+  },
+  "Science_Ch06_ControlAndCoordination/neurons-nerve-impulses-and-reflex-actions": {
+    "approved": true,
+    "summary_sha256": "10ef2a47360243e667a808b3c1709614ec75daa3407ff94dc8e0d4db2d1f2d3e",
+    "notes": "Editorially checked neuron structure, synapses, reflex arcs and receptor-effector pathways."
+  },
+  "Science_Ch06_ControlAndCoordination/the-human-brain-and-voluntary-and-involuntary-actions": {
+    "approved": true,
+    "summary_sha256": "cf114155bd1f9161668b6b8ba6341f42ba191f4ab2d2dc0898814c5e86e73adc",
+    "notes": "Editorially checked brain regions, spinal cord, voluntary and involuntary control and peripheral nerves."
+  },
+  "Science_Ch06_ControlAndCoordination/plant-responses-and-growth-movements": {
+    "approved": true,
+    "summary_sha256": "58f3d640c7ad88e5eedc93ded75217a1901922f3459a22d84edd8f899006d831",
+    "notes": "Editorially checked auxin, tropisms, nastic movements, plant hormones and experimental controls."
+  },
+  "Science_Ch06_ControlAndCoordination/hormones-in-animals-and-feedback-mechanisms": {
+    "approved": true,
+    "summary_sha256": "47437ff8080d5182b8ba00cd68c6dd73dd34714870e804d16542c41a682abfda",
+    "notes": "Editorially checked endocrine glands, hormone functions, target cells and negative feedback."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/dna-copying-reproduction-and-variation": {
+    "approved": true,
+    "summary_sha256": "f816083260abf8eb202dbf080611ba7f7efce7c61aa55edda4440188801120e7",
+    "notes": "Editorially checked DNA copying, genes, reproductive cells and inherited variation."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/fission-fragmentation-and-regeneration": {
+    "approved": true,
+    "summary_sha256": "cbb28dc2fa5722dc9a09aee65581476d6ae38d7f1f52c7ea01cd91c93b455953",
+    "notes": "Editorially checked fission, fragmentation, regeneration and distinctions among asexual processes."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/budding-vegetative-propagation-and-spore-formation": {
+    "approved": true,
+    "summary_sha256": "bf665afac958f8a3d0b347c980bdabde9e759a2f53a366f0ffa8d593a331ff47",
+    "notes": "Editorially checked budding, vegetative propagation, spores and agricultural applications."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/sexual-reproduction-in-flowering-plants": {
+    "approved": true,
+    "summary_sha256": "75833c94a21c145bdc62f06848f2a6d7caa6f6c4ba31e2c781f3a38d3160b330",
+    "notes": "Editorially checked flower parts, pollination, fertilisation, seed formation and dispersal."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/puberty-and-the-human-reproductive-systems": {
+    "approved": true,
+    "summary_sha256": "6c4235a7d7fe0ac40386e3ee8fb8069cedc0dbb9e3c2c5fad2c4498363a73e4f",
+    "notes": "Editorially checked puberty, male and female reproductive anatomy, hormones and respectful health context."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/fertilisation-pregnancy-and-menstruation": {
+    "approved": true,
+    "summary_sha256": "889e47ec756a2d88a775382d8d921167af8092cb5f72205eb21e0a6845a731af",
+    "notes": "Editorially checked fertilisation, implantation, placenta, pregnancy and menstruation sequence."
+  },
+  "Science_Ch07_HowDoOrganismsReproduce/reproductive-health-and-contraception": {
+    "approved": true,
+    "summary_sha256": "c7b248c531d7d70d33a605f63b43ed41cd8d1fd3e4bc4a0bb1b245eb590ca9b0",
+    "notes": "Editorially checked reproductive health, contraception, infection prevention and informed medical decisions."
+  },
+  "Science_Ch08_Heredity/variation-and-inherited-traits": {
+    "approved": true,
+    "summary_sha256": "6b41d1c909b10b3b6128d5cb78258749cfee74d52abd19ad927614431e7298f5",
+    "notes": "Editorially checked heredity, DNA, genes, alleles, environmental effects and inherited variation."
+  },
+  "Science_Ch08_Heredity/mendels-experiments-and-the-inheritance-of-traits": {
+    "approved": true,
+    "summary_sha256": "a02091ca51a97666f1a89e74edc722466a30898a7d8472af8b36dab3e914cd39",
+    "notes": "Editorially checked Mendel’s monohybrid cross, genotype and phenotype ratios, dominance and test cross."
+  },
+  "Science_Ch08_Heredity/independent-inheritance-and-the-expression-of-genes": {
+    "approved": true,
+    "summary_sha256": "40350bc7f52d0398cf711c3ed694d267b50f1ccc52f5f413a09478adf861aca0",
+    "notes": "Editorially checked dihybrid inheritance, independent assortment, gene expression and ratio assumptions."
+  },
+  "Science_Ch08_Heredity/sex-determination-in-human-beings": {
+    "approved": true,
+    "summary_sha256": "4dca40bcef254df505e0b58099773ead675467cd4f0235fe9f8718a671584c89",
+    "notes": "Editorially checked X/Y chromosome inheritance, probability and respectful biological context."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/reflection-and-the-terminology-of-spherical-mirrors": {
+    "approved": true,
+    "summary_sha256": "1a70b01628bd6a247e43eb741ca3861fc855e21dbc082add8728109ff0f2f882",
+    "notes": "Editorially checked reflection laws, spherical-mirror terminology, standard rays and image types."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/image-formation-by-concave-and-convex-mirrors": {
+    "approved": true,
+    "summary_sha256": "76b67f7a75683c2c2c0c1d109570616f549720726677c4ddee2e426a55b9c0aa",
+    "notes": "Editorially checked concave and convex mirror cases, ray diagrams and applications."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/mirror-sign-conventions-the-mirror-formula-and-magnification": {
+    "approved": true,
+    "summary_sha256": "c66d60371508a1e015f16cb346e760e4ff3e705843636e5038d644956b3b88f0",
+    "notes": "Editorially checked Cartesian signs, mirror formula, magnification and worked calculation."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/refraction-glass-slabs-and-refractive-index": {
+    "approved": true,
+    "summary_sha256": "f66835d58fce9e3ebafc1c1a9a0fb334dec0b1fa0923b284d4d531f3f402ef7b",
+    "notes": "Editorially checked refraction, Snell’s law, refractive index, slabs and apparent depth."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/spherical-lenses-and-image-formation": {
+    "approved": true,
+    "summary_sha256": "90836d25249a53e5dc5e59ee8fe69432703d5b5151007d5e7e8058f73aede1c4",
+    "notes": "Editorially checked convex and concave lens terminology, ray diagrams and image cases."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/lens-sign-conventions-the-lens-formula-and-magnification": {
+    "approved": true,
+    "summary_sha256": "85f80ca5a9758f0ee824957c7274cf7d3259acf8f7897df7b7fceae5b32c5da4",
+    "notes": "Editorially checked lens signs, thin-lens formula, magnification and worked calculation."
+  },
+  "Science_Ch09_LightReflectionAndRefraction/power-of-a-lens": {
+    "approved": true,
+    "summary_sha256": "46bcc6900502e342e0e4877c4cc705c11e7aa41f863783688dda327668e4cf35",
+    "notes": "Editorially checked dioptres, lens power, combinations and vision correction."
+  },
+  "Science_Ch10_HumanEyeAndColourfulWorld/the-human-eye-and-accommodation": {
+    "approved": true,
+    "summary_sha256": "eac78f177e4943e333e679e67c47989ec450e5a5dbf3eb99447e0825d74234ac",
+    "notes": "Editorially checked eye structure, retinal image formation, accommodation, and the normal near and far points."
+  },
+  "Science_Ch10_HumanEyeAndColourfulWorld/defects-of-vision-and-their-correction": {
+    "approved": true,
+    "summary_sha256": "64d2cba8968dc174bbc1e482938d10c7da4985c6f52912cdd27e3f484080b739",
+    "notes": "Editorially checked myopia, hypermetropia, presbyopia, cataract, and the corrective lens for each defect."
+  },
+  "Science_Ch10_HumanEyeAndColourfulWorld/refraction-through-a-prism-and-dispersion": {
+    "approved": true,
+    "summary_sha256": "27ec62e4a01d1abda0c3226ff44d0ed4a92767f7b14422d704c662f0ba2cf419",
+    "notes": "Editorially checked prism deviation, dispersion, spectral order, recombination, and rainbow formation."
+  },
+  "Science_Ch10_HumanEyeAndColourfulWorld/atmospheric-refraction": {
+    "approved": true,
+    "summary_sha256": "51bb275496d28e72afc639a9987885b1afd552ed41d65ef8e835693a04cfe536",
+    "notes": "Editorially checked atmospheric refraction, apparent displacement, twinkling, advanced sunrise, delayed sunset, and the flattened Sun."
+  },
+  "Science_Ch10_HumanEyeAndColourfulWorld/scattering-of-light-and-the-tyndall-effect": {
+    "approved": true,
+    "summary_sha256": "7c6667612b36b43fff66e4121c637fe1d269e92db7320bf7445aacf5798be538",
+    "notes": "Editorially checked wavelength-dependent scattering, blue sky, red signals, red sunsets, and the Tyndall effect."
+  },
+  "Science_Ch11_Electricity/electric-current-and-circuits": {
+    "approved": true,
+    "summary_sha256": "2db42b346ca1b5a529f30f2d5140a45d1a581da581a843059826a40058da5b88",
+    "notes": "Editorially checked charge flow, conventional current, circuit completion, ammeter placement and energy transfer."
+  },
+  "Science_Ch11_Electricity/potential-difference-and-circuit-diagrams": {
+    "approved": true,
+    "summary_sha256": "13aa1850341cf9979f16051243ad7bd121446b008399e1461b2c907b9c1e6c43",
+    "notes": "Editorially checked potential difference, voltmeter placement, standard circuit symbols and circuit connections."
+  },
+  "Science_Ch11_Electricity/ohms-law-resistance-and-resistivity": {
+    "approved": true,
+    "summary_sha256": "b397135cf0dfea719ca0db9da9b0f5dffa4aa4ed7afd067dd1868a822f37393f",
+    "notes": "Editorially checked Ohm’s law, resistance, resistivity, material and dimensional factors, and temperature limits."
+  },
+  "Science_Ch11_Electricity/resistors-in-series": {
+    "approved": true,
+    "summary_sha256": "230da876ba64232480b43cdd8800a2240e84d695df7b6683235337ac21348cee",
+    "notes": "Editorially checked common current, voltage addition, equivalent resistance and voltage division in series circuits."
+  },
+  "Science_Ch11_Electricity/resistors-in-parallel": {
+    "approved": true,
+    "summary_sha256": "ee3d924f5d78e6250f8e7602a3c982478bc8ca8d062d5cec18f804e073c37e09",
+    "notes": "Editorially checked common voltage, current division, reciprocal resistance and domestic parallel wiring."
+  },
+  "Science_Ch11_Electricity/the-heating-effect-of-current-and-joules-law": {
+    "approved": true,
+    "summary_sha256": "4acb4d86c320af082164f57d998b68db181bad77a67da93b2d9d4f3d46cbe043",
+    "notes": "Editorially checked Joule’s law, equivalent formulae, heating elements, filament choice and fuse safety."
+  },
+  "Science_Ch11_Electricity/electric-power-and-electrical-energy": {
+    "approved": true,
+    "summary_sha256": "879b251a7737107803a85626ff6b15db5a9e192aef8b93beef8678ce9fea358f",
+    "notes": "Editorially checked electrical power relations, energy, kilowatt-hours, appliance ratings and consumption calculations."
+  },
+  "Science_Ch12_MagneticEffectsOfElectricCurrent/magnetic-fields-and-field-lines": {
+    "approved": true,
+    "summary_sha256": "4313b2ab7db1fa31e72ddf99e8bd99bf58c285c598d27590999e5d16f56f1734",
+    "notes": "Editorially checked field direction, closed field lines, line density, compass use and uniform fields."
+  },
+  "Science_Ch12_MagneticEffectsOfElectricCurrent/magnetic-field-around-a-straight-current-carrying-conductor": {
+    "approved": true,
+    "summary_sha256": "795a777853da39e69e36f8ff1117344784a703536efecfddcdba04b893aa82a7",
+    "notes": "Editorially checked Oersted’s observation, circular field pattern, the right-hand thumb rule and field strength factors."
+  },
+  "Science_Ch12_MagneticEffectsOfElectricCurrent/magnetic-fields-of-circular-loops-and-solenoids": {
+    "approved": true,
+    "summary_sha256": "c5ebca5c21e33ae8db6c7688190dc4bd1f6e471c96bb83d64b32231559b185fb",
+    "notes": "Editorially checked loop and solenoid fields, polarity, uniform fields, soft-iron cores and electromagnets."
+  },
+  "Science_Ch12_MagneticEffectsOfElectricCurrent/force-on-a-current-carrying-conductor": {
+    "approved": true,
+    "summary_sha256": "e48a7380f39519e6bf2654df4f0e9440b63af694747e2637ee4f21106872a322",
+    "notes": "Editorially checked the motor effect, Fleming’s left-hand rule, motor construction and commutator action."
+  },
+  "Science_Ch12_MagneticEffectsOfElectricCurrent/domestic-electric-circuits-and-safety": {
+    "approved": true,
+    "summary_sha256": "535fb80639a49b0811f5ae1548d7afc7fcbd682efdf62167db3d20ecd3386c84",
+    "notes": "Editorially checked live, neutral and earth wires, parallel circuits, fault conditions, fuses and circuit breakers."
+  },
+  "Science_Ch13_OurEnvironment/ecosystems-and-their-components": {
+    "approved": true,
+    "summary_sha256": "0c2a76113d49cc25d7e2980f7b59561ee0155afb9324fdaa516176399dd4d46a",
+    "notes": "Editorially checked biotic and abiotic components, producer-consumer-decomposer roles, nutrient cycling and ecosystem balance."
+  },
+  "Science_Ch13_OurEnvironment/food-chains-food-webs-and-energy-transfer": {
+    "approved": true,
+    "summary_sha256": "ea285f9d92b3c6304f81ab90c3f2a750312337f599dd62bf9e4fac23d23f8c75",
+    "notes": "Editorially checked trophic levels, food chains and webs, the approximate ten percent energy transfer, and biological magnification."
+  },
+  "Science_Ch13_OurEnvironment/biodegradable-and-non-biodegradable-waste": {
+    "approved": true,
+    "summary_sha256": "9801a74b20be6500f8fe0eb552c27c83da6d6db628ac6fd48080ee8171b279f3",
+    "notes": "Editorially checked decomposition, persistent waste, ecological impacts, composting and reduce-reuse-recycle practices."
+  },
+  "Science_Ch13_OurEnvironment/ozone-depletion-and-waste-management": {
+    "approved": true,
+    "summary_sha256": "9db13a9166454ce99e1d41bc4ca52ee0181bdfd2140f34f6633827e524468ad2",
+    "notes": "Editorially checked ozone protection and depletion, the distinction from climate change, waste separation and hazardous-waste handling."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/resources-and-their-classification": {
+    "approved": true, "summary_sha256": "ad34f5e040a5d904824d39f2f6581d4c528482a2db9a4edd13a3a8aa6c65ac88", "notes": "Editorially checked classifications by origin, exhaustibility, ownership and development status."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/resource-development-and-sustainable-development": {
+    "approved": true, "summary_sha256": "b2103714b8d1a7014d56c1643614b1ec1479cb493e367d129014c5f27c739c5e", "notes": "Editorially checked resource overuse, equity and sustainable development principles."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/resource-planning-and-conservation": {
+    "approved": true, "summary_sha256": "9c006c882d8709920085942baa761a0d235ae27c7fb221bd665dba7f49b8d619", "notes": "Editorially checked Indian resource planning stages, uneven distribution and conservation practice."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/land-resources-utilisation-and-use-patterns": {
+    "approved": true, "summary_sha256": "4242e940e7ecbe7d7448666b60fadc198c6b92c50a2e9d9d33f1c7c2c0536c0d", "notes": "Editorially checked land-use categories, physical and human influences, and planning needs."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/land-degradation-and-conservation-measures": {
+    "approved": true, "summary_sha256": "64ade8aad782b0cd48fd8596d7285ac1165915d0d2d29c13cef15f5d753c2d22", "notes": "Editorially checked degradation causes and region-appropriate conservation measures."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/soil-formation-and-the-major-soil-types-of-india": {
+    "approved": true, "summary_sha256": "3de4931d39fa46c5bac518d95efa3deeef5c49d7ae2c50529fb8bc3ec8437db1", "notes": "Editorially checked soil formation, major Indian soil types and management implications."
+  },
+  "SocialScience_Geography_Ch01_ResourcesAndDevelopment/soil-erosion-and-soil-conservation": {
+    "approved": true, "summary_sha256": "5676f06f2bafa30a7ae8084d7fbc0efcdbfd468a19c62415e58586e0f00675a1", "notes": "Editorially checked erosion types, prevention methods and watershed context."
+  },
+  "SocialScience_Geography_Ch02_ForestAndWildlifeResources/biodiversity-and-the-importance-of-forests-and-wildlife": {
+    "approved": true, "summary_sha256": "e53285d16451a9734d01c205b38f8b54662401afbb553dfc090bac0271fbc131", "notes": "Editorially checked biodiversity, ecological services, conservation status and habitat loss."
+  },
+  "SocialScience_Geography_Ch02_ForestAndWildlifeResources/conserving-forests-and-wildlife-in-india": {
+    "approved": true, "summary_sha256": "25310fd0df911f2a918708478b414dccccadd442a8676d21c284de5205023ea7", "notes": "Editorially checked legal protection, protected areas, species projects and community involvement."
+  },
+  "SocialScience_Geography_Ch02_ForestAndWildlifeResources/types-and-distribution-of-forests": {
+    "approved": true, "summary_sha256": "f41aaf87e087b79de85e289b06da8de9157d1259fb8a86e9eedfad8c77d0eef8", "notes": "Editorially checked forest legal categories, density, ecological types and regional management."
+  },
+  "SocialScience_Geography_Ch02_ForestAndWildlifeResources/community-participation-and-conservation": {
+    "approved": true, "summary_sha256": "e711bdfd73ba9f581f4e4e47e29fafa432edc8d8449fb9c466710b9bfe70af46", "notes": "Editorially checked sacred groves, Joint Forest Management, equity and community roles."
+  },
+  "SocialScience_Geography_Ch03_WaterResources/water-availability-scarcity-and-conservation": {
+    "approved": true, "summary_sha256": "80364fbb35dd0f0bfc6451fc2600c1646b17c65ce0b1a7493e1ff91f192c6ef1", "notes": "Editorially checked scarcity causes, groundwater pressure, conservation, watershed management and equity."
+  },
+  "SocialScience_Geography_Ch03_WaterResources/multi-purpose-river-projects-and-dams": {
+    "approved": true, "summary_sha256": "d98a550fcbe12052fe2ce94d071a291a4c96e8df5f005c13b3dd343dbeb9c0cb", "notes": "Editorially checked dam purposes, benefits, limits and integrated basin planning."
+  },
+  "SocialScience_Geography_Ch03_WaterResources/the-social-and-environmental-impacts-of-dams": {
+    "approved": true, "summary_sha256": "8685d837ac0bc736e2babbd02306f9aa3d167c0891d2c80e5d29d08847f17021", "notes": "Editorially checked displacement, river impacts, uneven benefits and participation."
+  },
+  "SocialScience_Geography_Ch03_WaterResources/rainwater-harvesting-and-traditional-water-systems": {
+    "approved": true, "summary_sha256": "8e9976aab7ab77b69e8578c516f79086c798c1a9de2f1866d8d5a20903ede516", "notes": "Editorially checked traditional systems, rooftop harvesting, recharge and maintenance."
+  },
+  "SocialScience_Geography_Ch04_Agriculture/types-of-farming": {"approved": true, "summary_sha256": "2f3a197f00c2d965212816620d68bdab5594f237f8b4bc9526fc649247ac3355", "notes": "Editorially checked subsistence, shifting, intensive, commercial and plantation farming."},
+  "SocialScience_Geography_Ch04_Agriculture/cropping-seasons-and-major-food-crops": {"approved": true, "summary_sha256": "214b3921e2988835daa7f1655b9daf0ecc362cbee0b831df64550eed2af6d0d8", "notes": "Editorially checked Kharif, Rabi, Zaid, rice, wheat and seasonal planning."},
+  "SocialScience_Geography_Ch04_Agriculture/millets-maize-and-pulses": {"approved": true, "summary_sha256": "ab564bab6770d16b8edaa0532bd4173c448dde1fcfc0a9293c79d7bf9a659b8c", "notes": "Editorially checked dryland grains, maize, pulses, nutrition and nitrogen fixation."},
+  "SocialScience_Geography_Ch04_Agriculture/food-crops-other-than-grains-sugarcane-oilseeds-tea-and-coffee": {"approved": true, "summary_sha256": "e5401a013d34f05e217e11a1b73087cb6c967e3d1aa2b84f7e5272e1f1632881", "notes": "Editorially checked sugarcane, oilseeds, tea, coffee and value chains."},
+  "SocialScience_Geography_Ch04_Agriculture/horticulture-rubber-and-fibre-crops": {"approved": true, "summary_sha256": "75116bdab5a31b73fa0fd3a8eba88b907ab1b9d636bedf40a7e3a1aaca1effd6", "notes": "Editorially checked horticulture, rubber, cotton, jute and supply-chain needs."},
+  "SocialScience_Geography_Ch04_Agriculture/technological-and-institutional-reforms-in-agriculture": {"approved": true, "summary_sha256": "57df1f48a9225a439359b4dbe76c6cf4955fa0b892220880ea445bf27702df36", "notes": "Editorially checked Green Revolution, public support, technology and sustainable reform."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/minerals-and-their-modes-of-occurrence":{"approved":true,"summary_sha256":"7b063417a43281bc0870e39a3a769fdf1a9c16e18c1f8ffa51d8c6a1cdf3ddb3","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/ferrous-minerals":{"approved":true,"summary_sha256":"ca364299c5a1d93a7e52f45432f106ee8fe9a625c7f90a73623f732e102345d6","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/non-ferrous-and-non-metallic-minerals":{"approved":true,"summary_sha256":"66d8cd26328fd09a719ae8eeddc86ac6548900ee4f13a7195f644de24a1f93e9","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/conservation-of-minerals":{"approved":true,"summary_sha256":"6c89ed0c858c261c484559398899f9f0be0536b7829ac7f27c64a993f8ac8196","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/conventional-energy-coal-petroleum-and-natural-gas":{"approved":true,"summary_sha256":"47fc28caa2797bff79a5306b0508b91063f06891f6e3798be744ceca2fdd0c6e","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/electricity-and-non-conventional-energy-sources":{"approved":true,"summary_sha256":"2bc8f4f941014d762302350f0bd16bc8664d79a8ccd2635442df1f0426fb018f","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch05_MineralsAndEnergyResources/conservation-of-energy-resources":{"approved":true,"summary_sha256":"7ff68e3f2ff4c077ea29eca3ab6a5570206e068478bf766a0170c3ddf264ae03","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/the-importance-and-location-of-manufacturing":{"approved":true,"summary_sha256":"1fde03b6ad11a329935febfc9ea55d7e15d4143677d7e2c06ae6900fd39d5fa3","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/classification-of-industries":{"approved":true,"summary_sha256":"6a09554b3dead225efaab81dec149b424305c04ddfb11925879a46952c795b5c","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/agro-based-industries-textiles-and-sugar":{"approved":true,"summary_sha256":"8d0f704815d850d722dd7d381e465b3ba6b8f1436aca600381b680bffd2f516c","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/mineral-based-industries-iron-steel-and-aluminium":{"approved":true,"summary_sha256":"58db32bc27ce687ec536065f2c8135a2a2c92ee3cb5258b2dacb2729cbd55b5d","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/chemical-fertiliser-and-cement-industries":{"approved":true,"summary_sha256":"79a292a13f2c2ca700bae5f092996a0ec1cc06762d15330858746b3eea043c40","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/automobiles-electronics-and-information-technology":{"approved":true,"summary_sha256":"5891630243376ff7870bce385b5e0c221f0b5d573a075ff5b0321048636c2066","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch06_ManufacturingIndustries/industrial-pollution-and-environmental-protection":{"approved":true,"summary_sha256":"be3b752608d325af8521e9f2e510123c41726d3806fade51e51b39277160d56c","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch07_LifelinesOfNationalEconomy/transport-trade-and-economic-interdependence":{"approved":true,"summary_sha256":"b1176f166a06d713b14763eab0cc0f4f69bb6806c247e76eb76381b562f24183","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch07_LifelinesOfNationalEconomy/roadways-and-road-classification":{"approved":true,"summary_sha256":"f2f4fc29b30b58f442f613d63973624a80bdd433954ca5f076c0c514faba8698","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch07_LifelinesOfNationalEconomy/railways-and-pipelines":{"approved":true,"summary_sha256":"97568f79bc9a7e6bc80f13148f337a05c656440cbd148ca6dbd452b48b5dd76a","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch07_LifelinesOfNationalEconomy/waterways-seaports-and-airways":{"approved":true,"summary_sha256":"87aa7af3b245bc38f9a3c854197eb21bfd05090af4dab0f2f4ab9b8c50421008","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch07_LifelinesOfNationalEconomy/communication-networks":{"approved":true,"summary_sha256":"ea08448a9a6bd68fe6a82fdff030ab9252be436f39a53cb314d74e0aaad5845d","notes":"Editorial review complete."}
+  ,"SocialScience_Geography_Ch07_LifelinesOfNationalEconomy/international-trade-and-tourism":{"approved":true,"summary_sha256":"6bcc5181c19847919609b002c1f8068dce9c591c8e77d5c672f794891a3caf21","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch02_SectorsOfIndianEconomy/primary-secondary-and-tertiary-sectors":{"approved":true,"summary_sha256":"da90262f22a6400a1686d4a16f58bae1c10ac8a065fdb5a403bc856bd16f57bc","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch02_SectorsOfIndianEconomy/comparing-sectors-and-avoiding-double-counting":{"approved":true,"summary_sha256":"4957eb859ffefde5f990d6eca2fb2511093471242d4901e2a513a274194f9d69","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch02_SectorsOfIndianEconomy/the-growing-importance-of-the-tertiary-sector":{"approved":true,"summary_sha256":"9edf5e62f993c46cc02f33d428ef0cc2b0545c8f4505f0e0b9ebfe493aa694d0","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch02_SectorsOfIndianEconomy/employment-underemployment-and-creating-more-jobs":{"approved":true,"summary_sha256":"459bcd3076e4b78467b8817a09a8d2121053254d92d1fd02a4b244af8d07f77d","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch02_SectorsOfIndianEconomy/organised-and-unorganised-sectors":{"approved":true,"summary_sha256":"dbff41cbf4b6ebd15f0c03c0ec9d1ad7b605f31d199dae8e2da125e4a02ee7e0","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch02_SectorsOfIndianEconomy/public-and-private-sectors":{"approved":true,"summary_sha256":"dd311e0e9a08869627d162a2a472ba0885e82c9ac77ceae5f58c14565eebddb0","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch03_MoneyAndCredit/money-as-a-medium-of-exchange":{"approved":true,"summary_sha256":"a7fba95eabe796a0bcac7afb699f824ecd8b4e04ebe989f58007d0e6b6aecae2","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch03_MoneyAndCredit/modern-forms-of-money-and-bank-deposits":{"approved":true,"summary_sha256":"5dba3005c2bafde5e125ff7ad1379da7ed3820cb687c7ef0acbc939496a3e911","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch03_MoneyAndCredit/loan-activities-of-banks":{"approved":true,"summary_sha256":"db818824f80b26fd19080ce99eb11da8497465c6e3d7215b0303114456580985","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch03_MoneyAndCredit/credit-collateral-and-the-terms-of-credit":{"approved":true,"summary_sha256":"be94d1a31ae6c5856c3f9e9b5b03266d687f8ecfc1e98431cd3d2eabe0b9a0bd","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch03_MoneyAndCredit/formal-and-informal-sources-of-credit":{"approved":true,"summary_sha256":"923864d10352c6a68a71ba6f256e336b31d60bf7bfe41aa8a7dc2e3eb9d09a81","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch03_MoneyAndCredit/self-help-groups-and-access-to-credit":{"approved":true,"summary_sha256":"49fda9d395f7e46d4ae689567fd7b219ca5109ec8d8910dd14d8022fc2a9ebfc","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/production-across-countries-and-multinational-corporations":{"approved":true,"summary_sha256":"f191eccb5124088a62728286cf99ddf7a785cab9243bcc3ed849236bf37b7b07","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/interlinking-production-and-foreign-trade":{"approved":true,"summary_sha256":"8b64c8b4137feab3b8f629c57ac5c9d10f6a07de3a359e44a8990923884f6686","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/what-globalisation-means":{"approved":true,"summary_sha256":"7ef8fd59f33bde7287276a83621f194c64cb8228e09b253b9044d3b2fe9a873e","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/technology-and-liberalisation":{"approved":true,"summary_sha256":"f09b519083c76826db66c55fe4c81dad41b3207dd4aadef982d8e528da9ac7df","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/the-world-trade-organisation":{"approved":true,"summary_sha256":"10a918ee1a2f474edcdf1ef1e4b56e7ec4c87199c6a987676a5bc3e1b54f2584","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/the-impact-of-globalisation-in-india":{"approved":true,"summary_sha256":"dd590cc2dcb74328d97800653e931ce7f7e9e4d61bb1a99597efa099b1adf6ab","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy/the-struggle-for-fair-globalisation":{"approved":true,"summary_sha256":"50ff20c29dd3f25befc802f1223609a0b944ef2643439028b3b1e08e4ab284e4","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch05_ConsumerRights/consumers-in-the-marketplace-and-the-consumer-movement":{"approved":true,"summary_sha256":"28ac4f26715aaf9cf4cd96f98e998d11110665d29aa7bb8373f559731fc9a5a0","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch05_ConsumerRights/safety-and-the-right-to-information":{"approved":true,"summary_sha256":"93e6f212b1bba7a31d4ea16b629149fdcaf7498d25aa615d0ead90ddb946a6d3","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch05_ConsumerRights/the-right-to-choose-and-to-be-heard":{"approved":true,"summary_sha256":"3865d3b5c12034b10dc7f8ce0a008e463bd90305d8ead897a6707a117e93ecd5","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch05_ConsumerRights/seeking-redressal-and-consumer-organisations":{"approved":true,"summary_sha256":"799973002234cc4542e1023854e1f9fa0f019fda29eaa587a3acc8305974eb8b","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch05_ConsumerRights/becoming-an-informed-consumer-and-the-way-forward":{"approved":true,"summary_sha256":"5a1166a661213be2b237b73c25391ed0e49dacfbcc45bf0143996bb477094001","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch01_Development/different-people-and-different-development-goals":{"approved":true,"summary_sha256":"521724d53aa1b23df132efb626bcb884c922de5a0eb6c0522536e719d74671c7","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch01_Development/income-and-other-goals":{"approved":true,"summary_sha256":"1472eac35f20f4fd7f9c6ec3092165be57bc49b1d580d624bf6217bceff0f786","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch01_Development/national-development-and-average-income":{"approved":true,"summary_sha256":"541e6601eac66f6d829ba68f4d079e981d1af4e92fd3f3deb795370d1895accf","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch01_Development/comparing-development-beyond-income":{"approved":true,"summary_sha256":"82f7a8deb4fb2db0445afab70e75f0bb49765bfcb52e0132d8e31cb8b058a07b","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch01_Development/public-facilities-and-human-development":{"approved":true,"summary_sha256":"09da4a3c435d842675016a2984dd0ca4cc3441769e354cc72677e186c4da30d0","notes":"Editorial review complete."}
+  ,"SocialScience_Economics_Ch01_Development/sustainability-of-development":{"approved":true,"summary_sha256":"a6e11b7b954644bf8c027cc5891e633d5e036977a0f6763d3ffe802d5d3b82d2","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch01_PowerSharing/belgium-and-sri-lanka-contrasting-responses-to-diversity":{"approved":true,"summary_sha256":"e24e6cac620fe9b3ed7e8034ec786eaceb248565f0b5f9c3cd2bc0d07f8ce9f9","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch01_PowerSharing/majoritarianism-in-sri-lanka":{"approved":true,"summary_sha256":"f0f15284e2749f07f85830a683398be3d39f9a95f554662f5fc52b29b88b261d","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch01_PowerSharing/accommodation-in-belgium":{"approved":true,"summary_sha256":"5d1562015032c839d7b444cd653ebf2b2ae677e01ffb1c2c4afed0047733bc85","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch01_PowerSharing/why-power-sharing-is-desirable":{"approved":true,"summary_sha256":"8651c1abd67ee8ee20480d37694db0d36cfb0cafe8b595157a2f532012cf75e8","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch01_PowerSharing/forms-of-power-sharing":{"approved":true,"summary_sha256":"6cd313332034ab19367c94bd8f4209fa8d604ab30e613d371c2195d94b36afe5","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch03_GenderReligionAndCaste/gender-division-and-the-sexual-division-of-labour":{"approved":true,"summary_sha256":"5346673b8482945b5e2b5e93488afdc6f45cc903ab41c534a9aed4f9b84861e5","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch03_GenderReligionAndCaste/womens-political-representation":{"approved":true,"summary_sha256":"e1ad4b5a3afc35c28a418139095863560b60221a38ae172be0f9b3e7392637f7","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch03_GenderReligionAndCaste/religion-communalism-and-politics":{"approved":true,"summary_sha256":"378eabe50ddd52ecba371e603c7ffbfa6d9160d67b19d1944a79ca33a84f181e","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch03_GenderReligionAndCaste/the-secular-state":{"approved":true,"summary_sha256":"027085453c8cb621fd66ca4b815994a39da386eed490b4d344bf9fac2aac5183","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch03_GenderReligionAndCaste/caste-inequalities-and-caste-in-politics":{"approved":true,"summary_sha256":"21b957bde9f5fdc6b115143e2828a1640c0043bbd9ed0f10276e5c8b8dda5fbd","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch02_Federalism/the-meaning-and-key-features-of-federalism":{"approved":true,"summary_sha256":"fe74dee8b1eb236652de8a05188e56990c42d8188f42f3525a118a22fdb6b9bb","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch02_Federalism/what-makes-india-a-federal-country":{"approved":true,"summary_sha256":"71c7ee252ebcef4fcc55f24f789dac071fbd9c7b0e41ffc9027c5ee7566d842d","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch02_Federalism/linguistic-states-and-language-policy":{"approved":true,"summary_sha256":"7d730070d54105bce4f1396b323f599938e4252fbc9c2f42faa934a89b6994c3","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch02_Federalism/centre-state-relations-and-federal-practice":{"approved":true,"summary_sha256":"adb94545a3ce38a4e8d5ac1702f23e5ba246bd138727e18876a6a6a27a4fd1c2","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch02_Federalism/decentralisation-and-local-self-government":{"approved":true,"summary_sha256":"d23a0f0822729481c0706e8863440e156b0959548e019398cf6852113f0c34ab","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch05_OutcomesOfDemocracy/how-to-assess-democracys-outcomes":{"approved":true,"summary_sha256":"5abf494ef4555c3872291f694101bf824e9c8faeb0409847ee3353b3310567ad","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch05_OutcomesOfDemocracy/accountable-responsive-and-legitimate-government":{"approved":true,"summary_sha256":"bbb71e1e3499ea1956f6cfdd54df35f316cf95d89dc5ec46ff9f01a619bb9d74","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch05_OutcomesOfDemocracy/economic-growth-and-inequality":{"approved":true,"summary_sha256":"bcc4030ab1e78b8e4a6fad5c3e898c46552641a929c8192300637d08bb9a3a71","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch05_OutcomesOfDemocracy/accommodation-of-social-diversity":{"approved":true,"summary_sha256":"eb3b93ab422033a8ee421379e92b5abb2257218e20e3c0e89614f5efc4cb218c","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch05_OutcomesOfDemocracy/dignity-freedom-and-democratic-expectations":{"approved":true,"summary_sha256":"a42aefb1359417efbca1f4634cc3e383c6d4bf24a5045f180595229fe6676c6d","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch04_PoliticalParties/why-political-parties-are-necessary":{"approved":true,"summary_sha256":"c0259a7c4f2700160c6cf8bbc3e6eb9d14dfefebc176f45442f5230d45b52c71","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch04_PoliticalParties/the-functions-of-political-parties":{"approved":true,"summary_sha256":"bcabbf4bc19f57ce4937e9c30fa14c08dbd9f248a36e732d28c5f3cfc74e8d96","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch04_PoliticalParties/party-systems-and-the-indian-multi-party-system":{"approved":true,"summary_sha256":"0410e296d8ac81ecc1775060be13c6bfcaa7b7b085dd0c88d03421d95661739c","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch04_PoliticalParties/national-and-state-parties":{"approved":true,"summary_sha256":"76511eb5d775a136b22b502c90d938e85392723f7ae71b59fbef8fd880bde0a0","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch04_PoliticalParties/challenges-to-political-parties":{"approved":true,"summary_sha256":"df09daa47e4224b88edf193737d60f5fb0230c4b4be9f35af3f67354c7e92f79","notes":"Editorial review complete."}
+  ,"SocialScience_Civics_Ch04_PoliticalParties/reforming-political-parties":{"approved":true,"summary_sha256":"79c6ab3dcaa1d896353257957228d7a61fee241c7515b4ba80898d4c705c7fae","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/the-french-revolution-and-the-idea-of-the-nation":{"approved":true,"summary_sha256":"8c88c259915c6ccf96046c20fea12a1c041f90957c670fb8284c513ea3dc518b","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/liberal-nationalism-and-economic-integration":{"approved":true,"summary_sha256":"fd8ecd494c96910a125ffa443c32b8ae5e8d438a39c6e1e82ee559bd05d06f7a","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/conservatism-and-revolutionaries-after-1815":{"approved":true,"summary_sha256":"44bbec770049d1f5da93a17d9e349cb964754f142221b1d09aacae7c1986b39a","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/revolutions-romanticism-and-national-feeling":{"approved":true,"summary_sha256":"19d4753ed683d9621535042bd0dedccb120515bda9a67e355444188373b89f6e","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/the-revolutions-of-1848":{"approved":true,"summary_sha256":"2b5e5099a4fbcbe2ea17f8caff1a5fc995bdd56176895070dec9a7791f6c3c97","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/the-unification-of-germany-and-italy":{"approved":true,"summary_sha256":"8dc9693f97893f38a7b0aff962fa5aa7827eb06d4a604652d6ff2cfc3ffe8d3c","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/the-making-of-britain-and-visualising-the-nation":{"approved":true,"summary_sha256":"2cdd74e89f2b91fd65f031d8380f551f289b3590059fccc8e6ba9b13a69caa51","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch01_RiseOfNationalismInEurope/nationalism-and-imperialism-in-the-balkans":{"approved":true,"summary_sha256":"7098d2911b28c74ded3c6c0840c6fdaadc5a613a39de4f6852eec0265e0cbf8c","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/the-first-world-war-and-the-idea-of-satyagraha":{"approved":true,"summary_sha256":"5fc47419df4a46af93d498d3f68cc94e40f21c9df9947b6182b219e194ae7cec","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/the-rowlatt-act-jallianwala-bagh-and-the-khilafat-issue":{"approved":true,"summary_sha256":"bd262f626fa8230d4a134899191b2a9c26f22dab9bafb2804260b236cd9a7049","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/the-non-cooperation-movement-in-towns":{"approved":true,"summary_sha256":"61c3d8d1b7722d49a64b5ebd9cc409d32563bb1e5736001b1ac95013a5bec36f","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/peasant-tribal-and-plantation-interpretations-of-swaraj":{"approved":true,"summary_sha256":"5bad32b74267c715354b3ae4ff7ead29b330800d02c4bb3620f5881a86c9f9c6","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/the-salt-march-and-the-civil-disobedience-movement":{"approved":true,"summary_sha256":"abb4f8b729f54e009525e8a34eecd57fef9d883f591c8d3d017ee6c857d97f09","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/participation-and-the-limits-of-civil-disobedience":{"approved":true,"summary_sha256":"08361c4a68580fd465e1614461dc664db3359292c52a2444cf2ce996cddebefa","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch02_NationalismInIndia/symbols-history-and-a-sense-of-collective-belonging":{"approved":true,"summary_sha256":"25915604eac3830de000cc33678011954df8f3f2f955bdb228ff405a0ada6112","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/silk-routes-food-travels-conquest-and-disease":{"approved":true,"summary_sha256":"70bba02764f0f1061915292a55da364d232f4fc214ea2dbe8746a1fdbb0a884f","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/the-nineteenth-century-world-economy":{"approved":true,"summary_sha256":"90498cf5b303edce1012fa1590310237aef35180b2d80c9b13f30c3843e61988","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/technology-colonialism-and-the-cattle-plague":{"approved":true,"summary_sha256":"174b22cbf125c1d5a1590652f2dcea7c749c2a0ae77600974192af2119f4cc4b","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/indentured-labour-and-indian-entrepreneurs-abroad":{"approved":true,"summary_sha256":"bba7f7ec8aa8e60b3e4d5a780e2db53e56434a1b9407a072c3d714658a0e261e","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/indian-trade-and-the-colonial-global-system":{"approved":true,"summary_sha256":"e4f12dc2b817c98c9a74abddf33746f0250d4a95d82848e29fa0fd4a9d445321","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/wartime-transformations-and-post-war-recovery":{"approved":true,"summary_sha256":"c4f26cb85848cb49a396862b05205f4ba39628b4c2a88374545085c3bbd6865f","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/mass-production-and-the-great-depression":{"approved":true,"summary_sha256":"558a0f85f53d51124aa941e149d0682bac5f232e146ad613ab4fb29d356a2cb0","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/the-great-depression-and-india":{"approved":true,"summary_sha256":"c4ab26426f4b00437fda90dca5296d4e4f1915945039e7f5d64abf73b2d6ad5c","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/bretton-woods-recovery-and-decolonisation":{"approved":true,"summary_sha256":"66efb0a999a612bf40dcbe1d901af503ba05f3083ba26e2f0d6aa087c3f315f0","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch03_MakingOfAGlobalWorld/the-end-of-bretton-woods-and-new-globalisation":{"approved":true,"summary_sha256":"abeb729591980f5978092bf819f2a045884ff318bbcc29438ca48ef9db5f5ebd","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/proto-industrialisation-and-the-coming-of-factories":{"approved":true,"summary_sha256":"c0ae7beb6f1f6ee707ee04663ae24f0c874a900bccef24489d07d7b1062589ca","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/the-pace-of-industrial-change-and-hand-labour":{"approved":true,"summary_sha256":"0e7155eae3b9d66528fb00251e744a26a6e734d12418fa45260bec1475859635","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/the-lives-of-industrial-workers":{"approved":true,"summary_sha256":"bf1ed68ff8e81ce003b33711fd87917d5211e47c4d242addfe743f742c7b8a5a","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/indian-textiles-and-the-impact-of-colonial-trade":{"approved":true,"summary_sha256":"a347e79a02731de9a7eca02c8340016380a101da12c19ad65084a74e1c184c20","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/indian-entrepreneurs-factories-and-workers":{"approved":true,"summary_sha256":"4898a78be4bb398af40b767d37632fae957be6666d55ba407bdf38817368efa2","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/industrial-growth-and-the-survival-of-small-producers":{"approved":true,"summary_sha256":"d45eeb5918235190c073d750bf39233b54ecd67f101ab01a68575607d987914f","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch04_AgeOfIndustrialisation/advertising-and-the-market-for-goods":{"approved":true,"summary_sha256":"266d8b6b67be7a576b62ae4e8f9e1d8d74039102f20530c3bbe6c967386a511a","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/early-printing-in-east-asia":{"approved":true,"summary_sha256":"4e2d460a85c41e39399bab027a4a08e527bf2170161462c78f2d7ccc6cddd209","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/print-reaches-europe-and-gutenbergs-press":{"approved":true,"summary_sha256":"5909ed1c9c2765aa232c47016dfa3b22ac79ddeb007ca878e421618be80728b6","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/the-print-revolution-and-religious-debate":{"approved":true,"summary_sha256":"b429253455f4261816f67f15638805e796ae5b4f72e6195f9ea4122b311ac1a2","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/reading-publics-and-the-french-revolution":{"approved":true,"summary_sha256":"a8b315a58681d976eeb788b77a4369d68f95f41ea23d4cffce4fd81b3f95bc3a","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/print-for-children-women-and-workers":{"approved":true,"summary_sha256":"7ffd3832ac4ef2e22f64c70d9e010246c9b16289863b6170efd42a538c0cba39","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/printing-technology-and-new-reading-practices":{"approved":true,"summary_sha256":"de070f7ff09ec179034a64427495ef7236157c464e6c6f9724ba387d46ee2fcc","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/manuscripts-and-the-arrival-of-print-in-india":{"approved":true,"summary_sha256":"4080402fb8ad28d91f7e174ff70ca59b2829e0d4ca7beebe373205053e3f3297","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/religious-reform-debate-and-new-literary-forms":{"approved":true,"summary_sha256":"3be5dcd7409844a67c73dc245e98601780e4b609a311f88152d14c9ee0bf7d8c","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/women-workers-and-marginalised-readers-in-india":{"approved":true,"summary_sha256":"33fabbc2cf131031ca81f16f0c89c584bb67b991ad0865610cf63605a2984265","notes":"Editorial review complete."}
+  ,"SocialScience_History_Ch05_PrintCultureAndTheModernWorld/print-censorship-and-nationalism":{"approved":true,"summary_sha256":"379337b862b46f5c0387e320cc6cc00a1b7cbecccd834a62845fe5e7a2966b25","notes":"Editorial review complete."}
+}

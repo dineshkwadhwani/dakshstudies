@@ -1,0 +1,19 @@
+{
+  "source_section": "8.4 Trigonometric Identities",
+  "source_page_start": 16,
+  "source_page_end": 17,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:49:09.771Z",
+  "usage": {
+    "queue_time": 0.333524171,
+    "prompt_tokens": 3302,
+    "prompt_time": 0.147441689,
+    "completion_tokens": 782,
+    "completion_time": 1.636679887,
+    "total_tokens": 4084,
+    "total_time": 1.784121576,
+    "completion_tokens_details": {
+      "reasoning_tokens": 35
+    }
+  }
+}

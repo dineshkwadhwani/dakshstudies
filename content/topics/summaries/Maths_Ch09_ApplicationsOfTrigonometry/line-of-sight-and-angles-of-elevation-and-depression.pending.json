@@ -1,0 +1,7 @@
+{
+  "slug": "line-of-sight-and-angles-of-elevation-and-depression",
+  "summary_html": "<p>When we look at an object from a point that is not at the same level, the straight line joining our eye and the object is called the line of sight. If the object lies above the horizontal line through the observer, the line of sight makes an upward angle with the horizontal; this is the angle of elevation. Conversely, if the object is below the horizontal, the line of sight slopes downward and the angle formed with the horizontal is the angle of depression. In both cases the horizontal line acts as a reference, so the two angles are equal to the corresponding interior angles of the right‑angled triangles formed by the line of sight, the horizontal, and the vertical line through the object. For example, a girl on a balcony looking down at a flower pot creates an angle of depression, while a student standing away from a minar and looking up at its top creates an angle of elevation. The terminology is independent of the observer’s posture; it depends only on whether the line of sight is above or below the horizontal. A common mistake is to confuse the angle of elevation with the angle that the vertical makes with the line of sight; the correct reference is always the horizontal. Understanding these angles lets us translate everyday visual situations into right‑angled triangles, a prerequisite for applying trigonometric ratios.</p>",
+  "source_section": "Angles of elevation and depression",
+  "source_page_start": 2,
+  "source_page_end": 3
+}

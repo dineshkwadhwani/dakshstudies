@@ -1,0 +1,20 @@
+{
+  "topics": [
+    {
+      "slug": "polynomials-and-the-geometrical-meaning-of-zeroes",
+      "approved": true,
+      "issues": [
+        "The statement \"Fundamental Theorem of Algebra guarantees that a polynomial of degree n has at most n real zeroes (counting multiplicities)\" is slightly imprecise. The Fundamental Theorem of Algebra guarantees n complex roots (counting multiplicities); the number of real zeroes is at most n but this is not a direct guarantee of the theorem. Consider revising to: \"The Fundamental Theorem of Algebra guarantees n complex roots (counting multiplicities); consequently a polynomial of degree n can have at most n real zeroes.\""
+      ],
+      "summary_sha256": "d75903932b8f472ae5de77028b5883532066ae99e3c4b61a30e9ed58402ea8fa"
+    },
+    {
+      "slug": "relationships-between-zeroes-and-coefficients",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "000f3c068ff47631e6fa8052518fc18bb14f70bf2221dfaff506f3d5f9edeed8"
+    }
+  ],
+  "model": "groq/compound-mini",
+  "checked_at": "2026-09-07T18:43:07.284Z"
+}

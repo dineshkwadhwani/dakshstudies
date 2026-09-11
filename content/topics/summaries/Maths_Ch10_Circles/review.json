@@ -1,0 +1,18 @@
+{
+  "topics": [
+    {
+      "slug": "tangents-to-a-circle-and-perpendicular-radii",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "39f2da79ed85fd12ed5ac572abecb82058f3f315407d0c2816776fa13b9e2f21"
+    },
+    {
+      "slug": "tangents-from-an-external-point",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "ad72b0b0fd2c4ca11a05374abd8c48c3b725f9226ab0f7c6acea5317df4e79ad"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-08T01:50:38.576Z"
+}

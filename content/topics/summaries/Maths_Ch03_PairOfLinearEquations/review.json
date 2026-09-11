@@ -1,0 +1,30 @@
+{
+  "topics": [
+    {
+      "slug": "linear-equations-and-their-graphical-solutions",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "f382682e818a18bcc4063dd0d1b7a02a406e29fbf74480e31d5fe738fd709bb8"
+    },
+    {
+      "slug": "consistent-and-inconsistent-pairs-of-equations",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "e63b57e16d960bc8ea45274a0f0575bff109a09a18de3f45dae529609bd66169"
+    },
+    {
+      "slug": "solving-by-substitution",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "5c44921f87833b991baec7d78946c0af1ff8a496d0cad6949041e9f09fa9ac6e"
+    },
+    {
+      "slug": "solving-by-elimination-and-forming-equations-from-problems",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "e54f128c2311d34da525467e24a58ddc03584bd980601e8d048135c48d0e738a"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-07T18:47:32.877Z"
+}

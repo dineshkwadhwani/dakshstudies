@@ -1,0 +1,19 @@
+{
+  "source_section": "Distance Formula",
+  "source_page_start": 2,
+  "source_page_end": 4,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:47:22.867Z",
+  "usage": {
+    "queue_time": 0.211716291,
+    "prompt_tokens": 3561,
+    "prompt_time": 0.158129889,
+    "completion_tokens": 1523,
+    "completion_time": 3.198242017,
+    "total_tokens": 5084,
+    "total_time": 3.356371906,
+    "completion_tokens_details": {
+      "reasoning_tokens": 23
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "source_section": "Definition and identification of APs",
+  "source_page_start": 3,
+  "source_page_end": 5,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-07T18:50:24.063Z",
+  "usage": {
+    "queue_time": 0.32416472,
+    "prompt_tokens": 3332,
+    "prompt_time": 0.165464175,
+    "completion_tokens": 1402,
+    "completion_time": 2.925632883,
+    "total_tokens": 4734,
+    "total_time": 3.091097058,
+    "completion_tokens_details": {
+      "reasoning_tokens": 36
+    }
+  }
+}

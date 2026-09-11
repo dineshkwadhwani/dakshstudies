@@ -1,0 +1,28 @@
+{
+  "topics": [
+    {
+      "slug": "trigonometric-ratios-in-a-right-triangle",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "becc6b14be6bcebf0852a7b1c4b07b2246868b3192504a69fddd2bf80e8ed43a"
+    },
+    {
+      "slug": "trigonometric-ratios-of-standard-angles",
+      "approved": false,
+      "issues": [
+        "The textbook excerpt for the 45° case contains incorrect numerical values: it states sin 45° = BC/AC = a/(2a) = 1/2 and consequently derives cosec 45° = 1/(2 sin 45°) = 1/2, whereas the correct values are sin 45° = √2/2, cos 45° = √2/2, tan 45° = 1, cosec 45° = √2, sec 45° = √2, and cot 45° = 1. The summary correctly presents the standard values, so the issue lies with the source text."
+      ],
+      "summary_sha256": "877da3745a263e414a2c5e2aa89d5aa5b6f3b99e641e8d554724641bb208705b"
+    },
+    {
+      "slug": "trigonometric-identities",
+      "approved": false,
+      "issues": [
+        "The summary states that the identities (cos A)²+(sin A)²=1, 1+tan²A=sec²A and cot²A+1=cosec²A hold for all angles 0°≤A≤90°. In the source text, the first identity is valid for 0°≤A≤90°, but the second is only valid for 0°≤A<90° (tan A and sec A are undefined at 90°) and the third is only valid for 0°<A≤90° (cot A and cosec A are undefined at 0°). The summary therefore overgeneralises the domain of validity. The correction is to state the appropriate exclusions for each identity."
+      ],
+      "summary_sha256": "7854bcbb51c9f4e8e2865b0e20c634d22e90c30cc4efeda5cf283eed390844ca"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-08T01:49:29.371Z"
+}

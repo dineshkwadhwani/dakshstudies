@@ -20,3 +20,6 @@ pnpm-debug.log*
 .DS_Store
 .vite/
 *.local
+
+# Topic summary HTML authoring artifacts (published content lives in the database)
+content/topics/summaries/**/*.html

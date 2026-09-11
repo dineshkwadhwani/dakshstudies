@@ -1,0 +1,19 @@
+{
+  "source_section": "Areas of segments and combined figures",
+  "source_page_start": 3,
+  "source_page_end": 5,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:52:05.294Z",
+  "usage": {
+    "queue_time": 0.31029335,
+    "prompt_tokens": 2836,
+    "prompt_time": 0.150559217,
+    "completion_tokens": 1173,
+    "completion_time": 2.4369732170000002,
+    "total_tokens": 4009,
+    "total_time": 2.587532434,
+    "completion_tokens_details": {
+      "reasoning_tokens": 44
+    }
+  }
+}

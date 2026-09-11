@@ -1,0 +1,19 @@
+{
+  "source_section": "4.3 Solution of a Quadratic Equation by Factorisation",
+  "source_page_start": 5,
+  "source_page_end": 5,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-07T18:46:34.950Z",
+  "usage": {
+    "queue_time": 0.415637159,
+    "prompt_tokens": 3765,
+    "prompt_time": 0.221328175,
+    "completion_tokens": 5986,
+    "completion_time": 12.539743469,
+    "total_tokens": 9751,
+    "total_time": 12.761071644,
+    "completion_tokens_details": {
+      "reasoning_tokens": 4336
+    }
+  }
+}

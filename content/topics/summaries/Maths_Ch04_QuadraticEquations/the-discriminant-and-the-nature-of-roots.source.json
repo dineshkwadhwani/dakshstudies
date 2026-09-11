@@ -1,0 +1,19 @@
+{
+  "source_section": "Discriminant and nature of roots",
+  "source_page_start": 8,
+  "source_page_end": 9,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-07T18:48:28.932Z",
+  "usage": {
+    "queue_time": 0.225310349,
+    "prompt_tokens": 3739,
+    "prompt_time": 0.18178566,
+    "completion_tokens": 820,
+    "completion_time": 1.701578809,
+    "total_tokens": 4559,
+    "total_time": 1.883364469,
+    "completion_tokens_details": {
+      "reasoning_tokens": 37
+    }
+  }
+}

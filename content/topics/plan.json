@@ -1,0 +1,1870 @@
+{
+  "edition": "2026–27",
+  "chapters": [
+    {
+      "chapter_legacy_id": "Maths_Ch01_RealNumbers",
+      "chapter_title": "Real Numbers",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh101.pdf",
+      "source_sha256": "bd6466e8e7d437af89d7e640ff8381e68b57f91bf56cd4ce345ca031091d748f",
+      "source_page_count": 9,
+      "topics": [
+        {
+          "title": "Prime factorisation and the Fundamental Theorem of Arithmetic",
+          "slug": "prime-factorisation-and-the-fundamental-theorem-of-arithmetic",
+          "sort_order": 1,
+          "source_page_start": 2,
+          "source_page_end": 5,
+          "source_section": "1.2 The Fundamental Theorem of Arithmetic",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "HCF and LCM using prime factors",
+          "slug": "hcf-and-lcm-using-prime-factors",
+          "sort_order": 2,
+          "source_page_start": 4,
+          "source_page_end": 6,
+          "source_section": "1.2 The Fundamental Theorem of Arithmetic",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Irrational numbers and proofs of irrationality",
+          "slug": "irrational-numbers-and-proofs-of-irrationality",
+          "sort_order": 3,
+          "source_page_start": 6,
+          "source_page_end": 8,
+          "source_section": "1.3 Revisiting Irrational Numbers",
+          "review_status": "reviewed"
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch02_Polynomials",
+      "chapter_title": "Polynomials",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh102.pdf",
+      "source_sha256": "f040ca888111fc005d6c1ed4153bbaddaeb3d001272b7a952e2421bb3190250d",
+      "source_page_count": 14,
+      "topics": [
+        {
+          "title": "Polynomials and the geometrical meaning of zeroes",
+          "slug": "polynomials-and-the-geometrical-meaning-of-zeroes",
+          "sort_order": 1
+        },
+        {
+          "title": "Relationships between zeroes and coefficients",
+          "slug": "relationships-between-zeroes-and-coefficients",
+          "sort_order": 2
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch03_PairOfLinearEquations",
+      "chapter_title": "Pair of Linear Equations in Two Variables",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh103.pdf",
+      "source_sha256": "d04ef69d830a97243be9bd1cab0aa82399056f0f4a621bb71bbe97ecd1dfa147",
+      "source_page_count": 14,
+      "topics": [
+        {
+          "title": "Linear equations and their graphical solutions",
+          "slug": "linear-equations-and-their-graphical-solutions",
+          "sort_order": 1
+        },
+        {
+          "title": "Consistent and inconsistent pairs of equations",
+          "slug": "consistent-and-inconsistent-pairs-of-equations",
+          "sort_order": 2
+        },
+        {
+          "title": "Solving by substitution",
+          "slug": "solving-by-substitution",
+          "sort_order": 3
+        },
+        {
+          "title": "Solving by elimination and forming equations from problems",
+          "slug": "solving-by-elimination-and-forming-equations-from-problems",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch04_QuadraticEquations",
+      "chapter_title": "Quadratic Equations",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh104.pdf",
+      "source_sha256": "9aca4b28ad57ae78a5e69ce67d19344c44b1390c5b8afd13db83b46ad54e8e9d",
+      "source_page_count": 11,
+      "topics": [
+        {
+          "title": "Recognising and forming quadratic equations",
+          "slug": "recognising-and-forming-quadratic-equations",
+          "sort_order": 1
+        },
+        {
+          "title": "Solving quadratic equations by factorisation",
+          "slug": "solving-quadratic-equations-by-factorisation",
+          "sort_order": 2
+        },
+        {
+          "title": "The discriminant and the nature of roots",
+          "slug": "the-discriminant-and-the-nature-of-roots",
+          "sort_order": 3
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch05_ArithmeticProgressions",
+      "chapter_title": "Arithmetic Progressions",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh105.pdf",
+      "source_sha256": "1367857e5cd3206b1862655d17bf31778e6af768821d8dfc8c71d3ea0e19274c",
+      "source_page_count": 24,
+      "topics": [
+        {
+          "title": "Recognising an arithmetic progression",
+          "slug": "recognising-an-arithmetic-progression",
+          "sort_order": 1
+        },
+        {
+          "title": "The nth term of an arithmetic progression",
+          "slug": "the-nth-term-of-an-arithmetic-progression",
+          "sort_order": 2
+        },
+        {
+          "title": "The sum of the first n terms",
+          "slug": "the-sum-of-the-first-n-terms",
+          "sort_order": 3
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch06_Triangles",
+      "chapter_title": "Triangles",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh106.pdf",
+      "source_sha256": "028a1243ccd005e952fca0f9c498be86cd526b74deb0bc6cd5147e15eef12f58",
+      "source_page_count": 26,
+      "topics": [
+        {
+          "title": "Similar figures and corresponding parts",
+          "slug": "similar-figures-and-corresponding-parts",
+          "sort_order": 1
+        },
+        {
+          "title": "The Basic Proportionality Theorem and its converse",
+          "slug": "the-basic-proportionality-theorem-and-its-converse",
+          "sort_order": 2
+        },
+        {
+          "title": "AA, SSS and SAS similarity criteria",
+          "slug": "aa-sss-and-sas-similarity-criteria",
+          "sort_order": 3
+        },
+        {
+          "title": "Using similarity to find unknown lengths",
+          "slug": "using-similarity-to-find-unknown-lengths",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch07_CoordinateGeometry",
+      "chapter_title": "Coordinate Geometry",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh107.pdf",
+      "source_sha256": "ca7a4c2071221ddad13eca8c3bf2deba6be2f21b2a47b07f10443131bad53f04",
+      "source_page_count": 14,
+      "topics": [
+        {
+          "title": "The distance formula",
+          "slug": "the-distance-formula",
+          "sort_order": 1
+        },
+        {
+          "title": "The section formula and midpoint",
+          "slug": "the-section-formula-and-midpoint",
+          "sort_order": 2
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch08_IntroductionToTrigonometry",
+      "chapter_title": "Introduction to Trigonometry",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh108.pdf",
+      "source_sha256": "5a4033fd2ab3fbb245f783a3e2c24fb5c31a00ae7fa7b9a7212633d11e06d2ac",
+      "source_page_count": 20,
+      "topics": [
+        {
+          "title": "Trigonometric ratios in a right triangle",
+          "slug": "trigonometric-ratios-in-a-right-triangle",
+          "sort_order": 1
+        },
+        {
+          "title": "Trigonometric ratios of standard angles",
+          "slug": "trigonometric-ratios-of-standard-angles",
+          "sort_order": 2
+        },
+        {
+          "title": "Trigonometric identities",
+          "slug": "trigonometric-identities",
+          "sort_order": 3
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch09_ApplicationsOfTrigonometry",
+      "chapter_title": "Some Applications of Trigonometry",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh109.pdf",
+      "source_sha256": "89c6c125039bfb8c7708b6bc5a27321021de629d4a1608f7f94812a96698f63f",
+      "source_page_count": 11,
+      "topics": [
+        {
+          "title": "Line of sight and angles of elevation and depression",
+          "slug": "line-of-sight-and-angles-of-elevation-and-depression",
+          "sort_order": 1
+        },
+        {
+          "title": "Solving heights and distances problems",
+          "slug": "solving-heights-and-distances-problems",
+          "sort_order": 2
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch10_Circles",
+      "chapter_title": "Circles",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh110.pdf",
+      "source_sha256": "aef0ee7e58d4ec4dc043e943843da7981b4b782483b7b8b8bcdd08657bad1ae3",
+      "source_page_count": 10,
+      "topics": [
+        {
+          "title": "Tangents to a circle and perpendicular radii",
+          "slug": "tangents-to-a-circle-and-perpendicular-radii",
+          "sort_order": 1
+        },
+        {
+          "title": "Tangents from an external point",
+          "slug": "tangents-from-an-external-point",
+          "sort_order": 2
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch12_AreasRelatedToCircles",
+      "chapter_title": "Areas Related to Circles",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh111.pdf",
+      "source_sha256": "1c73d7750139b63e98acf3682a7cae1a9bd163ed40d8e90e2199ab72e99c73b1",
+      "source_page_count": 7,
+      "topics": [
+        {
+          "title": "Arc length and the area of a sector",
+          "slug": "arc-length-and-the-area-of-a-sector",
+          "sort_order": 1
+        },
+        {
+          "title": "Areas of segments and combined figures",
+          "slug": "areas-of-segments-and-combined-figures",
+          "sort_order": 2
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch13_SurfaceAreasAndVolumes",
+      "chapter_title": "Surface Areas and Volumes",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh112.pdf",
+      "source_sha256": "5108400be07a99d6df322df607b90d51ba841f8a060276d05f9e75accc2b8be9",
+      "source_page_count": 10,
+      "topics": [
+        {
+          "title": "Surface area of combined solids",
+          "slug": "surface-area-of-combined-solids",
+          "sort_order": 1
+        },
+        {
+          "title": "Volume of combined solids",
+          "slug": "volume-of-combined-solids",
+          "sort_order": 2
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch14_Statistics",
+      "chapter_title": "Statistics",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh113.pdf",
+      "source_sha256": "18815e1f62dfd05048e7539a2444007409b3d20b6dc62a57f69702f236511929",
+      "source_page_count": 31,
+      "topics": [
+        {
+          "title": "The mean of grouped data",
+          "slug": "the-mean-of-grouped-data",
+          "sort_order": 1
+        },
+        {
+          "title": "The mode of grouped data",
+          "slug": "the-mode-of-grouped-data",
+          "sort_order": 2
+        },
+        {
+          "title": "The median of grouped data",
+          "slug": "the-median-of-grouped-data",
+          "sort_order": 3
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Maths_Ch15_Probability",
+      "chapter_title": "Probability",
+      "subject": "mathematics",
+      "source_book": "NCERT Mathematics, Class X, reprint 2026–27",
+      "source_file": "mathematics/jemh114.pdf",
+      "source_sha256": "d5f516dc7109fe926ae7388aac3f4b87a776e41098fc517baec0eec000528d11",
+      "source_page_count": 16,
+      "topics": [
+        {
+          "title": "Random experiments and equally likely outcomes",
+          "slug": "random-experiments-and-equally-likely-outcomes",
+          "sort_order": 1
+        },
+        {
+          "title": "Theoretical probability of an event",
+          "slug": "theoretical-probability-of-an-event",
+          "sort_order": 2
+        },
+        {
+          "title": "Complementary, impossible and certain events",
+          "slug": "complementary-impossible-and-certain-events",
+          "sort_order": 3
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch01_ChemicalReactionsAndEquations",
+      "chapter_title": "Chemical Reactions and Equations",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc101.pdf",
+      "source_sha256": "9d58fa614b2d1064f4ef13423eaf85155b0efc5e74bdf3e8c5e6f15f1b742d36",
+      "source_page_count": 16,
+      "topics": [
+        {
+          "title": "Chemical changes and writing chemical equations",
+          "slug": "chemical-changes-and-writing-chemical-equations",
+          "sort_order": 1,
+          "source_page_start": 1,
+          "source_page_end": 3,
+          "source_section": "1.1 Chemical Equations",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Balancing chemical equations",
+          "slug": "balancing-chemical-equations",
+          "sort_order": 2,
+          "source_page_start": 3,
+          "source_page_end": 5,
+          "source_section": "1.1.2 Balanced Chemical Equations",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Combination reactions and energy changes",
+          "slug": "combination-reactions-and-energy-changes",
+          "sort_order": 3,
+          "source_page_start": 6,
+          "source_page_end": 7,
+          "source_section": "1.2.1 Combination Reaction",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Decomposition reactions",
+          "slug": "decomposition-reactions",
+          "sort_order": 4,
+          "source_page_start": 8,
+          "source_page_end": 10,
+          "source_section": "1.2.2 Decomposition Reaction",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Displacement and double displacement reactions",
+          "slug": "displacement-and-double-displacement-reactions",
+          "sort_order": 5,
+          "source_page_start": 10,
+          "source_page_end": 12,
+          "source_section": "1.2.3–1.2.4 Displacement and Double Displacement Reactions",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Oxidation and reduction",
+          "slug": "oxidation-and-reduction",
+          "sort_order": 6,
+          "source_page_start": 12,
+          "source_page_end": 13,
+          "source_section": "1.2.5 Oxidation and Reduction",
+          "review_status": "reviewed"
+        },
+        {
+          "title": "Corrosion and rancidity",
+          "slug": "corrosion-and-rancidity",
+          "sort_order": 7,
+          "source_page_start": 13,
+          "source_page_end": 13,
+          "source_section": "1.3.1–1.3.2 Corrosion and Rancidity",
+          "review_status": "reviewed"
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch02_AcidsBasesAndSalts",
+      "chapter_title": "Acids, Bases and Salts",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc102.pdf",
+      "source_sha256": "8ce001e9cd1ab5f842064d1f332d4a64e010c37d5e5e29664bacd9da526f7340",
+      "source_page_count": 20,
+      "topics": [
+        {
+          "title": "Indicators and the properties of acids and bases",
+          "slug": "indicators-and-the-properties-of-acids-and-bases",
+          "sort_order": 1
+        },
+        {
+          "title": "Reactions with metals, carbonates and hydrogencarbonates",
+          "slug": "reactions-with-metals-carbonates-and-hydrogencarbonates",
+          "sort_order": 2
+        },
+        {
+          "title": "Neutralisation and reactions with metal and non-metal oxides",
+          "slug": "neutralisation-and-reactions-with-metal-and-non-metal-oxides",
+          "sort_order": 3
+        },
+        {
+          "title": "Acids and bases in aqueous solution",
+          "slug": "acids-and-bases-in-aqueous-solution",
+          "sort_order": 4
+        },
+        {
+          "title": "The pH scale and its importance in everyday life",
+          "slug": "the-ph-scale-and-its-importance-in-everyday-life",
+          "sort_order": 5
+        },
+        {
+          "title": "Salts and chemicals obtained from common salt",
+          "slug": "salts-and-chemicals-obtained-from-common-salt",
+          "sort_order": 6
+        },
+        {
+          "title": "Baking soda and washing soda",
+          "slug": "baking-soda-and-washing-soda",
+          "sort_order": 7
+        },
+        {
+          "title": "Water of crystallisation and plaster of Paris",
+          "slug": "water-of-crystallisation-and-plaster-of-paris",
+          "sort_order": 8
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch03_MetalsAndNonMetals",
+      "chapter_title": "Metals and Non-metals",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc103.pdf",
+      "source_sha256": "cda8ac2d0dfd62366bc8949b901df3f28128137b7e0971968f7568dccb715117",
+      "source_page_count": 21,
+      "topics": [
+        {
+          "title": "Physical properties of metals and non-metals",
+          "slug": "physical-properties-of-metals-and-non-metals",
+          "sort_order": 1
+        },
+        {
+          "title": "Reactions of metals with air, water and acids",
+          "slug": "reactions-of-metals-with-air-water-and-acids",
+          "sort_order": 2
+        },
+        {
+          "title": "The reactivity series and displacement reactions",
+          "slug": "the-reactivity-series-and-displacement-reactions",
+          "sort_order": 3
+        },
+        {
+          "title": "Ionic bonding and the properties of ionic compounds",
+          "slug": "ionic-bonding-and-the-properties-of-ionic-compounds",
+          "sort_order": 4
+        },
+        {
+          "title": "Minerals, ores and the extraction of metals",
+          "slug": "minerals-ores-and-the-extraction-of-metals",
+          "sort_order": 5
+        },
+        {
+          "title": "Refining metals, corrosion and its prevention",
+          "slug": "refining-metals-corrosion-and-its-prevention",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch04_CarbonAndItsCompounds",
+      "chapter_title": "Carbon and its Compounds",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc104.pdf",
+      "source_sha256": "efbb053ea8cedf29bc6891834613fdbcc17772e369f6b35405f3bb4701c41abe",
+      "source_page_count": 21,
+      "topics": [
+        {
+          "title": "Covalent bonding in carbon compounds",
+          "slug": "covalent-bonding-in-carbon-compounds",
+          "sort_order": 1
+        },
+        {
+          "title": "Catenation, tetravalency and the versatility of carbon",
+          "slug": "catenation-tetravalency-and-the-versatility-of-carbon",
+          "sort_order": 2
+        },
+        {
+          "title": "Saturated and unsaturated compounds: chains, branches and rings",
+          "slug": "saturated-and-unsaturated-compounds-chains-branches-and-rings",
+          "sort_order": 3
+        },
+        {
+          "title": "Functional groups and homologous series",
+          "slug": "functional-groups-and-homologous-series",
+          "sort_order": 4
+        },
+        {
+          "title": "Naming carbon compounds",
+          "slug": "naming-carbon-compounds",
+          "sort_order": 5
+        },
+        {
+          "title": "Combustion, oxidation, addition and substitution",
+          "slug": "combustion-oxidation-addition-and-substitution",
+          "sort_order": 6
+        },
+        {
+          "title": "Ethanol and ethanoic acid",
+          "slug": "ethanol-and-ethanoic-acid",
+          "sort_order": 7
+        },
+        {
+          "title": "Soaps, detergents and micelles",
+          "slug": "soaps-detergents-and-micelles",
+          "sort_order": 8
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch05_LifeProcesses",
+      "chapter_title": "Life Processes",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc105.pdf",
+      "source_sha256": "685ec7228afeb79d7bc9b989648e381e5eb4b5a6d290d6a13374489c9284054f",
+      "source_page_count": 21,
+      "topics": [
+        {
+          "title": "Life processes and the need for maintenance",
+          "slug": "life-processes-and-the-need-for-maintenance",
+          "sort_order": 1
+        },
+        {
+          "title": "Autotrophic nutrition and photosynthesis",
+          "slug": "autotrophic-nutrition-and-photosynthesis",
+          "sort_order": 2
+        },
+        {
+          "title": "Heterotrophic nutrition and human digestion",
+          "slug": "heterotrophic-nutrition-and-human-digestion",
+          "sort_order": 3
+        },
+        {
+          "title": "Respiration and the release of energy",
+          "slug": "respiration-and-the-release-of-energy",
+          "sort_order": 4
+        },
+        {
+          "title": "Transport of substances in human beings",
+          "slug": "transport-of-substances-in-human-beings",
+          "sort_order": 5
+        },
+        {
+          "title": "Transport of water and food in plants",
+          "slug": "transport-of-water-and-food-in-plants",
+          "sort_order": 6
+        },
+        {
+          "title": "Excretion in human beings and plants",
+          "slug": "excretion-in-human-beings-and-plants",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch06_ControlAndCoordination",
+      "chapter_title": "Control and Coordination",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc106.pdf",
+      "source_sha256": "bf4ddfa158e117a71a32b2f19c8fcd87140ef325e8672faad5d4a599d36ea913",
+      "source_page_count": 13,
+      "topics": [
+        {
+          "title": "Neurons, nerve impulses and reflex actions",
+          "slug": "neurons-nerve-impulses-and-reflex-actions",
+          "sort_order": 1
+        },
+        {
+          "title": "The human brain and voluntary and involuntary actions",
+          "slug": "the-human-brain-and-voluntary-and-involuntary-actions",
+          "sort_order": 2
+        },
+        {
+          "title": "Plant responses and growth movements",
+          "slug": "plant-responses-and-growth-movements",
+          "sort_order": 3
+        },
+        {
+          "title": "Hormones in animals and feedback mechanisms",
+          "slug": "hormones-in-animals-and-feedback-mechanisms",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch07_HowDoOrganismsReproduce",
+      "chapter_title": "How do Organisms Reproduce?",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc107.pdf",
+      "source_sha256": "575cb5a50b488a46715e500d4cbeaf3b687bf01f9da7989c928d35f1a3a88ec0",
+      "source_page_count": 15,
+      "topics": [
+        {
+          "title": "DNA copying, reproduction and variation",
+          "slug": "dna-copying-reproduction-and-variation",
+          "sort_order": 1
+        },
+        {
+          "title": "Fission, fragmentation and regeneration",
+          "slug": "fission-fragmentation-and-regeneration",
+          "sort_order": 2
+        },
+        {
+          "title": "Budding, vegetative propagation and spore formation",
+          "slug": "budding-vegetative-propagation-and-spore-formation",
+          "sort_order": 3
+        },
+        {
+          "title": "Sexual reproduction in flowering plants",
+          "slug": "sexual-reproduction-in-flowering-plants",
+          "sort_order": 4
+        },
+        {
+          "title": "Puberty and the human reproductive systems",
+          "slug": "puberty-and-the-human-reproductive-systems",
+          "sort_order": 5
+        },
+        {
+          "title": "Fertilisation, pregnancy and menstruation",
+          "slug": "fertilisation-pregnancy-and-menstruation",
+          "sort_order": 6
+        },
+        {
+          "title": "Reproductive health and contraception",
+          "slug": "reproductive-health-and-contraception",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch08_Heredity",
+      "chapter_title": "Heredity",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc108.pdf",
+      "source_sha256": "b0357c0bcc860190c9d3dccc7c91ee31a65012442e795be5bc00cd9f621bff5b",
+      "source_page_count": 6,
+      "topics": [
+        {
+          "title": "Variation and inherited traits",
+          "slug": "variation-and-inherited-traits",
+          "sort_order": 1
+        },
+        {
+          "title": "Mendel’s experiments and the inheritance of traits",
+          "slug": "mendels-experiments-and-the-inheritance-of-traits",
+          "sort_order": 2
+        },
+        {
+          "title": "Independent inheritance and the expression of genes",
+          "slug": "independent-inheritance-and-the-expression-of-genes",
+          "sort_order": 3
+        },
+        {
+          "title": "Sex determination in human beings",
+          "slug": "sex-determination-in-human-beings",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch09_LightReflectionAndRefraction",
+      "chapter_title": "Light – Reflection and Refraction",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc109.pdf",
+      "source_sha256": "a647d66cd9dd9e767c1fea57baac3a7aeaf9cb7461f87dc3f619e6fee8947497",
+      "source_page_count": 27,
+      "topics": [
+        {
+          "title": "Reflection and the terminology of spherical mirrors",
+          "slug": "reflection-and-the-terminology-of-spherical-mirrors",
+          "sort_order": 1
+        },
+        {
+          "title": "Image formation by concave and convex mirrors",
+          "slug": "image-formation-by-concave-and-convex-mirrors",
+          "sort_order": 2
+        },
+        {
+          "title": "Mirror sign conventions, the mirror formula and magnification",
+          "slug": "mirror-sign-conventions-the-mirror-formula-and-magnification",
+          "sort_order": 3
+        },
+        {
+          "title": "Refraction, glass slabs and refractive index",
+          "slug": "refraction-glass-slabs-and-refractive-index",
+          "sort_order": 4
+        },
+        {
+          "title": "Spherical lenses and image formation",
+          "slug": "spherical-lenses-and-image-formation",
+          "sort_order": 5
+        },
+        {
+          "title": "Lens sign conventions, the lens formula and magnification",
+          "slug": "lens-sign-conventions-the-lens-formula-and-magnification",
+          "sort_order": 6
+        },
+        {
+          "title": "Power of a lens",
+          "slug": "power-of-a-lens",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch10_HumanEyeAndColourfulWorld",
+      "chapter_title": "The Human Eye and the Colourful World",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc110.pdf",
+      "source_sha256": "c8ed49fa55eedeb9ee5d5fbfa6d02061adb94075e94a32ca9bd16f4caf67c423",
+      "source_page_count": 10,
+      "topics": [
+        {
+          "title": "The human eye and accommodation",
+          "slug": "the-human-eye-and-accommodation",
+          "sort_order": 1
+        },
+        {
+          "title": "Defects of vision and their correction",
+          "slug": "defects-of-vision-and-their-correction",
+          "sort_order": 2
+        },
+        {
+          "title": "Refraction through a prism and dispersion",
+          "slug": "refraction-through-a-prism-and-dispersion",
+          "sort_order": 3
+        },
+        {
+          "title": "Atmospheric refraction",
+          "slug": "atmospheric-refraction",
+          "sort_order": 4
+        },
+        {
+          "title": "Scattering of light and the Tyndall effect",
+          "slug": "scattering-of-light-and-the-tyndall-effect",
+          "sort_order": 5
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch11_Electricity",
+      "chapter_title": "Electricity",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc111.pdf",
+      "source_sha256": "640a680a24070d4add6d580d03d5377768ee5a6b4f89f9bfb66b350d457ab52f",
+      "source_page_count": 24,
+      "topics": [
+        {
+          "title": "Electric current and circuits",
+          "slug": "electric-current-and-circuits",
+          "sort_order": 1
+        },
+        {
+          "title": "Potential difference and circuit diagrams",
+          "slug": "potential-difference-and-circuit-diagrams",
+          "sort_order": 2
+        },
+        {
+          "title": "Ohm’s law, resistance and resistivity",
+          "slug": "ohms-law-resistance-and-resistivity",
+          "sort_order": 3
+        },
+        {
+          "title": "Resistors in series",
+          "slug": "resistors-in-series",
+          "sort_order": 4
+        },
+        {
+          "title": "Resistors in parallel",
+          "slug": "resistors-in-parallel",
+          "sort_order": 5
+        },
+        {
+          "title": "The heating effect of current and Joule’s law",
+          "slug": "the-heating-effect-of-current-and-joules-law",
+          "sort_order": 6
+        },
+        {
+          "title": "Electric power and electrical energy",
+          "slug": "electric-power-and-electrical-energy",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch12_MagneticEffectsOfElectricCurrent",
+      "chapter_title": "Magnetic Effects of Electric Current",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc112.pdf",
+      "source_sha256": "ab82bae095324b3854eed3db8513d201e01477154df902b9dfc166be3dfd0a42",
+      "source_page_count": 13,
+      "topics": [
+        {
+          "title": "Magnetic fields and field lines",
+          "slug": "magnetic-fields-and-field-lines",
+          "sort_order": 1
+        },
+        {
+          "title": "Magnetic field around a straight current-carrying conductor",
+          "slug": "magnetic-field-around-a-straight-current-carrying-conductor",
+          "sort_order": 2
+        },
+        {
+          "title": "Magnetic fields of circular loops and solenoids",
+          "slug": "magnetic-fields-of-circular-loops-and-solenoids",
+          "sort_order": 3
+        },
+        {
+          "title": "Force on a current-carrying conductor",
+          "slug": "force-on-a-current-carrying-conductor",
+          "sort_order": 4
+        },
+        {
+          "title": "Domestic electric circuits and safety",
+          "slug": "domestic-electric-circuits-and-safety",
+          "sort_order": 5
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "Science_Ch13_OurEnvironment",
+      "chapter_title": "Our Environment",
+      "subject": "science",
+      "source_book": "NCERT Science, Class X, reprint 2026–27",
+      "source_file": "science/jesc113.pdf",
+      "source_sha256": "3f61f0574e60bb8fc41feb3cc13f818621d9c17a5d5f51634154a5de35918b2d",
+      "source_page_count": 10,
+      "topics": [
+        {
+          "title": "Ecosystems and their components",
+          "slug": "ecosystems-and-their-components",
+          "sort_order": 1
+        },
+        {
+          "title": "Food chains, food webs and energy transfer",
+          "slug": "food-chains-food-webs-and-energy-transfer",
+          "sort_order": 2
+        },
+        {
+          "title": "Biodegradable and non-biodegradable waste",
+          "slug": "biodegradable-and-non-biodegradable-waste",
+          "sort_order": 3
+        },
+        {
+          "title": "Ozone depletion and waste management",
+          "slug": "ozone-depletion-and-waste-management",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_History_Ch01_RiseOfNationalismInEurope",
+      "chapter_title": "The Rise of Nationalism in Europe",
+      "subject": "history",
+      "source_book": "NCERT India and the Contemporary World II, Class X, reprint 2026–27",
+      "source_file": "history/jess301.pdf",
+      "source_sha256": "b66dc3c971b610d0d56046450e23d494327f591fcc9afcf4ecdffc46b32252af",
+      "source_page_count": 28,
+      "topics": [
+        {
+          "title": "The French Revolution and the idea of the nation",
+          "slug": "the-french-revolution-and-the-idea-of-the-nation",
+          "sort_order": 1
+        },
+        {
+          "title": "Liberal nationalism and economic integration",
+          "slug": "liberal-nationalism-and-economic-integration",
+          "sort_order": 2
+        },
+        {
+          "title": "Conservatism and revolutionaries after 1815",
+          "slug": "conservatism-and-revolutionaries-after-1815",
+          "sort_order": 3
+        },
+        {
+          "title": "Revolutions, Romanticism and national feeling",
+          "slug": "revolutions-romanticism-and-national-feeling",
+          "sort_order": 4
+        },
+        {
+          "title": "The revolutions of 1848",
+          "slug": "the-revolutions-of-1848",
+          "sort_order": 5
+        },
+        {
+          "title": "The unification of Germany and Italy",
+          "slug": "the-unification-of-germany-and-italy",
+          "sort_order": 6
+        },
+        {
+          "title": "The making of Britain and visualising the nation",
+          "slug": "the-making-of-britain-and-visualising-the-nation",
+          "sort_order": 7
+        },
+        {
+          "title": "Nationalism and imperialism in the Balkans",
+          "slug": "nationalism-and-imperialism-in-the-balkans",
+          "sort_order": 8
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_History_Ch02_NationalismInIndia",
+      "chapter_title": "Nationalism in India",
+      "subject": "history",
+      "source_book": "NCERT India and the Contemporary World II, Class X, reprint 2026–27",
+      "source_file": "history/jess302.pdf",
+      "source_sha256": "774b4b9d379b94888a9dd124c079a34c913f845d51ad193b4c5695d3b961a03f",
+      "source_page_count": 22,
+      "topics": [
+        {
+          "title": "The First World War and the idea of satyagraha",
+          "slug": "the-first-world-war-and-the-idea-of-satyagraha",
+          "sort_order": 1
+        },
+        {
+          "title": "The Rowlatt Act, Jallianwala Bagh and the Khilafat issue",
+          "slug": "the-rowlatt-act-jallianwala-bagh-and-the-khilafat-issue",
+          "sort_order": 2
+        },
+        {
+          "title": "The Non-Cooperation Movement in towns",
+          "slug": "the-non-cooperation-movement-in-towns",
+          "sort_order": 3
+        },
+        {
+          "title": "Peasant, tribal and plantation interpretations of swaraj",
+          "slug": "peasant-tribal-and-plantation-interpretations-of-swaraj",
+          "sort_order": 4
+        },
+        {
+          "title": "The Salt March and the Civil Disobedience Movement",
+          "slug": "the-salt-march-and-the-civil-disobedience-movement",
+          "sort_order": 5
+        },
+        {
+          "title": "Participation and the limits of Civil Disobedience",
+          "slug": "participation-and-the-limits-of-civil-disobedience",
+          "sort_order": 6
+        },
+        {
+          "title": "Symbols, history and a sense of collective belonging",
+          "slug": "symbols-history-and-a-sense-of-collective-belonging",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_History_Ch03_MakingOfAGlobalWorld",
+      "chapter_title": "The Making of a Global World",
+      "subject": "history",
+      "source_book": "NCERT India and the Contemporary World II, Class X, reprint 2026–27",
+      "source_file": "history/jess303.pdf",
+      "source_sha256": "d05d0e3fae418f3e9609410897df1bcfd03db9c1b8278ab4e5545ac32efb1de3",
+      "source_page_count": 28,
+      "topics": [
+        {
+          "title": "Silk routes, food travels, conquest and disease",
+          "slug": "silk-routes-food-travels-conquest-and-disease",
+          "sort_order": 1
+        },
+        {
+          "title": "The nineteenth-century world economy",
+          "slug": "the-nineteenth-century-world-economy",
+          "sort_order": 2
+        },
+        {
+          "title": "Technology, colonialism and the cattle plague",
+          "slug": "technology-colonialism-and-the-cattle-plague",
+          "sort_order": 3
+        },
+        {
+          "title": "Indentured labour and Indian entrepreneurs abroad",
+          "slug": "indentured-labour-and-indian-entrepreneurs-abroad",
+          "sort_order": 4
+        },
+        {
+          "title": "Indian trade and the colonial global system",
+          "slug": "indian-trade-and-the-colonial-global-system",
+          "sort_order": 5
+        },
+        {
+          "title": "Wartime transformations and post-war recovery",
+          "slug": "wartime-transformations-and-post-war-recovery",
+          "sort_order": 6
+        },
+        {
+          "title": "Mass production and the Great Depression",
+          "slug": "mass-production-and-the-great-depression",
+          "sort_order": 7
+        },
+        {
+          "title": "The Great Depression and India",
+          "slug": "the-great-depression-and-india",
+          "sort_order": 8
+        },
+        {
+          "title": "Bretton Woods, recovery and decolonisation",
+          "slug": "bretton-woods-recovery-and-decolonisation",
+          "sort_order": 9
+        },
+        {
+          "title": "The end of Bretton Woods and new globalisation",
+          "slug": "the-end-of-bretton-woods-and-new-globalisation",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_History_Ch04_AgeOfIndustrialisation",
+      "chapter_title": "The Age of Industrialisation",
+      "subject": "history",
+      "source_book": "NCERT India and the Contemporary World II, Class X, reprint 2026–27",
+      "source_file": "history/jess304.pdf",
+      "source_sha256": "4d9221dd6d954eb57c151e549405bfbaa1a9668ef7ec80e15fad70d371541fb4",
+      "source_page_count": 24,
+      "topics": [
+        {
+          "title": "Proto-industrialisation and the coming of factories",
+          "slug": "proto-industrialisation-and-the-coming-of-factories",
+          "sort_order": 1
+        },
+        {
+          "title": "The pace of industrial change and hand labour",
+          "slug": "the-pace-of-industrial-change-and-hand-labour",
+          "sort_order": 2
+        },
+        {
+          "title": "The lives of industrial workers",
+          "slug": "the-lives-of-industrial-workers",
+          "sort_order": 3
+        },
+        {
+          "title": "Indian textiles and the impact of colonial trade",
+          "slug": "indian-textiles-and-the-impact-of-colonial-trade",
+          "sort_order": 4
+        },
+        {
+          "title": "Indian entrepreneurs, factories and workers",
+          "slug": "indian-entrepreneurs-factories-and-workers",
+          "sort_order": 5
+        },
+        {
+          "title": "Industrial growth and the survival of small producers",
+          "slug": "industrial-growth-and-the-survival-of-small-producers",
+          "sort_order": 6
+        },
+        {
+          "title": "Advertising and the market for goods",
+          "slug": "advertising-and-the-market-for-goods",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_History_Ch05_PrintCultureAndTheModernWorld",
+      "chapter_title": "Print Culture and the Modern World",
+      "subject": "history",
+      "source_book": "NCERT India and the Contemporary World II, Class X, reprint 2026–27",
+      "source_file": "history/jess305.pdf",
+      "source_sha256": "b51d5a431f0624a7a7a68242dd02f150c3d6ebf2c6b3645f4270103bdc497f89",
+      "source_page_count": 26,
+      "topics": [
+        {
+          "title": "Early printing in East Asia",
+          "slug": "early-printing-in-east-asia",
+          "sort_order": 1
+        },
+        {
+          "title": "Print reaches Europe and Gutenberg’s press",
+          "slug": "print-reaches-europe-and-gutenbergs-press",
+          "sort_order": 2
+        },
+        {
+          "title": "The print revolution and religious debate",
+          "slug": "the-print-revolution-and-religious-debate",
+          "sort_order": 3
+        },
+        {
+          "title": "Reading publics and the French Revolution",
+          "slug": "reading-publics-and-the-french-revolution",
+          "sort_order": 4
+        },
+        {
+          "title": "Print for children, women and workers",
+          "slug": "print-for-children-women-and-workers",
+          "sort_order": 5
+        },
+        {
+          "title": "Printing technology and new reading practices",
+          "slug": "printing-technology-and-new-reading-practices",
+          "sort_order": 6
+        },
+        {
+          "title": "Manuscripts and the arrival of print in India",
+          "slug": "manuscripts-and-the-arrival-of-print-in-india",
+          "sort_order": 7
+        },
+        {
+          "title": "Religious reform, debate and new literary forms",
+          "slug": "religious-reform-debate-and-new-literary-forms",
+          "sort_order": 8
+        },
+        {
+          "title": "Women, workers and marginalised readers in India",
+          "slug": "women-workers-and-marginalised-readers-in-india",
+          "sort_order": 9
+        },
+        {
+          "title": "Print, censorship and nationalism",
+          "slug": "print-censorship-and-nationalism",
+          "sort_order": 10
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch01_ResourcesAndDevelopment",
+      "chapter_title": "Resources and Development",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess101.pdf",
+      "source_sha256": "e2d7e9e470c73663740410bcd5449cd2cbf3efb348c6ffc0791b8cee0da734b7",
+      "source_page_count": 12,
+      "topics": [
+        {
+          "title": "Resources and their classification",
+          "slug": "resources-and-their-classification",
+          "sort_order": 1
+        },
+        {
+          "title": "Resource development and sustainable development",
+          "slug": "resource-development-and-sustainable-development",
+          "sort_order": 2
+        },
+        {
+          "title": "Resource planning and conservation",
+          "slug": "resource-planning-and-conservation",
+          "sort_order": 3
+        },
+        {
+          "title": "Land resources, utilisation and use patterns",
+          "slug": "land-resources-utilisation-and-use-patterns",
+          "sort_order": 4
+        },
+        {
+          "title": "Land degradation and conservation measures",
+          "slug": "land-degradation-and-conservation-measures",
+          "sort_order": 5
+        },
+        {
+          "title": "Soil formation and the major soil types of India",
+          "slug": "soil-formation-and-the-major-soil-types-of-india",
+          "sort_order": 6
+        },
+        {
+          "title": "Soil erosion and soil conservation",
+          "slug": "soil-erosion-and-soil-conservation",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch02_ForestAndWildlifeResources",
+      "chapter_title": "Forest and Wildlife Resources",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess102.pdf",
+      "source_sha256": "bab59f420ede000bb0a8ed63ad1f47bd91c30d7393031fd31a9d98badd66d913",
+      "source_page_count": 6,
+      "topics": [
+        {
+          "title": "Biodiversity and the importance of forests and wildlife",
+          "slug": "biodiversity-and-the-importance-of-forests-and-wildlife",
+          "sort_order": 1
+        },
+        {
+          "title": "Conserving forests and wildlife in India",
+          "slug": "conserving-forests-and-wildlife-in-india",
+          "sort_order": 2
+        },
+        {
+          "title": "Types and distribution of forests",
+          "slug": "types-and-distribution-of-forests",
+          "sort_order": 3
+        },
+        {
+          "title": "Community participation and conservation",
+          "slug": "community-participation-and-conservation",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch03_WaterResources",
+      "chapter_title": "Water Resources",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess103.pdf",
+      "source_sha256": "87d91ba2705d8dab1ac3f8d74c3894a817f5d0298fd7f279d1227f9256f0b1f4",
+      "source_page_count": 11,
+      "topics": [
+        {
+          "title": "Water availability, scarcity and conservation",
+          "slug": "water-availability-scarcity-and-conservation",
+          "sort_order": 1
+        },
+        {
+          "title": "Multi-purpose river projects and dams",
+          "slug": "multi-purpose-river-projects-and-dams",
+          "sort_order": 2
+        },
+        {
+          "title": "The social and environmental impacts of dams",
+          "slug": "the-social-and-environmental-impacts-of-dams",
+          "sort_order": 3
+        },
+        {
+          "title": "Rainwater harvesting and traditional water systems",
+          "slug": "rainwater-harvesting-and-traditional-water-systems",
+          "sort_order": 4
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch04_Agriculture",
+      "chapter_title": "Agriculture",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess104.pdf",
+      "source_sha256": "21d1701bba940254c63db5323cdcfee573e4bd4ec634469f99d08c113a5527c8",
+      "source_page_count": 12,
+      "topics": [
+        {
+          "title": "Types of farming",
+          "slug": "types-of-farming",
+          "sort_order": 1
+        },
+        {
+          "title": "Cropping seasons and major food crops",
+          "slug": "cropping-seasons-and-major-food-crops",
+          "sort_order": 2
+        },
+        {
+          "title": "Millets, maize and pulses",
+          "slug": "millets-maize-and-pulses",
+          "sort_order": 3
+        },
+        {
+          "title": "Food crops other than grains: sugarcane, oilseeds, tea and coffee",
+          "slug": "food-crops-other-than-grains-sugarcane-oilseeds-tea-and-coffee",
+          "sort_order": 4
+        },
+        {
+          "title": "Horticulture, rubber and fibre crops",
+          "slug": "horticulture-rubber-and-fibre-crops",
+          "sort_order": 5
+        },
+        {
+          "title": "Technological and institutional reforms in agriculture",
+          "slug": "technological-and-institutional-reforms-in-agriculture",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch05_MineralsAndEnergyResources",
+      "chapter_title": "Minerals and Energy Resources",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess105.pdf",
+      "source_sha256": "f402073762eb9dfd498fd321d4d845a780b80d38f46959c3d95ed5a77eb6b60d",
+      "source_page_count": 16,
+      "topics": [
+        {
+          "title": "Minerals and their modes of occurrence",
+          "slug": "minerals-and-their-modes-of-occurrence",
+          "sort_order": 1
+        },
+        {
+          "title": "Ferrous minerals",
+          "slug": "ferrous-minerals",
+          "sort_order": 2
+        },
+        {
+          "title": "Non-ferrous and non-metallic minerals",
+          "slug": "non-ferrous-and-non-metallic-minerals",
+          "sort_order": 3
+        },
+        {
+          "title": "Conservation of minerals",
+          "slug": "conservation-of-minerals",
+          "sort_order": 4
+        },
+        {
+          "title": "Conventional energy: coal, petroleum and natural gas",
+          "slug": "conventional-energy-coal-petroleum-and-natural-gas",
+          "sort_order": 5
+        },
+        {
+          "title": "Electricity and non-conventional energy sources",
+          "slug": "electricity-and-non-conventional-energy-sources",
+          "sort_order": 6
+        },
+        {
+          "title": "Conservation of energy resources",
+          "slug": "conservation-of-energy-resources",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch06_ManufacturingIndustries",
+      "chapter_title": "Manufacturing Industries",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess106.pdf",
+      "source_sha256": "0817faa6575c3e105bd9a8602583b9b08ac52372b9e94e75c272fb3326136d38",
+      "source_page_count": 13,
+      "topics": [
+        {
+          "title": "The importance and location of manufacturing",
+          "slug": "the-importance-and-location-of-manufacturing",
+          "sort_order": 1
+        },
+        {
+          "title": "Classification of industries",
+          "slug": "classification-of-industries",
+          "sort_order": 2
+        },
+        {
+          "title": "Agro-based industries: textiles and sugar",
+          "slug": "agro-based-industries-textiles-and-sugar",
+          "sort_order": 3
+        },
+        {
+          "title": "Mineral-based industries: iron, steel and aluminium",
+          "slug": "mineral-based-industries-iron-steel-and-aluminium",
+          "sort_order": 4
+        },
+        {
+          "title": "Chemical, fertiliser and cement industries",
+          "slug": "chemical-fertiliser-and-cement-industries",
+          "sort_order": 5
+        },
+        {
+          "title": "Automobiles, electronics and information technology",
+          "slug": "automobiles-electronics-and-information-technology",
+          "sort_order": 6
+        },
+        {
+          "title": "Industrial pollution and environmental protection",
+          "slug": "industrial-pollution-and-environmental-protection",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Geography_Ch07_LifelinesOfNationalEconomy",
+      "chapter_title": "Lifelines of National Economy",
+      "subject": "geography",
+      "source_book": "NCERT Contemporary India II, Class X, reprint 2026–27",
+      "source_file": "geogrpahy/jess107.pdf",
+      "source_sha256": "2628173d9d44300322440a320f7a8760d71d5195b902428435477d16c6ad01d4",
+      "source_page_count": 13,
+      "topics": [
+        {
+          "title": "Transport, trade and economic interdependence",
+          "slug": "transport-trade-and-economic-interdependence",
+          "sort_order": 1
+        },
+        {
+          "title": "Roadways and road classification",
+          "slug": "roadways-and-road-classification",
+          "sort_order": 2
+        },
+        {
+          "title": "Railways and pipelines",
+          "slug": "railways-and-pipelines",
+          "sort_order": 3
+        },
+        {
+          "title": "Waterways, seaports and airways",
+          "slug": "waterways-seaports-and-airways",
+          "sort_order": 4
+        },
+        {
+          "title": "Communication networks",
+          "slug": "communication-networks",
+          "sort_order": 5
+        },
+        {
+          "title": "International trade and tourism",
+          "slug": "international-trade-and-tourism",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Civics_Ch01_PowerSharing",
+      "chapter_title": "Power-sharing",
+      "subject": "civics",
+      "source_book": "NCERT Democratic Politics II, Class X, reprint 2026–27",
+      "source_file": "civics/jess401.pdf",
+      "source_sha256": "f196321f2b8b61df09cb2cf49684e950d8ad1a52aef26388af07b4467e7823e5",
+      "source_page_count": 12,
+      "topics": [
+        {
+          "title": "Belgium and Sri Lanka: contrasting responses to diversity",
+          "slug": "belgium-and-sri-lanka-contrasting-responses-to-diversity",
+          "sort_order": 1
+        },
+        {
+          "title": "Majoritarianism in Sri Lanka",
+          "slug": "majoritarianism-in-sri-lanka",
+          "sort_order": 2
+        },
+        {
+          "title": "Accommodation in Belgium",
+          "slug": "accommodation-in-belgium",
+          "sort_order": 3
+        },
+        {
+          "title": "Why power-sharing is desirable",
+          "slug": "why-power-sharing-is-desirable",
+          "sort_order": 4
+        },
+        {
+          "title": "Forms of power-sharing",
+          "slug": "forms-of-power-sharing",
+          "sort_order": 5
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Civics_Ch02_Federalism",
+      "chapter_title": "Federalism",
+      "subject": "civics",
+      "source_book": "NCERT Democratic Politics II, Class X, reprint 2026–27",
+      "source_file": "civics/jess402.pdf",
+      "source_sha256": "b8e30317fdd6085e679df31b00337119f638c78b9f8748d35f733b48a77623cb",
+      "source_page_count": 16,
+      "topics": [
+        {
+          "title": "The meaning and key features of federalism",
+          "slug": "the-meaning-and-key-features-of-federalism",
+          "sort_order": 1
+        },
+        {
+          "title": "What makes India a federal country",
+          "slug": "what-makes-india-a-federal-country",
+          "sort_order": 2
+        },
+        {
+          "title": "Linguistic states and language policy",
+          "slug": "linguistic-states-and-language-policy",
+          "sort_order": 3
+        },
+        {
+          "title": "Centre–State relations and federal practice",
+          "slug": "centre-state-relations-and-federal-practice",
+          "sort_order": 4
+        },
+        {
+          "title": "Decentralisation and local self-government",
+          "slug": "decentralisation-and-local-self-government",
+          "sort_order": 5
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Civics_Ch03_GenderReligionAndCaste",
+      "chapter_title": "Gender, Religion and Caste",
+      "subject": "civics",
+      "source_book": "NCERT Democratic Politics II, Class X, reprint 2026–27",
+      "source_file": "civics/jess403.pdf",
+      "source_sha256": "29742b10357d4a0787a4a97ce5a4521d732c47ff2a0df6d6909d75b53a692106",
+      "source_page_count": 17,
+      "topics": [
+        {
+          "title": "Gender division and the sexual division of labour",
+          "slug": "gender-division-and-the-sexual-division-of-labour",
+          "sort_order": 1
+        },
+        {
+          "title": "Women’s political representation",
+          "slug": "womens-political-representation",
+          "sort_order": 2
+        },
+        {
+          "title": "Religion, communalism and politics",
+          "slug": "religion-communalism-and-politics",
+          "sort_order": 3
+        },
+        {
+          "title": "The secular state",
+          "slug": "the-secular-state",
+          "sort_order": 4
+        },
+        {
+          "title": "Caste inequalities and caste in politics",
+          "slug": "caste-inequalities-and-caste-in-politics",
+          "sort_order": 5
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Civics_Ch04_PoliticalParties",
+      "chapter_title": "Political Parties",
+      "subject": "civics",
+      "source_book": "NCERT Democratic Politics II, Class X, reprint 2026–27",
+      "source_file": "civics/jess404.pdf",
+      "source_sha256": "848863f8ebe983fe81ffff0e19462c8059f35af97788ce6ff7393287699bf7c9",
+      "source_page_count": 17,
+      "topics": [
+        {
+          "title": "Why political parties are necessary",
+          "slug": "why-political-parties-are-necessary",
+          "sort_order": 1
+        },
+        {
+          "title": "The functions of political parties",
+          "slug": "the-functions-of-political-parties",
+          "sort_order": 2
+        },
+        {
+          "title": "Party systems and the Indian multi-party system",
+          "slug": "party-systems-and-the-indian-multi-party-system",
+          "sort_order": 3
+        },
+        {
+          "title": "National and state parties",
+          "slug": "national-and-state-parties",
+          "sort_order": 4
+        },
+        {
+          "title": "Challenges to political parties",
+          "slug": "challenges-to-political-parties",
+          "sort_order": 5
+        },
+        {
+          "title": "Reforming political parties",
+          "slug": "reforming-political-parties",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Civics_Ch05_OutcomesOfDemocracy",
+      "chapter_title": "Outcomes of Democracy",
+      "subject": "civics",
+      "source_book": "NCERT Democratic Politics II, Class X, reprint 2026–27",
+      "source_file": "civics/jess405.pdf",
+      "source_sha256": "f9049b6789da596463e6e2171c8982b0578cab252fb07e741d99f4200095c325",
+      "source_page_count": 12,
+      "topics": [
+        {
+          "title": "How to assess democracy’s outcomes",
+          "slug": "how-to-assess-democracys-outcomes",
+          "sort_order": 1
+        },
+        {
+          "title": "Accountable, responsive and legitimate government",
+          "slug": "accountable-responsive-and-legitimate-government",
+          "sort_order": 2
+        },
+        {
+          "title": "Economic growth and inequality",
+          "slug": "economic-growth-and-inequality",
+          "sort_order": 3
+        },
+        {
+          "title": "Accommodation of social diversity",
+          "slug": "accommodation-of-social-diversity",
+          "sort_order": 4
+        },
+        {
+          "title": "Dignity, freedom and democratic expectations",
+          "slug": "dignity-freedom-and-democratic-expectations",
+          "sort_order": 5
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Economics_Ch01_Development",
+      "chapter_title": "Development",
+      "subject": "economics",
+      "source_book": "NCERT Understanding Economic Development, Class X, reprint 2026–27",
+      "source_file": "economics/jess201.pdf",
+      "source_sha256": "71b7fe176e08262fb1f1557f5d957627197ccd15ce33d921db0e3856293cd75f",
+      "source_page_count": 16,
+      "topics": [
+        {
+          "title": "Different people and different development goals",
+          "slug": "different-people-and-different-development-goals",
+          "sort_order": 1
+        },
+        {
+          "title": "Income and other goals",
+          "slug": "income-and-other-goals",
+          "sort_order": 2
+        },
+        {
+          "title": "National development and average income",
+          "slug": "national-development-and-average-income",
+          "sort_order": 3
+        },
+        {
+          "title": "Comparing development beyond income",
+          "slug": "comparing-development-beyond-income",
+          "sort_order": 4
+        },
+        {
+          "title": "Public facilities and human development",
+          "slug": "public-facilities-and-human-development",
+          "sort_order": 5
+        },
+        {
+          "title": "Sustainability of development",
+          "slug": "sustainability-of-development",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Economics_Ch02_SectorsOfIndianEconomy",
+      "chapter_title": "Sectors of the Indian Economy",
+      "subject": "economics",
+      "source_book": "NCERT Understanding Economic Development, Class X, reprint 2026–27",
+      "source_file": "economics/jess202.pdf",
+      "source_sha256": "cf6e80d49b63de2c17afdb7f40f50a1325e15160dc6380e8d485ddaf1e58dc70",
+      "source_page_count": 20,
+      "topics": [
+        {
+          "title": "Primary, secondary and tertiary sectors",
+          "slug": "primary-secondary-and-tertiary-sectors",
+          "sort_order": 1
+        },
+        {
+          "title": "Comparing sectors and avoiding double counting",
+          "slug": "comparing-sectors-and-avoiding-double-counting",
+          "sort_order": 2
+        },
+        {
+          "title": "The growing importance of the tertiary sector",
+          "slug": "the-growing-importance-of-the-tertiary-sector",
+          "sort_order": 3
+        },
+        {
+          "title": "Employment, underemployment and creating more jobs",
+          "slug": "employment-underemployment-and-creating-more-jobs",
+          "sort_order": 4
+        },
+        {
+          "title": "Organised and unorganised sectors",
+          "slug": "organised-and-unorganised-sectors",
+          "sort_order": 5
+        },
+        {
+          "title": "Public and private sectors",
+          "slug": "public-and-private-sectors",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Economics_Ch03_MoneyAndCredit",
+      "chapter_title": "Money and Credit",
+      "subject": "economics",
+      "source_book": "NCERT Understanding Economic Development, Class X, reprint 2026–27",
+      "source_file": "economics/jess203.pdf",
+      "source_sha256": "a17121d9eb2efc4331fd3b98a5a17ae0bc3f0e207e56e15c029925036fe82436",
+      "source_page_count": 16,
+      "topics": [
+        {
+          "title": "Money as a medium of exchange",
+          "slug": "money-as-a-medium-of-exchange",
+          "sort_order": 1
+        },
+        {
+          "title": "Modern forms of money and bank deposits",
+          "slug": "modern-forms-of-money-and-bank-deposits",
+          "sort_order": 2
+        },
+        {
+          "title": "Loan activities of banks",
+          "slug": "loan-activities-of-banks",
+          "sort_order": 3
+        },
+        {
+          "title": "Credit, collateral and the terms of credit",
+          "slug": "credit-collateral-and-the-terms-of-credit",
+          "sort_order": 4
+        },
+        {
+          "title": "Formal and informal sources of credit",
+          "slug": "formal-and-informal-sources-of-credit",
+          "sort_order": 5
+        },
+        {
+          "title": "Self-help groups and access to credit",
+          "slug": "self-help-groups-and-access-to-credit",
+          "sort_order": 6
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Economics_Ch04_GlobalisationAndIndianEconomy",
+      "chapter_title": "Globalisation and the Indian Economy",
+      "subject": "economics",
+      "source_book": "NCERT Understanding Economic Development, Class X, reprint 2026–27",
+      "source_file": "economics/jess204.pdf",
+      "source_sha256": "1cf9afb74054c7d02be075b4967a015b7f34f4bf684832fc8d6acf8105eaa071",
+      "source_page_count": 20,
+      "topics": [
+        {
+          "title": "Production across countries and multinational corporations",
+          "slug": "production-across-countries-and-multinational-corporations",
+          "sort_order": 1
+        },
+        {
+          "title": "Interlinking production and foreign trade",
+          "slug": "interlinking-production-and-foreign-trade",
+          "sort_order": 2
+        },
+        {
+          "title": "What globalisation means",
+          "slug": "what-globalisation-means",
+          "sort_order": 3
+        },
+        {
+          "title": "Technology and liberalisation",
+          "slug": "technology-and-liberalisation",
+          "sort_order": 4
+        },
+        {
+          "title": "The World Trade Organisation",
+          "slug": "the-world-trade-organisation",
+          "sort_order": 5
+        },
+        {
+          "title": "The impact of globalisation in India",
+          "slug": "the-impact-of-globalisation-in-india",
+          "sort_order": 6
+        },
+        {
+          "title": "The struggle for fair globalisation",
+          "slug": "the-struggle-for-fair-globalisation",
+          "sort_order": 7
+        }
+      ]
+    },
+    {
+      "chapter_legacy_id": "SocialScience_Economics_Ch05_ConsumerRights",
+      "chapter_title": "Consumer Rights",
+      "subject": "economics",
+      "source_book": "NCERT Understanding Economic Development, Class X, reprint 2026–27",
+      "source_file": "economics/jess205.pdf",
+      "source_sha256": "8e636f4222d3d2169b8a1982a3693d47efc4ab43dbec88a96f1e2681a270ac3b",
+      "source_page_count": 19,
+      "topics": [
+        {
+          "title": "Consumers in the marketplace and the consumer movement",
+          "slug": "consumers-in-the-marketplace-and-the-consumer-movement",
+          "sort_order": 1
+        },
+        {
+          "title": "Safety and the right to information",
+          "slug": "safety-and-the-right-to-information",
+          "sort_order": 2
+        },
+        {
+          "title": "The right to choose and to be heard",
+          "slug": "the-right-to-choose-and-to-be-heard",
+          "sort_order": 3
+        },
+        {
+          "title": "Seeking redressal and consumer organisations",
+          "slug": "seeking-redressal-and-consumer-organisations",
+          "sort_order": 4
+        },
+        {
+          "title": "Becoming an informed consumer and the way forward",
+          "slug": "becoming-an-informed-consumer-and-the-way-forward",
+          "sort_order": 5
+        }
+      ]
+    }
+  ],
+  "unavailable_chapters": [
+    {
+      "chapter_legacy_id": "Maths_Ch11_Constructions",
+      "reason": "Constructions is absent from the supplied rationalised Mathematics textbook. No topic summaries have been invented for this missing chapter."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "source_section": "Angles of elevation and depression",
+  "source_page_start": 2,
+  "source_page_end": 3,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:50:06.462Z",
+  "usage": {
+    "queue_time": 0.403194687,
+    "prompt_tokens": 2996,
+    "prompt_time": 0.147940609,
+    "completion_tokens": 1239,
+    "completion_time": 2.563289941,
+    "total_tokens": 4235,
+    "total_time": 2.71123055,
+    "completion_tokens_details": {
+      "reasoning_tokens": 61
+    }
+  }
+}

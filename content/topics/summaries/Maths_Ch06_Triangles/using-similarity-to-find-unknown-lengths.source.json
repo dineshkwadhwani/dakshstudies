@@ -1,0 +1,19 @@
+{
+  "source_section": "Similarity criteria (AAA, SAS, SSS) and applications",
+  "source_page_start": 14,
+  "source_page_end": 20,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:46:56.883Z",
+  "usage": {
+    "queue_time": 1.016728447,
+    "prompt_tokens": 2898,
+    "prompt_time": 0.265851264,
+    "completion_tokens": 637,
+    "completion_time": 1.327926664,
+    "total_tokens": 3535,
+    "total_time": 1.593777928,
+    "completion_tokens_details": {
+      "reasoning_tokens": 43
+    }
+  }
+}

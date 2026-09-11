@@ -1,0 +1,19 @@
+{
+  "source_section": "Trigonometric Ratios",
+  "source_page_start": 2,
+  "source_page_end": 3,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:48:30.453Z",
+  "usage": {
+    "queue_time": 0.33510301,
+    "prompt_tokens": 3115,
+    "prompt_time": 0.142751047,
+    "completion_tokens": 1488,
+    "completion_time": 3.095538721,
+    "total_tokens": 4603,
+    "total_time": 3.238289768,
+    "completion_tokens_details": {
+      "reasoning_tokens": 69
+    }
+  }
+}

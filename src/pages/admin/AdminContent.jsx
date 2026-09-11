@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../auth/AuthContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import { Input, PageTitle, Select } from './AdminSubjects.jsx'
@@ -34,6 +35,7 @@ export default function AdminContent() {
   }
 
   return <div><PageTitle eyebrow="Learning library" title="Upload content" text="Add PDFs to a chapter. Files stay private and students receive secure links." />
+    <Link className="btn-secondary inline-flex mb-5" to="/admin/topics">Manage topic summaries →</Link>
     {state.message && <div className="card p-3 mb-4 bg-sky/20">{state.message}</div>}
     <form onSubmit={upload} className="card p-5 space-y-4 max-w-xl">
       <Select label="Chapter" required value={form.chapter_id} onChange={chapter_id => setForm({ ...form, chapter_id })} options={chapters} />
@@ -44,4 +46,3 @@ export default function AdminContent() {
     </form>
   </div>
 }
-

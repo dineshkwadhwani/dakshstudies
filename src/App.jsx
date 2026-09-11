@@ -12,6 +12,8 @@ import Schedule from './pages/Schedule.jsx'
 import ChaptersIndex from './pages/ChaptersIndex.jsx'
 import SubjectChapters from './pages/SubjectChapters.jsx'
 import ChapterDetail from './pages/ChapterDetail.jsx'
+import TopicDetail from './pages/TopicDetail.jsx'
+import AdminTopics from './pages/admin/AdminTopics.jsx'
 import Quiz from './pages/Quiz.jsx'
 import Tests from './pages/Tests.jsx'
 import PdfView from './pages/PdfView.jsx'
@@ -51,6 +53,7 @@ export default function App() {
           <Route path="/chapters" element={<ChaptersIndex />} />
           <Route path="/chapters/:subject" element={<SubjectChapters />} />
           <Route path="/chapter/:subject/:chapterId" element={<ChapterDetail />} />
+          <Route path="/chapter/:subject/:chapterId/topic/:topicSlug" element={<TopicDetail />} />
           <Route path="/quiz/:subject/:chapterId" element={<Quiz />} />
           <Route path="/tests" element={<Tests />} />
           <Route path="/pdf/*" element={<PdfView />} />
@@ -60,6 +63,7 @@ export default function App() {
           <Route path="/referrals" element={<Referrals />} />
           <Route path="/admin/subjects" element={<ProtectedRoute roles={['super_admin']}><AdminSubjects /></ProtectedRoute>} />
           <Route path="/admin/content" element={<ProtectedRoute roles={['super_admin']}><AdminContent /></ProtectedRoute>} />
+          <Route path="/admin/topics" element={<ProtectedRoute roles={['super_admin']}><AdminTopics /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute roles={['super_admin', 'account_manager']}><AdminUsers /></ProtectedRoute>} />
           <Route path="/admin/config" element={<ProtectedRoute roles={['super_admin']}><AdminConfig /></ProtectedRoute>} />
           <Route path="/admin/audit" element={<ProtectedRoute roles={['super_admin']}><AdminAudit /></ProtectedRoute>} />

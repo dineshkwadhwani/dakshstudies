@@ -1,0 +1,19 @@
+{
+  "source_section": "7.3 Section Formula",
+  "source_page_start": 7,
+  "source_page_end": 11,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-08T01:47:59.375Z",
+  "usage": {
+    "queue_time": 0.344639101,
+    "prompt_tokens": 3594,
+    "prompt_time": 0.180119205,
+    "completion_tokens": 892,
+    "completion_time": 1.8608646709999999,
+    "total_tokens": 4486,
+    "total_time": 2.040983876,
+    "completion_tokens_details": {
+      "reasoning_tokens": 51
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "topics": [
+    {
+      "slug": "line-of-sight-and-angles-of-elevation-and-depression",
+      "approved": false,
+      "issues": [
+        "The summary states that the angles of elevation and depression are always acute and that they are alternate interior angles formed by a transversal cutting two parallel horizontal lines. While the text defines the angles and gives examples where they are acute, it does not discuss alternate interior angles or parallel lines. Adding this geometric interpretation introduces a concept not present in the source material and may mislead readers into thinking the chapter covers parallel‑line angle relationships. The summary should be revised to focus solely on the definitions, measurement from the observer’s eye level, and the use of right‑angled triangles, without mentioning alternate interior angles."
+      ],
+      "summary_sha256": "c72540a563b533c3c608232d323699712d50f6d8521789c0184ed285636f68cd"
+    },
+    {
+      "slug": "solving-heights-and-distances-problems",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "3f58f209294c04168260cbeb30dadb77e8515420664f03b05decd8eaf8ad7b1f"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-08T01:50:07.664Z"
+}

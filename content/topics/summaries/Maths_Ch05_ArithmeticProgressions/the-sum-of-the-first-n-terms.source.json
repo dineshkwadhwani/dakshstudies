@@ -1,0 +1,19 @@
+{
+  "source_section": "Sum of First n Terms of an AP",
+  "source_page_start": 15,
+  "source_page_end": 17,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-07T18:51:12.567Z",
+  "usage": {
+    "queue_time": 0.323946242,
+    "prompt_tokens": 3731,
+    "prompt_time": 0.178727787,
+    "completion_tokens": 906,
+    "completion_time": 1.92142897,
+    "total_tokens": 4637,
+    "total_time": 2.100156757,
+    "completion_tokens_details": {
+      "reasoning_tokens": 73
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "topics": [
+    {
+      "slug": "recognising-and-forming-quadratic-equations",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "0d3f8d36ae874694a4a410bcd3f0ddf11ae71c057c490ec54e85245eb52c5520"
+    },
+    {
+      "slug": "solving-quadratic-equations-by-factorisation",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "b297ac104fd226b558edeb518252302835a06b2e9859490a7067a281f24b489b"
+    },
+    {
+      "slug": "the-discriminant-and-the-nature-of-roots",
+      "approved": true,
+      "summary_sha256": "c9c27dbd3537002bf9483550e8e2099bd50415e080c9cc4d8461bc032925e823"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-07T18:48:45.755Z"
+}

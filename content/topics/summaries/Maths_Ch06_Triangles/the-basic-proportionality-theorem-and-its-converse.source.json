@@ -1,0 +1,19 @@
+{
+  "source_section": "Basic Proportionality Theorem; converse of the theorem; activity illustrations",
+  "source_page_start": 7,
+  "source_page_end": 7,
+  "draft_model": "openai/gpt-oss-120b",
+  "draft_created_at": "2026-09-07T18:52:11.487Z",
+  "usage": {
+    "queue_time": 0.354831709,
+    "prompt_tokens": 2990,
+    "prompt_time": 0.155185556,
+    "completion_tokens": 1360,
+    "completion_time": 2.901682139,
+    "total_tokens": 4350,
+    "total_time": 3.056867695,
+    "completion_tokens_details": {
+      "reasoning_tokens": 85
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "topics": [
+    {
+      "slug": "arc-length-and-the-area-of-a-sector",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "5f5371f08e0ae0f73b3089cb12bf5daa21bec350884fd3f792b343a714f09f27"
+    },
+    {
+      "slug": "areas-of-segments-and-combined-figures",
+      "approved": false,
+      "issues": [
+        "The formula for segment area given as πr²·θ/360 – (½)r²·sinθ assumes θ is in radians, but the text uses degrees; the correct expression in degrees is Area = (θ/360)πr² – ½·r²·sin(θ·π/180). The summary omits the radian conversion, making the formula incorrect for degree measures. The example calculation for a 10 cm radius circle is correct, but the earlier formula is misleading. Additionally, the calculation for the area between two consecutive ribs of an umbrella uses π·45²·45/360 ≈ 1590 cm², which is incorrect; the correct value is (45/360)·π·45² ≈ 795 cm². These errors should be corrected to align with the textbook’s definitions and formulas."
+      ],
+      "summary_sha256": "12038ce736aecd3317334f4ef6659dcd965c3803f5b47617d2b8cd05fd9a4e96"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-08T01:52:39.418Z"
+}

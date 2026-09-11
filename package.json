@@ -12,6 +12,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:security": "node --test tests/security/*.test.mjs",
+    "test:topics": "node --test tests/database/chapter-topics.test.mjs tests/security/topic-html.test.mjs",
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
     "supabase:reset": "supabase db reset",
@@ -32,6 +33,7 @@
     "react-router-dom": "^6.26.2"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",

@@ -1,0 +1,34 @@
+{
+  "topics": [
+    {
+      "slug": "similar-figures-and-corresponding-parts",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "f5bbd9ebc079a0c2b288e4f6526d7dabf60b50a3e85d98bcfb6600d1fa819539"
+    },
+    {
+      "slug": "the-basic-proportionality-theorem-and-its-converse",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "7351b52e55eedf2bd0f660a64942f79f011f6bd1fb8b093a3fa94d881da06cb1"
+    },
+    {
+      "slug": "aa-sss-and-sas-similarity-criteria",
+      "approved": false,
+      "issues": [
+        "The summary introduces an \"AAA\" similarity criterion and a \"SAS\" criterion, neither of which is explicitly stated in the provided textbook excerpts. The source text discusses AA, SSS, and SAS criteria but does not use the term AAA, nor does it present a SAS criterion in the excerpts. The summary therefore contains inaccuracies regarding the terminology and completeness of the similarity criteria presented in the source. To correct this, remove references to AAA and SAS unless the full textbook text (not provided) explicitly defines them, and ensure the summary reflects only the AA, SSS, and SAS criteria as described in the source."
+      ],
+      "summary_sha256": "5634e5778af1364ed316923cc8f3ac36078a9c2cca2ed4cb936d1fc72d39dbdc"
+    },
+    {
+      "slug": "using-similarity-to-find-unknown-lengths",
+      "approved": false,
+      "issues": [
+        "The summary claims that the AAA rule is a \"most useful criterion\" and that it is used to establish similarity, but the source excerpts do not mention AAA; they refer to AA (two angles) and other criteria. The summary also states that the SAS criterion is commonly encountered, yet the source does not provide a SAS criterion in the excerpts. Additionally, the example given in the summary (AB = 3.8 cm, BC = 6 cm, CA = 3 cm, etc.) is not present in the source and appears fabricated. This misrepresents the textbook content. To correct, remove the AAA and SAS references unless they are confirmed elsewhere in the textbook, and base the example on actual exercises or figures from the source."
+      ],
+      "summary_sha256": "92a18e9d747a7de9ccb9d04efc38127925e8b27cba23921672a4f4b50c24534a"
+    }
+  ],
+  "model": "openai/gpt-oss-20b",
+  "checked_at": "2026-09-08T01:47:00.150Z"
+}

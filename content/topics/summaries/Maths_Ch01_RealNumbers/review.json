@@ -1,0 +1,24 @@
+{
+  "topics": [
+    {
+      "slug": "prime-factorisation-and-the-fundamental-theorem-of-arithmetic",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "5186c3ab42f3d662a210cd1a48aea82e9bad19957b9ce3c06a90f3e290f38af8"
+    },
+    {
+      "slug": "hcf-and-lcm-using-prime-factors",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "c1b6c21b1f591965e51756b93c5caa50c934b454e04ee4ab5b1dbb7f48194057"
+    },
+    {
+      "slug": "irrational-numbers-and-proofs-of-irrationality",
+      "approved": true,
+      "issues": [],
+      "summary_sha256": "1e252c896f933bc0923fd2389c1288ae81f33ffd0181637d9016d725e1d76560"
+    }
+  ],
+  "model": "groq/compound-mini",
+  "checked_at": "2026-09-07T18:42:31.975Z"
+}
