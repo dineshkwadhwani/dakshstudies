@@ -3,7 +3,7 @@ import { useAuth } from '../../auth/AuthContext.jsx'
 import { supabase } from '../../lib/supabase.js'
 import { PageTitle } from './AdminSubjects.jsx'
 
-function UserDetailsModal({ user, loading, error, onClose }) {
+function UserDetailsModal({ user, loading, error, onClose, managers, isSuperAdmin, onAssignManager, assigning }) {
   useEffect(() => {
     const onKeyDown = event => { if (event.key === 'Escape') onClose() }
     document.addEventListener('keydown', onKeyDown)
@@ -38,6 +38,7 @@ function UserDetailsModal({ user, loading, error, onClose }) {
       {!loading && !error && user && <dl className="grid sm:grid-cols-2 gap-3 mt-6">
         {fields.map(([label, value]) => <div key={label} className="rounded-xl border-2 border-ink/15 bg-cream/40 p-3"><dt className="text-xs font-mono uppercase text-ink/55">{label}</dt><dd className={`mt-1 font-semibold break-words ${label === 'Status' ? 'capitalize' : ''}`}>{value}</dd></div>)}
       </dl>}
+      {!loading && !error && user && isSuperAdmin && user.role === 'student' && <div className="mt-5 rounded-xl border-2 border-ink/15 bg-cream/40 p-3"><label className="text-xs font-mono uppercase text-ink/55" htmlFor="student-manager">Account Manager</label><div className="flex gap-2 mt-1"><select id="student-manager" className="form-control mt-0" value={user.account_manager_id || ''} onChange={event => onAssignManager(event.target.value)} disabled={assigning}><option value="">No Account Manager</option>{managers.map(manager => <option key={manager.id} value={manager.id}>{manager.full_name || manager.email}</option>)}</select>{assigning && <span className="self-center text-xs text-ink/60">Saving…</span>}</div></div>}
     </section>
   </div>
 }
@@ -57,6 +58,7 @@ function packageState(entitlement) {
 export default function AdminUsers() {
   const { profile: me, session, startImpersonation } = useAuth()
   const [users, setUsers] = useState([])
+  const [managers, setManagers] = useState([])
   const [message, setMessage] = useState('')
   const [creating, setCreating] = useState(false)
   const [sendingFor, setSendingFor] = useState('')
@@ -69,19 +71,36 @@ export default function AdminUsers() {
   const [selectedUser, setSelectedUser] = useState(null)
   const [detailsLoading, setDetailsLoading] = useState(false)
   const [detailsError, setDetailsError] = useState('')
+  const [assigning, setAssigning] = useState(false)
   const [form, setForm] = useState({ fullName: '', email: '', password: '' })
   async function load() {
-    const [{ data: profiles, error: profileError }, { data: entitlements, error: entitlementError }] = await Promise.all([
+    const [{ data: profiles, error: profileError }, { data: entitlements, error: entitlementError }, { data: assignments, error: assignmentError }, { data: managerProfiles, error: managerError }] = await Promise.all([
       supabase.from('profiles').select('id,email,email_verified,full_name,role,status,created_at,referral_code,referred_by_user_id,acquisition_source_code').order('created_at', { ascending: false }),
       supabase.from('student_entitlements').select('student_id,status,starts_at,ends_at,created_at,packages(name,code)').order('created_at', { ascending: false }),
+      supabase.from('student_manager_assignments').select('student_id,account_manager_id,created_at').is('ends_at', null).order('created_at', { ascending: false }),
+      supabase.from('profiles').select('id,email,full_name').eq('role', 'account_manager').eq('status', 'active').order('full_name'),
     ])
-    if (profileError || entitlementError) return setMessage((profileError || entitlementError).message)
+    if (profileError || entitlementError || assignmentError || managerError) return setMessage((profileError || entitlementError || assignmentError || managerError).message)
     const latest = new Map()
     for (const entitlement of entitlements || []) if (!latest.has(entitlement.student_id)) latest.set(entitlement.student_id, entitlement)
+    const currentAssignments = new Map()
+    for (const assignment of assignments || []) if (!currentAssignments.has(assignment.student_id)) currentAssignments.set(assignment.student_id, assignment)
+    setManagers(managerProfiles || [])
     setUsers((profiles || []).map(user => {
       const entitlement = latest.get(user.id)
-      return { ...user, entitlement, package_name: entitlement?.packages?.name || null, package_status: packageState(entitlement) }
+      const assignment = currentAssignments.get(user.id)
+      return { ...user, entitlement, package_name: entitlement?.packages?.name || null, package_status: packageState(entitlement), account_manager_id: assignment?.account_manager_id || '' }
     }))
+  }
+  async function assignManager(managerId) {
+    if (!selectedUser || me?.role !== 'super_admin') return
+    setAssigning(true); setMessage('')
+    try {
+      const response = await fetch('/api/assign-student-manager', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ studentId: selectedUser.id, managerId: managerId || null }) })
+      const body = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(body.error || 'Unable to assign Account Manager')
+      setSelectedUser({ ...selectedUser, account_manager_id: managerId || '' }); setMessage(body.message); await load()
+    } catch (error) { setMessage(error.message) } finally { setAssigning(false) }
   }
   useEffect(() => { load() }, [])
   async function openUserDetails(user) {
@@ -155,7 +174,7 @@ export default function AdminUsers() {
       </div>
       <div className="text-xs text-ink/55 mt-3">Showing <strong>{filteredUsers.length}</strong> of <strong>{availableUserCount}</strong> users</div>
     </section>
-    <div className="space-y-2">{filteredUsers.map(user => { const referralCount = users.filter(item => item.referred_by_user_id === user.id).length; const referrer = users.find(item => item.id === user.referred_by_user_id); return <div key={user.id} className="card p-4 flex flex-col sm:flex-row sm:items-center gap-3 cursor-pointer transition-transform hover:-translate-y-0.5" role="button" tabIndex="0" aria-label={`View details for ${user.full_name || user.email}`} onClick={() => openUserDetails(user)} onKeyDown={event => { if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); openUserDetails(user) } }}><div className="flex-1 min-w-0"><div className="font-bold truncate">{user.full_name || 'Unnamed user'}</div><div className="text-xs text-ink/60 truncate">{user.email} · {user.role.replace('_', ' ')}</div><div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-ink/55"><span>Code: <strong>{user.referral_code || '—'}</strong></span><span>Referrals: <strong>{referralCount}</strong></span><span>Source: <strong>{referrer?.full_name || user.acquisition_source_code || 'DIRECT'}</strong></span></div></div><div className="flex flex-wrap items-center gap-2"><span className={`chip text-[10px] ${user.email_verified ? 'bg-leaf/30' : 'bg-sun/40'}`}>{user.email_verified ? 'verified' : 'unverified'}</span><span className={`chip text-[10px] ${user.status === 'active' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{user.status}</span>{user.package_status === 'expired' && <span className="chip text-[10px] bg-flame/20">Package Expired</span>}{me?.role === 'super_admin' && user.id !== me.id && <button disabled={Boolean(impersonatingFor)} className="btn-primary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); impersonate(user) }}>{impersonatingFor === user.id ? 'Switching…' : 'Impersonate'}</button>}{me?.role === 'super_admin' && <button disabled={Boolean(sendingFor)} className="btn-secondary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); sendAuthEmail(user) }}>{sendingFor === user.id ? 'Sending…' : 'Send verification/reset email'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button className="btn-secondary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); toggle(user) }}>{user.status === 'active' ? 'Deactivate' : 'Activate'}</button>}</div></div>})}{!filteredUsers.length && <div className="card p-6 text-center text-ink/60">No users match the selected filters.</div>}</div>
-    {selectedUser && <UserDetailsModal user={selectedUser} loading={detailsLoading} error={detailsError} onClose={() => { setSelectedUser(null); setDetailsError('') }} />}
+    <div className="space-y-2">{filteredUsers.map(user => { const referralCount = users.filter(item => item.referred_by_user_id === user.id).length; const referrer = users.find(item => item.id === user.referred_by_user_id); const packageExpired = user.package_status === 'expired' || (user.entitlement?.ends_at && new Date(user.entitlement.ends_at).getTime() <= Date.now()); return <div key={user.id} className="card p-4 flex flex-col sm:flex-row sm:items-center gap-3 cursor-pointer transition-transform hover:-translate-y-0.5" role="button" tabIndex="0" aria-label={`View details for ${user.full_name || user.email}`} onClick={() => openUserDetails(user)} onKeyDown={event => { if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); openUserDetails(user) } }}><div className="flex-1 min-w-0"><div className="font-bold truncate">{user.full_name || 'Unnamed user'}</div><div className="text-xs text-ink/60 truncate">{user.email} · {user.role.replace('_', ' ')}</div><div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-ink/55"><span>Code: <strong>{user.referral_code || '—'}</strong></span><span>Referrals: <strong>{referralCount}</strong></span><span>Source: <strong>{referrer?.full_name || user.acquisition_source_code || 'DIRECT'}</strong></span></div></div><div className="flex flex-wrap items-center gap-2"><span className={`chip text-[10px] ${user.email_verified ? 'bg-leaf/30' : 'bg-sun/40'}`}>{user.email_verified ? 'verified' : 'unverified'}</span><span className={`chip text-[10px] ${user.status === 'active' ? 'bg-leaf/30' : 'bg-flame/20'}`}>{user.status}</span>{packageExpired && <span className="chip text-[10px] bg-red-600 text-white border-red-700">Package Expired</span>}{(me?.role === 'super_admin' || me?.role === 'account_manager') && !user.email_verified && <button disabled={Boolean(sendingFor)} className="btn-secondary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); sendAuthEmail(user) }}>{sendingFor === user.id ? 'Sending…' : 'Send verification email'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button disabled={Boolean(impersonatingFor)} className="btn-primary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); impersonate(user) }}>{impersonatingFor === user.id ? 'Switching…' : 'Impersonate'}</button>}{me?.role === 'super_admin' && user.id !== me.id && <button className="btn-secondary text-xs px-2 py-1" onClick={event => { event.stopPropagation(); toggle(user) }}>{user.status === 'active' ? 'Deactivate' : 'Activate'}</button>}</div></div>})}{!filteredUsers.length && <div className="card p-6 text-center text-ink/60">No users match the selected filters.</div>}</div>
+    {selectedUser && <UserDetailsModal user={selectedUser} loading={detailsLoading} error={detailsError} managers={managers} isSuperAdmin={me?.role === 'super_admin'} onAssignManager={assignManager} assigning={assigning} onClose={() => { setSelectedUser(null); setDetailsError('') }} />}
   </div>
 }
