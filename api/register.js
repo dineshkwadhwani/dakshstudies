@@ -62,7 +62,10 @@ export async function handleRegister(request, response, env = process.env) {
   if (!validName(fullName) || !validEmail(email) || !validPhone(phone) || !validCity(city) || password.length < 8 || !allowedPackages.has(packageCode) || (referralCode && !validReferral(referralCode))) {
     return json(response, 400, { error: 'Please check the registration details and try again.' })
   }
-  const isDevelopmentEnvironment = false
+  // Turnstile is bypassed only by the local development server. This is
+  // determined from the request/runtime, independently of Razorpay keys.
+  const requestHost = String(request.headers.host || request.headers['x-forwarded-host'] || '').split(',')[0].trim().split(':')[0].toLowerCase()
+  const isDevelopmentEnvironment = process.env.NODE_ENV === 'development' || requestHost === 'localhost' || requestHost === '127.0.0.1'
   if (!captchaToken && !isDevelopmentEnvironment) return json(response, 400, { error: 'Please complete the security check.' })
 
   try {

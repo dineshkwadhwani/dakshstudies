@@ -55,12 +55,12 @@ export default async function handler(request, response) {
   let transaction = null
   let lookupError = null
 
-  const byId = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,razorpay_order_id').eq('id', transactionId).maybeSingle()
+  const byId = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,transaction_type,razorpay_order_id').eq('id', transactionId).maybeSingle()
   if (!byId.error && byId.data) {
     transaction = byId.data
   } else {
     lookupError = byId.error
-    const byOrder = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,razorpay_order_id').eq('razorpay_order_id', razorpayOrderId).maybeSingle()
+    const byOrder = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,transaction_type,razorpay_order_id').eq('razorpay_order_id', razorpayOrderId).maybeSingle()
     if (!byOrder.error && byOrder.data) {
       transaction = byOrder.data
     } else {
@@ -114,7 +114,7 @@ export default async function handler(request, response) {
     student_id: transaction.student_id,
     package_id: transaction.package_id,
     academic_year_id: transaction.academic_year_id,
-    source: 'razorpay_purchase',
+    source: transaction.transaction_type === 'upgrade' ? 'razorpay_upgrade' : 'razorpay_purchase',
     starts_at: new Date().toISOString(),
     ends_at: `${packageData.fixed_expires_on}T23:59:59.999Z`,
     status: 'active',

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { supabase } from '../lib/supabase.js'
 import { getTotalChapterCount } from '../hooks/useData.js'
 import { todayISO, formatLong } from '../utils/dates.js'
 import { useAuth } from '../auth/AuthContext.jsx'
@@ -7,7 +9,11 @@ import { useQuizAttempts } from '../hooks/useQuizAttempts.js'
 import { useQuizAllowance } from '../hooks/useQuizAllowance.js'
 
 export default function Home() {
-  const { profile } = useAuth()
+  const { profile, session } = useAuth()
+  const [entitlement, setEntitlement] = useState(null)
+  const [packages, setPackages] = useState([])
+  const [upgradeError, setUpgradeError] = useState('')
+  const [upgrading, setUpgrading] = useState(false)
   const today = todayISO()
   const { attempts, stats: quizStats } = useQuizAttempts()
   const { allowance } = useQuizAllowance()
@@ -20,11 +26,26 @@ export default function Home() {
   const totalQuizzes = allowance?.limit ?? totalChapters
   const avgScore = quizStats.average
 
+  useEffect(() => {
+    let active = true
+    async function loadPackageState() {
+      if (!supabase || !session?.user) return
+      const { data: entitlements } = await supabase.from('student_entitlements').select('status,ends_at,created_at,packages(code,name)').eq('student_id', session.user.id).order('created_at', { ascending: false }).limit(1)
+      const { data: year } = await supabase.from('academic_years').select('id').eq('is_current', true).maybeSingle()
+      const { data: available } = year ? await supabase.from('packages').select('code,name,price_paise,currency').eq('academic_year_id', year.id).eq('status', 'published').eq('sale_enabled', true).order('rank') : { data: [] }
+      if (active) { setEntitlement(entitlements?.[0] || null); setPackages((available || []).filter(pkg => pkg.price_paise > 0)) }
+    }
+    loadPackageState()
+    return () => { active = false }
+  }, [session?.user?.id])
+  const packageExpired = entitlement && (entitlement.status !== 'active' || new Date(entitlement.ends_at).getTime() <= Date.now())
+
   // Streak: number of consecutive past+today days marked done
   const streak = computeStreak(progress.tasks, today)
 
   return (
     <div>
+      {packageExpired && <UpgradePrompt packages={packages} session={session} upgrading={upgrading} setUpgrading={setUpgrading} error={upgradeError} setError={setUpgradeError} />}
       {/* Hero banner */}
       <div className="relative pt-2 pb-4">
         <div className="flex items-end justify-between gap-3">
@@ -82,6 +103,23 @@ export default function Home() {
       <RecentActivity attempts={attempts} />
     </div>
   )
+}
+
+function UpgradePrompt({ packages, session, upgrading, setUpgrading, error, setError }) {
+  const [selected, setSelected] = useState(packages[0]?.code || '')
+  useEffect(() => { if (!selected && packages[0]) setSelected(packages[0].code) }, [packages, selected])
+  async function startUpgrade() {
+    setUpgrading(true); setError('')
+    try {
+      const response = await fetch('/api/upgrade-payment', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` }, body: JSON.stringify({ packageCode: selected }) })
+      const body = await response.json().catch(() => ({}))
+      if (!response.ok || !body.payment) throw new Error(body.error || 'Payment could not be started.')
+      if (!window.Razorpay) await new Promise((resolve, reject) => { const script = document.createElement('script'); script.src = 'https://checkout.razorpay.com/v1/checkout.js'; script.onload = resolve; script.onerror = reject; document.body.appendChild(script) })
+      const checkout = new window.Razorpay({ key: body.payment.keyId, amount: body.payment.amount, currency: body.payment.currency, order_id: body.payment.orderId, name: 'Tenth Ki Padhai', description: 'Package upgrade', prefill: { name: session.user.user_metadata?.full_name, email: session.user.email }, handler: async result => { const verify = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transactionId: body.payment.transactionId, razorpayOrderId: result.razorpay_order_id, razorpayPaymentId: result.razorpay_payment_id, razorpaySignature: result.razorpay_signature }) }); if (!verify.ok) throw new Error('Payment verification did not succeed.'); window.location.reload() } })
+      checkout.open()
+    } catch (upgradeFailure) { setError(upgradeFailure.message || 'Payment could not be started.') } finally { setUpgrading(false) }
+  }
+  return <section className="card p-5 mt-2 bg-flame/15 border-flame"><div className="font-mono text-xs uppercase tracking-widest text-ink/60">Package expired</div><h2 className="font-display font-extrabold text-xl mt-1">Your trial package has expired</h2><p className="text-sm text-ink/75 mt-1">Upgrade your package to continue learning, taking quizzes and using mock tests.</p><div className="flex flex-col sm:flex-row gap-2 mt-4"><select className="form-control flex-1" value={selected} onChange={event => setSelected(event.target.value)} disabled={upgrading}>{packages.map(pkg => <option value={pkg.code} key={pkg.code}>{pkg.name} — ₹{Math.round(pkg.price_paise / 100)}</option>)}</select><button type="button" className="btn-primary" disabled={upgrading || !selected} onClick={startUpgrade}>{upgrading ? 'Opening payment…' : 'Upgrade →'}</button></div>{!packages.length && <p className="text-sm mt-2">No paid packages are currently available.</p>}{error && <p className="text-sm text-flame font-bold mt-2">{error}</p>}</section>
 }
 
 function SchedulePrompt({ title, text }) {
