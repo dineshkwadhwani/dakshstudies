@@ -106,9 +106,15 @@ export default function Register() {
         await new Promise((resolve, reject) => { const script = document.createElement('script'); script.src = 'https://checkout.razorpay.com/v1/checkout.js'; script.onload = resolve; script.onerror = () => reject(new Error('Unable to load payment checkout')) ; document.body.appendChild(script) })
       }
       const checkout = new window.Razorpay({ key: payment.keyId, amount: payment.amount, currency: payment.currency, name: 'Tenth Ki Padhai', description: 'Paid study package', order_id: payment.orderId, prefill: { name: fullName, email, contact: phone }, theme: { color: '#f6c453' }, handler: async result => {
-        const verify = await fetch('/api/verify-payment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transactionId: payment.transactionId, razorpayOrderId: result.razorpay_order_id, razorpayPaymentId: result.razorpay_payment_id, razorpaySignature: result.razorpay_signature }) })
-        const body = await verify.json().catch(() => ({}))
-        setPaymentMessage(verify.ok ? 'Payment successful. Your paid package will be activated after verification.' : 'Payment verification did not succeed. Your account has been registered with the free trial package.')
+        let verify = null
+        let body = {}
+        try {
+          verify = await fetch('/api/verify-payment', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transactionId: payment.transactionId, razorpayOrderId: result.razorpay_order_id, razorpayPaymentId: result.razorpay_payment_id, razorpaySignature: result.razorpay_signature }) })
+          body = await verify.json().catch(() => ({}))
+        } catch (verificationError) {
+          console.error('Razorpay verification request failed', verificationError)
+        }
+        setPaymentMessage(verify?.ok ? 'Payment successful. Your paid package will be activated after verification.' : `Payment verification did not succeed${body.error ? `: ${body.error}` : ''}. Your account has been registered with the free trial package.`)
         setComplete(true)
       }, modal: { ondismiss: () => { setPaymentMessage('The payment was not completed. Your account has been registered with the free trial package.'); setComplete(true) } } })
       checkout.open()
