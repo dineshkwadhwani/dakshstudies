@@ -2,9 +2,10 @@ import { createHmac } from 'node:crypto'
 import { createClient } from '@supabase/supabase-js'
 
 const json = (response, status, body) => response.status(status).json(body)
-const razorpayConfig = env => String(env.RAZOR_PAYENV || 'DEV').trim().toUpperCase() === 'PROD'
-  ? { keyId: env.RAZORPAY_KEY_ID, secret: env.RAZOR_PAY_SECRET_KEY }
-  : { keyId: env.RAZORPAY_KEY_ID_TEST, secret: env.RAZOR_PAY_SECRET_KEY_TEST }
+const razorpayConfig = env => ({
+  keyId: env.RAZORPAY_KEY_ID,
+  secret: env.RAZOR_PAY_SECRET_KEY,
+})
 
 export default async function handler(request, response) {
   if (request.method !== 'POST') return json(response, 405, { error: 'Method not allowed' })
@@ -18,7 +19,6 @@ export default async function handler(request, response) {
     orderId: razorpayOrderId || null,
     paymentId: razorpayPaymentId || null,
     hasSignature: Boolean(razorpaySignature),
-    environment: String(process.env.RAZOR_PAYENV || 'DEV').toUpperCase(),
   })
 
   if (!projectUrl || !serviceRoleKey) return json(response, 500, { error: 'Payment verification is temporarily unavailable' })
@@ -47,7 +47,6 @@ export default async function handler(request, response) {
       paymentId: razorpayPaymentId,
       expected,
       received: razorpaySignature,
-      environment: String(process.env.RAZOR_PAYENV || 'DEV').toUpperCase(),
     })
     return json(response, 400, { error: 'Payment signature could not be verified' })
   }
@@ -74,7 +73,6 @@ export default async function handler(request, response) {
       transactionId,
       orderId: razorpayOrderId,
       message: lookupError?.message || null,
-      environment: String(process.env.RAZOR_PAYENV || 'DEV').toUpperCase(),
     })
     return json(response, 404, { error: 'Payment order not found' })
   }
@@ -84,7 +82,7 @@ export default async function handler(request, response) {
   const { error: updateError } = await admin.from('payment_transactions').update({
     status: 'paid',
     razorpay_payment_id: razorpayPaymentId,
-    provider_metadata: { verified: true, environment: String(process.env.RAZOR_PAYENV || 'DEV').toUpperCase() },
+    provider_metadata: { verified: true },
   }).eq('id', transaction.id).eq('status', 'pending')
 
   if (updateError) {

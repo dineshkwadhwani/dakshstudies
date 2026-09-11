@@ -15,10 +15,9 @@ const validReferral = value => /^[A-Z0-9]{3,20}$/.test(value)
 const allowedPackages = new Set(['FREE', 'BASIC', 'PRO'])
 
 function razorpayConfig(env) {
-  const production = String(env.RAZOR_PAYENV || 'DEV').trim().toUpperCase() === 'PROD'
   return {
-    keyId: production ? env.RAZORPAY_KEY_ID : env.RAZORPAY_KEY_ID_TEST,
-    secret: production ? env.RAZOR_PAY_SECRET_KEY : env.RAZOR_PAY_SECRET_KEY_TEST,
+    keyId: env.RAZORPAY_KEY_ID,
+    secret: env.RAZOR_PAY_SECRET_KEY,
   }
 }
 
@@ -63,7 +62,7 @@ export async function handleRegister(request, response, env = process.env) {
   if (!validName(fullName) || !validEmail(email) || !validPhone(phone) || !validCity(city) || password.length < 8 || !allowedPackages.has(packageCode) || (referralCode && !validReferral(referralCode))) {
     return json(response, 400, { error: 'Please check the registration details and try again.' })
   }
-  const isDevelopmentEnvironment = String(env.RAZOR_PAYENV || 'DEV').trim().toUpperCase() !== 'PROD'
+  const isDevelopmentEnvironment = false
   if (!captchaToken && !isDevelopmentEnvironment) return json(response, 400, { error: 'Please complete the security check.' })
 
   try {
@@ -117,10 +116,10 @@ export async function handleRegister(request, response, env = process.env) {
       console.error('Razorpay setup unavailable: package lookup failed', { packageCode, hasYear: Boolean(year) })
     } else if (!config.keyId || !config.secret) {
       paymentError = 'Payment setup is temporarily unavailable.'
-      console.error('Razorpay setup unavailable: required environment variables are missing', { environment: String(env.RAZOR_PAYENV || 'DEV').toUpperCase() })
+      console.error('Razorpay setup unavailable: required environment variables are missing')
     } else {
       const idempotencyKey = randomUUID()
-      const { data: transaction, error: transactionError } = await admin.from('payment_transactions').insert({ student_id: studentId, package_id: packages.id, academic_year_id: year.id, transaction_type: 'purchase', amount_paise: packages.price_paise, currency: packages.currency || 'INR', idempotency_key: idempotencyKey, provider_metadata: { environment: String(env.RAZOR_PAYENV || 'DEV').toUpperCase(), source: 'registration' } }).select('id').single()
+      const { data: transaction, error: transactionError } = await admin.from('payment_transactions').insert({ student_id: studentId, package_id: packages.id, academic_year_id: year.id, transaction_type: 'purchase', amount_paise: packages.price_paise, currency: packages.currency || 'INR', idempotency_key: idempotencyKey, provider_metadata: { source: 'registration' } }).select('id').single()
       if (transactionError || !transaction) {
         paymentError = 'Payment setup is temporarily unavailable.'
         console.error('Razorpay setup unavailable: transaction insert failed', { code: transactionError?.code || null, message: transactionError?.message || null })
