@@ -100,6 +100,7 @@ export default function Register() {
   }
 
   async function openPayment(payment) {
+    const recordOutcome = outcome => fetch('/api/payment-fallback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transactionId: payment.transactionId, outcome }) }).catch(() => null)
     setSubmitting(true)
     try {
       if (!window.Razorpay) {
@@ -116,12 +117,13 @@ export default function Register() {
         }
         setPaymentMessage(verify?.ok ? 'Payment successful. Your paid package will be activated after verification.' : `Payment verification did not succeed${body.error ? `: ${body.error}` : ''}. Your account has been registered with the free trial package.`)
         setComplete(true)
-      }, modal: { ondismiss: () => { setPaymentMessage('The payment was not completed. Your account has been registered with the free trial package.'); setComplete(true) } } })
+      }, modal: { ondismiss: () => { recordOutcome('cancelled'); setPaymentMessage('The payment was not completed. Your account has been registered with the free trial package.'); setComplete(true) } } })
+      checkout.on('payment.failed', () => { recordOutcome('failed'); setPaymentMessage('The payment was not completed. Your account has been registered with the free trial package.'); setComplete(true) })
       checkout.open()
-    } catch (error) { setPaymentMessage(`Payment could not be started. Your account has been registered with the free trial package.`); setComplete(true) } finally { setSubmitting(false) }
+    } catch (error) { await recordOutcome('failed'); setPaymentMessage('Payment could not be started. Your account has been registered with the free trial package.'); setComplete(true) } finally { setSubmitting(false) }
   }
 
-  if (complete) return <AuthShell title="Registration complete" subtitle={paymentMessage || 'We sent you a verification link. Verify your email before logging in.'}>
+  if (complete) return <AuthShell title="Registration complete" subtitle={[paymentMessage, 'We sent a verification link to your email. Please check your inbox and confirm your account before logging in.'].filter(Boolean).join(' ')}>
     <Link to="/login" className="btn-primary w-full">Go to login</Link>
   </AuthShell>
 
