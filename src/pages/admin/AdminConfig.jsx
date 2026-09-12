@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase.js'
 import { PageTitle } from './AdminSubjects.jsx'
+import { Link } from 'react-router-dom'
 
 const rupees = paise => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format((Number(paise) || 0) / 100)
 const toPaise = value => Math.round((Number(value) || 0) * 100)
@@ -63,7 +64,7 @@ export default function AdminConfig() {
   }
 
   return <div>
-    <PageTitle eyebrow="Configuration manager" title="Packages" text="Control package names, prices, offers, quiz limits, features and availability." />
+    <PageTitle eyebrow="Configuration manager" title="Packages" text="Control package names, prices, offers, quiz limits, features and availability." /><div className="flex gap-2 mb-5"><Link to="/admin/config" className="btn-secondary text-sm">Packages</Link><Link to="/admin/coupons" className="btn-secondary text-sm">Coupons</Link></div>
     {message && <div className="card p-3 mb-5 bg-sky/20" role="status">{message}</div>}
     <div className="space-y-5">
       {packages.map(pkg => editingId === pkg.id
