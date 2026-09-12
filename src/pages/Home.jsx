@@ -38,14 +38,15 @@ export default function Home() {
     loadPackageState()
     return () => { active = false }
   }, [session?.user?.id])
-  const packageExpired = entitlement && (entitlement.status !== 'active' || new Date(entitlement.ends_at).getTime() <= Date.now())
+  const trialPackage = entitlement?.packages?.code === 'FREE'
+  const packageExpired = trialPackage && (entitlement.status !== 'active' || new Date(entitlement.ends_at).getTime() <= Date.now())
 
   // Streak: number of consecutive past+today days marked done
   const streak = computeStreak(progress.tasks, today)
 
   return (
     <div>
-      {packageExpired && <UpgradePrompt packages={packages} session={session} upgrading={upgrading} setUpgrading={setUpgrading} error={upgradeError} setError={setUpgradeError} />}
+      {trialPackage && <UpgradePrompt expired={packageExpired} packages={packages} session={session} upgrading={upgrading} setUpgrading={setUpgrading} error={upgradeError} setError={setUpgradeError} />}
       {/* Hero banner */}
       <div className="relative pt-2 pb-4">
         <div className="flex items-end justify-between gap-3">
@@ -105,7 +106,7 @@ export default function Home() {
   )
 }
 
-function UpgradePrompt({ packages, session, upgrading, setUpgrading, error, setError }) {
+function UpgradePrompt({ expired, packages, session, upgrading, setUpgrading, error, setError }) {
   const [selected, setSelected] = useState(packages[0]?.code || '')
   useEffect(() => { if (!selected && packages[0]) setSelected(packages[0].code) }, [packages, selected])
   async function startUpgrade() {
@@ -119,7 +120,7 @@ function UpgradePrompt({ packages, session, upgrading, setUpgrading, error, setE
       checkout.open()
     } catch (upgradeFailure) { setError(upgradeFailure.message || 'Payment could not be started.') } finally { setUpgrading(false) }
   }
-  return <section className="card p-5 mt-2 bg-flame/15 border-flame"><div className="font-mono text-xs uppercase tracking-widest text-ink/60">Package expired</div><h2 className="font-display font-extrabold text-xl mt-1">Your trial package has expired</h2><p className="text-sm text-ink/75 mt-1">Upgrade your package to continue learning, taking quizzes and using mock tests.</p><div className="flex flex-col sm:flex-row gap-2 mt-4"><select className="form-control flex-1" value={selected} onChange={event => setSelected(event.target.value)} disabled={upgrading}>{packages.map(pkg => <option value={pkg.code} key={pkg.code}>{pkg.name} — ₹{Math.round(pkg.price_paise / 100)}</option>)}</select><button type="button" className="btn-primary" disabled={upgrading || !selected} onClick={startUpgrade}>{upgrading ? 'Opening payment…' : 'Upgrade →'}</button></div>{!packages.length && <p className="text-sm mt-2">No paid packages are currently available.</p>}{error && <p className="text-sm text-flame font-bold mt-2">{error}</p>}</section>
+  return <section className={`card p-4 mt-2 ${expired ? 'bg-flame/10 border-flame/50' : 'bg-sun/10 border-ink/20'}`}><div className="font-mono text-[11px] uppercase tracking-widest text-ink/55">{expired ? 'Trial ended' : 'Free trial'}</div><h2 className="font-display font-bold text-lg mt-1">{expired ? 'Your trial package has expired' : 'Explore a paid package'}</h2><p className="text-sm text-ink/65 mt-1">{expired ? 'Upgrade to continue learning, taking quizzes and using mock tests.' : 'Upgrade whenever you are ready for full access to your study plan.'}</p><div className="flex flex-col sm:flex-row gap-2 mt-3"><select className="form-control flex-1" value={selected} onChange={event => setSelected(event.target.value)} disabled={upgrading}>{packages.map(pkg => <option value={pkg.code} key={pkg.code}>{pkg.name} — ₹{Math.round(pkg.price_paise / 100)}</option>)}</select><button type="button" className="btn-primary" disabled={upgrading || !selected} onClick={startUpgrade}>{upgrading ? 'Opening payment…' : 'View upgrade options →'}</button></div>{!packages.length && <p className="text-sm mt-2">No paid packages are currently available.</p>}{error && <p className="text-sm text-flame font-bold mt-2">{error}</p>}</section>
 }
 
 function SchedulePrompt({ title, text }) {
