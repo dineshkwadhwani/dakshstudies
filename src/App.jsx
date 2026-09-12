@@ -30,6 +30,8 @@ import RefundPolicy from './pages/RefundPolicy.jsx'
 import Profile from './pages/Profile.jsx'
 import Referrals from './pages/Referrals.jsx'
 import AdminAudit from './pages/admin/AdminAudit.jsx'
+import AdminCoupons from './pages/admin/AdminCoupons.jsx'
+import AdminTransactions from './pages/admin/AdminTransactions.jsx'
 
 export default function App() {
   return (
@@ -66,6 +68,8 @@ export default function App() {
           <Route path="/admin/topics" element={<ProtectedRoute roles={['super_admin']}><AdminTopics /></ProtectedRoute>} />
           <Route path="/admin/users" element={<ProtectedRoute roles={['super_admin', 'account_manager']}><AdminUsers /></ProtectedRoute>} />
           <Route path="/admin/config" element={<ProtectedRoute roles={['super_admin']}><AdminConfig /></ProtectedRoute>} />
+          <Route path="/admin/coupons" element={<ProtectedRoute roles={['super_admin']}><AdminCoupons /></ProtectedRoute>} />
+          <Route path="/admin/transactions" element={<ProtectedRoute roles={['super_admin']}><AdminTransactions /></ProtectedRoute>} />
           <Route path="/admin/audit" element={<ProtectedRoute roles={['super_admin']}><AdminAudit /></ProtectedRoute>} />
           <Route path="*" element={<Dashboard />} />
             </Routes>

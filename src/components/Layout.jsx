@@ -17,6 +17,7 @@ const ADMIN_NAV = [
   { to: '/admin/content', label: 'Content', icon: UploadIcon },
   { to: '/admin/users', label: 'Users', icon: UsersIcon },
   { to: '/admin/config', label: 'Config', icon: ConfigIcon },
+  { to: '/admin/transactions', label: 'Transactions', icon: CardIcon },
   { to: '/admin/audit', label: 'Audit', icon: AuditIcon },
 ]
 
@@ -26,7 +27,7 @@ export default function Layout({ children }) {
   const { profile, signOut, isImpersonating, impersonation, stopImpersonation } = useAuth()
   const isHome = loc.pathname === '/dashboard'
   const isPlatformUser = profile?.role === 'super_admin' || profile?.role === 'account_manager'
-  const nav = isPlatformUser ? ADMIN_NAV.filter(item => profile?.role === 'super_admin' || !['/admin/subjects', '/admin/content', '/admin/config'].includes(item.to)) : STUDENT_NAV
+  const nav = isPlatformUser ? ADMIN_NAV.filter(item => profile?.role === 'super_admin' || !['/admin/subjects', '/admin/content', '/admin/config', '/admin/transactions'].includes(item.to)) : STUDENT_NAV
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -180,3 +181,4 @@ function UploadIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" f
 function UsersIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-4 2-6 6-6s6 2 6 6M16 5c3 0 4 2 4 4s-1 4-4 4"/></svg> }
 function ConfigIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1-2-4-2 1a7 7 0 0 0-2-1l-.3-2h-5l-.3 2a7 7 0 0 0-2 1l-2-1-2 4 2 1a7 7 0 0 0 0 2l-2 1 2 4 2-1a7 7 0 0 0 2 1l.3 2h5l.3-2a7 7 0 0 0 2-1l2 1 2-4-2-1c.1-.3.1-.7.1-1Z"/></svg> }
 function AuditIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6l1 2h3v16H5V5h3Z"/><path d="M9 11h6M9 15h6"/></svg> }
+function CardIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg> }

@@ -70,13 +70,11 @@ export default function AdminDashboard() {
       {isSuperAdmin && (
         <section className="mt-7">
           <h2 className="font-display font-extrabold text-xl mb-3">Manage platform</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-7">
-            <AdminLink to="/admin/subjects" icon="📚" label="Subjects & chapters" />
-            <AdminLink to="/admin/content" icon="⬆️" label="Upload content" />
-            <AdminLink to="/admin/users" icon="👥" label="Manage users" />
-            <AdminLink to="/admin/config" icon="⚙️" label="Package config" />
-            <AdminLink to="/admin/audit" icon="🧾" label="Audit log" />
-          </div>
+          <AdminGroup title="Academics"><AdminLink to="/admin/subjects" icon="📚" label="Subjects & chapters" /><AdminLink to="/admin/content" icon="⬆️" label="Content" /></AdminGroup>
+          <AdminGroup title="Users"><AdminLink to="/admin/users" icon="👥" label="Manage users" /></AdminGroup>
+          <AdminGroup title="Config"><AdminLink to="/admin/config" icon="⚙️" label="Packages" /><AdminLink to="/admin/coupons" icon="🏷️" label="Coupons" /></AdminGroup>
+          <AdminGroup title="Transactions"><AdminLink to="/admin/transactions" icon="💳" label="Transactions" /></AdminGroup>
+          <AdminGroup title="Audit"><AdminLink to="/admin/audit" icon="🧾" label="Audit log" /></AdminGroup>
           <h2 className="font-display font-extrabold text-xl mb-3">Packages</h2>
           <div className="grid sm:grid-cols-3 gap-3">
             {packages.map(pkg => (
@@ -100,6 +98,7 @@ export default function AdminDashboard() {
 function AdminLink({ to, icon, label }) {
   return <Link to={to} className="card-pop tappable p-4 text-center"><div className="text-3xl">{icon}</div><div className="font-display font-bold text-sm mt-2">{label}</div></Link>
 }
+function AdminGroup({ title, children }) { return <section className="mb-5"><h3 className="font-mono text-xs uppercase tracking-widest text-ink/60 mb-2">{title}</h3><div className="grid grid-cols-2 sm:grid-cols-4 gap-3">{children}</div></section> }
 
 function Stat({ label, value, color, loading }) {
   return <div className={`card p-4 ${color}`}>

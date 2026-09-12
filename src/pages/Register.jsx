@@ -33,6 +33,7 @@ export default function Register() {
   const [error, setError] = useState('')
   const [complete, setComplete] = useState(false)
   const [paymentMessage, setPaymentMessage] = useState('')
+  const [pendingPayment, setPendingPayment] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [captchaToken, setCaptchaToken] = useState('')
   const [captchaKey, setCaptchaKey] = useState(0)
@@ -94,7 +95,7 @@ export default function Register() {
       return setError(responseBody.error || 'Your account could not be created. Please try again.')
     }
     window.sessionStorage.removeItem('tenthkipadhai_referral_code')
-    if (responseBody.payment) return openPayment(responseBody.payment)
+    if (responseBody.payment) return setPendingPayment(responseBody.payment)
     if (packageCode !== 'FREE') setPaymentMessage(`${responseBody.paymentError || 'Payment could not be started.'} Your account has been registered with the free trial package.`)
     setComplete(true)
   }
@@ -123,6 +124,7 @@ export default function Register() {
     } catch (error) { await recordOutcome('failed'); setPaymentMessage('Payment could not be started. Your account has been registered with the free trial package.'); setComplete(true) } finally { setSubmitting(false) }
   }
 
+  if (pendingPayment) return <PaymentReview payment={pendingPayment} packageName={availablePackages.find(pkg => pkg.code === packageCode)?.name || packageCode} openPayment={openPayment} />
   if (complete) return <AuthShell title="Registration complete" subtitle={[paymentMessage, 'We sent a verification link to your email. Please check your inbox and confirm your account before logging in.'].filter(Boolean).join(' ')}>
     <Link to="/login" className="btn-primary w-full">Go to login</Link>
   </AuthShell>
@@ -150,4 +152,10 @@ export default function Register() {
       <div className="text-center text-sm text-ink/65">Already registered? <Link className="font-bold underline" to="/login">Log in</Link></div>
     </form>
   </AuthShell>
+}
+
+function PaymentReview({ payment, packageName, openPayment }) {
+  const [coupon, setCoupon] = useState(''); const [applied, setApplied] = useState(''); const [summary, setSummary] = useState(null); const [error, setError] = useState(''); const [busy, setBusy] = useState(false)
+  async function review() { setBusy(true); setError(''); const response = await fetch('/api/payment-order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ transactionId: payment.transactionId, couponCode: applied ? '' : coupon }) }); const body = await response.json().catch(() => ({})); setBusy(false); if (!response.ok) return setError(body.error || 'Coupon could not be applied.'); setSummary(body); if (!applied && coupon.trim()) setApplied(coupon.trim().toUpperCase()) }
+  return <AuthShell title="Review your payment" subtitle="Check your package and discount before continuing to Razorpay."><div className="space-y-4"><div className="card p-4 bg-cream"><div className="font-mono text-xs uppercase text-ink/60">Package</div><div className="font-display font-extrabold text-xl mt-1">{summary?.packageName || packageName}</div><div className="text-sm mt-2">Amount: ₹{Math.round((summary?.originalAmount || payment.amount) / 100)}</div>{summary?.discount > 0 && <div className="text-sm text-green-700">Discount: −₹{Math.round(summary.discount / 100)}</div>}<div className="heading-display text-3xl mt-2">₹{Math.round((summary?.amount || payment.amount) / 100)}</div></div><div className="flex gap-2"><input className="form-control flex-1" placeholder="Coupon code" value={coupon} disabled={Boolean(applied) || busy} onChange={e => setCoupon(e.target.value.toUpperCase())} /><button type="button" className="btn-secondary" disabled={!coupon.trim() || Boolean(applied) || busy} onClick={review}>Apply</button>{applied && <button type="button" className="btn-secondary" onClick={() => { setApplied(''); setSummary(null); setCoupon('') }}>Remove</button>}</div>{error && <div className="text-sm text-flame font-bold">{error}</div>}<button type="button" className="btn-primary w-full" disabled={busy} onClick={() => summary ? openPayment(summary.payment) : review()}>{busy ? 'Checking…' : 'Continue to Razorpay →'}</button></div></AuthShell>
 }

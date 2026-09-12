@@ -55,12 +55,12 @@ export default async function handler(request, response) {
   let transaction = null
   let lookupError = null
 
-  const byId = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,transaction_type,razorpay_order_id').eq('id', transactionId).maybeSingle()
+  const byId = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,transaction_type,provider_metadata,razorpay_order_id').eq('id', transactionId).maybeSingle()
   if (!byId.error && byId.data) {
     transaction = byId.data
   } else {
     lookupError = byId.error
-    const byOrder = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,transaction_type,razorpay_order_id').eq('razorpay_order_id', razorpayOrderId).maybeSingle()
+    const byOrder = await admin.from('payment_transactions').select('id,student_id,package_id,academic_year_id,amount_paise,currency,status,transaction_type,provider_metadata,razorpay_order_id').eq('razorpay_order_id', razorpayOrderId).maybeSingle()
     if (!byOrder.error && byOrder.data) {
       transaction = byOrder.data
     } else {
@@ -124,6 +124,12 @@ export default async function handler(request, response) {
   if (entitlementError && !String(entitlementError.message).toLowerCase().includes('duplicate')) {
     console.error('Razorpay browser verification entitlement insert failed', { transactionId, message: entitlementError.message })
     return json(response, 400, { error: 'Paid package could not be activated' })
+  }
+  const couponCode = transaction.provider_metadata?.coupon_code
+  const discountPaise = Number(transaction.provider_metadata?.discount_paise || 0)
+  if (couponCode && discountPaise > 0) {
+    const { data: coupon } = await admin.from('coupons').select('id').eq('code', couponCode).maybeSingle()
+    if (coupon) await admin.from('coupon_redemptions').insert({ coupon_id: coupon.id, student_id: transaction.student_id, payment_transaction_id: transaction.id, discount_paise: discountPaise })
   }
 
   return json(response, 200, { ok: true })
