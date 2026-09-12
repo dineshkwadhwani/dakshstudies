@@ -139,3 +139,5 @@ Suggested stack for v2: Supabase or Firebase for auth + a small Postgres/Firesto
 ## License & credit
 
 This portal was generated and personalized for Daksh's Class X prep (NCERT 2023–24 syllabus). Educational use only — questions are based on the published NCERT textbooks.
+
+<!-- Deployment marker: keeps manual verification deployments easy to identify. -->
