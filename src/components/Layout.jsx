@@ -20,6 +20,13 @@ const ADMIN_NAV = [
   { to: '/admin/transactions', label: 'Transactions', icon: CardIcon },
   { to: '/admin/audit', label: 'Audit', icon: AuditIcon },
 ]
+const ADMIN_GROUPS = [
+  { label: 'Academics', items: [{ to: '/admin/subjects', label: 'Subjects', icon: BookIcon }, { to: '/admin/content', label: 'Content', icon: UploadIcon }] },
+  { label: 'Users', items: [{ to: '/admin/users', label: 'Users', icon: UsersIcon }] },
+  { label: 'Config', items: [{ to: '/admin/config', label: 'Packages', icon: ConfigIcon }, { to: '/admin/coupons', label: 'Coupons', icon: TagIcon }] },
+  { label: 'Transactions', items: [{ to: '/admin/transactions', label: 'Transactions', icon: CardIcon }] },
+  { label: 'Audit', items: [{ to: '/admin/audit', label: 'Audit', icon: AuditIcon }] },
+]
 
 export default function Layout({ children }) {
   const loc = useLocation()
@@ -122,7 +129,7 @@ function AccountMenu({ profile, nav, location, signOut }) {
       <MenuLink to="/profile" label="Profile" icon={ProfileIcon} active={location.pathname === '/profile'} />
       <MenuLink to="/referrals" label="My referrals" icon={ReferralIcon} active={location.pathname === '/referrals'} />
       <div className="my-1 border-t border-ink/15" />
-      {nav.map(item => <MenuLink key={item.to} to={item.to} label={item.label} icon={item.icon} active={item.to === '/dashboard' ? location.pathname === '/dashboard' : location.pathname.startsWith(item.to)} />)}
+      {profile?.role === 'super_admin' ? <>{ADMIN_GROUPS.map(group => <div key={group.label}><div className="px-3 pt-2 pb-1 text-[10px] font-mono uppercase tracking-wider text-ink/45">{group.label}</div>{group.items.map(item => <MenuLink key={item.to} to={item.to} label={item.label} icon={item.icon} active={location.pathname.startsWith(item.to)} />)}</div>)}</> : nav.map(item => <MenuLink key={item.to} to={item.to} label={item.label} icon={item.icon} active={item.to === '/dashboard' ? location.pathname === '/dashboard' : location.pathname.startsWith(item.to)} />)}
       <div className="my-1 border-t border-ink/15" />
       <button type="button" onClick={logout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left font-bold text-sm hover:bg-flame/15"><LogoutIcon />Log out</button>
     </div>}
@@ -182,3 +189,4 @@ function UsersIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fi
 function ConfigIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1-2-4-2 1a7 7 0 0 0-2-1l-.3-2h-5l-.3 2a7 7 0 0 0-2 1l-2-1-2 4 2 1a7 7 0 0 0 0 2l-2 1 2 4 2-1a7 7 0 0 0 2 1l.3 2h5l.3-2a7 7 0 0 0 2-1l2 1 2-4-2-1c.1-.3.1-.7.1-1Z"/></svg> }
 function AuditIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 3h6l1 2h3v16H5V5h3Z"/><path d="M9 11h6M9 15h6"/></svg> }
 function CardIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg> }
+function TagIcon() { return <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13 13 20l-9-9V4h7l9 9Z"/><circle cx="8" cy="8" r="1"/></svg> }
