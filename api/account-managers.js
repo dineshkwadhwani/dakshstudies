@@ -32,16 +32,33 @@ export async function handleAccountManagers(request, response, env = process.env
   const { data: created, error: createError } = await admin.auth.admin.createUser({
     email, password, email_confirm: true,
     app_metadata: { provisioned_role: 'account_manager' },
-    user_metadata: { full_name: fullName, created_by: authData.user.id },
+    // The auth profile trigger is shared with student registration and may
+    // validate registration fields before it sees the provisioned role.
+    // Supply valid defaults here; they are cleared again when the profile is
+    // promoted to an account manager below.
+    user_metadata: {
+      full_name: fullName,
+      phone: '+919999999999',
+      city: 'Pune',
+      selected_package: 'FREE',
+      created_by: authData.user.id,
+    },
   })
   if (createError) return json(response, createError.message?.toLowerCase().includes('already') ? 409 : 400, { error: createError.message })
 
   const managerId = created.user.id
-  const { error: profileError } = await admin.from('profiles').update({ role: 'account_manager', status: 'active', full_name: fullName, onboarding_step: 'complete' }).eq('id', managerId)
+  const { error: profileError } = await admin.from('profiles').update({ role: 'account_manager', status: 'active', full_name: fullName, phone: null, city: null, onboarding_step: 'complete' }).eq('id', managerId)
   if (profileError) {
+    // The profile trigger creates a row before the API promotes it. Remove
+    // dependent audit rows and that profile before attempting Auth cleanup.
+    await admin.from('audit_events').delete().eq('affected_user_id', managerId)
+    await admin.from('profiles').delete().eq('id', managerId)
     await admin.auth.admin.deleteUser(managerId)
     return json(response, 500, { error: 'Account creation could not be completed' })
   }
+  await admin.auth.admin.updateUserById(managerId, {
+    user_metadata: { full_name: fullName, created_by: authData.user.id },
+  })
 
   await admin.from('audit_events').insert({
     event_type: 'account_manager.created', actor_user_id: authData.user.id, actor_role: 'super_admin',

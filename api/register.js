@@ -30,6 +30,17 @@ function publicRegistrationError(error) {
   return 'Your account could not be created. Please try again.'
 }
 
+async function assignFreeTrial(admin, studentId, academicYearId) {
+  if (!academicYearId) return
+  const { data: free } = await admin.from('packages').select('id,trial_days').eq('academic_year_id', academicYearId).eq('code', 'FREE').maybeSingle()
+  if (!free) return
+  const { data: existing } = await admin.from('student_entitlements').select('id').eq('student_id', studentId).eq('source', 'trial').maybeSingle()
+  if (existing) return
+  const starts = new Date()
+  const ends = new Date(starts.getTime() + Number(free.trial_days || 7) * 86400000)
+  await admin.from('student_entitlements').insert({ student_id: studentId, package_id: free.id, academic_year_id: academicYearId, source: 'trial', starts_at: starts.toISOString(), ends_at: ends.toISOString(), status: 'active' })
+}
+
 export async function handleRegister(request, response, env = process.env) {
   if (request.method !== 'POST') return json(response, 405, { error: 'Method not allowed' })
   if (requestBodyTooLarge(request.body, 8192)) return json(response, 413, { error: 'Request is too large' })
@@ -110,8 +121,10 @@ export async function handleRegister(request, response, env = process.env) {
   const studentId = signUpData?.user?.id
   let payment = null
   let paymentError = null
+  const { data: currentYear } = studentId ? await admin.from('academic_years').select('id').eq('is_current', true).maybeSingle() : { data: null }
+  if (packageCode === 'FREE' && studentId) await assignFreeTrial(admin, studentId, currentYear?.id)
   if (packageCode !== 'FREE' && studentId) {
-    const { data: year } = await admin.from('academic_years').select('id').eq('is_current', true).maybeSingle()
+    const year = currentYear
     const { data: packages } = year ? await admin.from('packages').select('id,code,price_paise,currency,fixed_expires_on,status,sale_enabled').eq('academic_year_id', year.id).eq('code', packageCode).eq('status', 'published').eq('sale_enabled', true).maybeSingle() : { data: null }
     const config = razorpayConfig(env)
     if (!year || !packages) {
@@ -139,6 +152,7 @@ export async function handleRegister(request, response, env = process.env) {
       }
     }
   }
+  if (packageCode !== 'FREE' && studentId && !payment) await assignFreeTrial(admin, studentId, currentYear?.id)
   return json(response, 201, { ok: true, payment, paymentError })
 }
 
