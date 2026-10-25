@@ -75,7 +75,7 @@ export default function Home() {
               <span className={`chip ${progress.complete ? 'bg-leaf' : 'bg-sun'}`}>📚 {progress.complete ? 'Schedule complete' : 'Active schedule'}</span>
             </div>
 
-            <h2 className="font-display font-extrabold text-xl mb-3">{progress.complete ? 'All tasks completed' : "Today's plan"}</h2>
+            <div className="flex items-center justify-between gap-3 mb-3"><h2 className="font-display font-extrabold text-xl">{progress.complete ? 'All tasks completed' : "Today's plan"}</h2><Link to="/schedule" className="font-bold text-sm underline">Review plan →</Link></div>
             {!progress.complete && todayTasks.length === 0 && <div className="rounded-2xl border-2 border-ink bg-paper p-4 text-sm">No tasks scheduled today—enjoy your rest day or review your plan.</div>}
             {todayTasks.map(task => <PlanItem key={task.id} task={task} />)}
           </div>
